@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+
+
 def test1():
     st.title("Bardcode")
     st.write("SCAN BARDCODES -> GEAR UP -> FIGHT MONSTERS -> CLIMB THE LEADERBOARDS -> EARN GLORY")
@@ -14,13 +16,12 @@ def test1():
     
     if valid_barcode:
         valid_barcode_text.text(f"Valid Barcode = '{barcode_field}'")
-        valid_barcode_val.text(f"barcode mod 11: {abs(hash(barcode_field))%11}")
+        valid_barcode_val.text(f"barcode mod 67: {abs(hash(barcode_field))%67}")
         generate_encounter(barcode_field)
     else:
         valid_barcode_text.text("Please input a valid barcode")
         valid_barcode_val.text("")
         text_loot_gen = st.markdown("")
-    print(type(barcode_field))
     #df = pd.read_csv("my_data.csv")
     #st.line_chart(df)
 
@@ -34,8 +35,11 @@ def generate_encounter(barcode_field):
         gen_nothing(barcode_hash)
     elif gen_seed_group >= 40 and gen_seed_group <= 45:
         gen_encounter(barcode_hash)
-    elif gen_seed_group >= 46 and gen_seed_group <=66:
+    elif gen_seed_group >= 46 and gen_seed_group <= 66:
         gen_item(barcode_hash)
+    else:
+        raise ValueError(f"Something has gone horribly wrong, def generate_encounter({barcode_field})")
+
 
 def gen_nothing(barcode_hash):
     print("gen_nothing(barcode_hash)")
@@ -46,16 +50,21 @@ def gen_quest(barcode_hash):
     print("def gen_quest(barcode_hash):")
     pass
 def gen_encounter(barcode_hash):
-    text_loot_gen = st.markdown("You encounter......*something*")
+    # gift, friendly, undetermined, hostile
+    ct_encounter = 17 # translates directly to row
+    gen_seed = abs(hash(barcode_hash))%ct_encounter
+    if gen_seed == 0:
+        text_loot_gen = st.markdown("A GIFT!")
+        pass
+    elif barcode_hash == abs(hash("045496738228")):
+        text_loot_gen = st.markdown("KIRBY! **AND** THE SQUEAK SQUAD!!!")
+    else:
+        text_loot_gen = st.markdown("EEK, a *something*.... or is it a *someone*?!")
     print("gen_encounter(barcode_hash)")
     pass
 def gen_item(barcode_hash):
     text_loot_gen = st.markdown("WOW, it's a **THING**!")
     print("gen_item(barcode_hash):")
-    pass
-def gen_monster(barcode_hash):
-    text_loot_gen = st.markdown("EEK, a *something*.... or is it a *someone*?!")
-    print("gen_monster(barcode_hash):")
     pass
 
 
@@ -85,6 +94,7 @@ def check_barcode_sscc(barcode):
 
 def check_barcode(barcode):
     encoding_map = {
+        # len() = 6,9,10
         8: check_barcode_gtin8,
         12: check_barcode_gtin12,
         13: check_barcode_gtin13,

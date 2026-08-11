@@ -1,7 +1,9 @@
 # Bardcode
 scan barcodes -> gear up -> fight monsters -> climb the leaderboards -> seek glory
 
+## Design
 
+The ERD is currently under construction, but will be published soon. Reach out if you would like to be sent a copy :)
 
 ## Running
 
@@ -11,3 +13,5 @@ In its current stage, Bardcode uses Streamlit as a frontend, displaying the UI a
 2. replacing your path to main.py with <PATH>, run the command "streamlit run <PATH>/main.py"
 3. The Streamlit server should start and pop open the window in your default browser
 4. click on the text field and either type in a barcode, paste in a barcode, or scan one with a barcode scanner
+
+
