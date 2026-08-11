@@ -5,25 +5,37 @@ import pandas as pd
 def test1():
     st.title("Bardcode")
     st.write("SCAN BARDCODES -> GEAR UP -> FIGHT MONSTERS -> CLIMB THE LEADERBOARDS -> EARN GLORY")
+    # barcode_field = st.text_input("Scan new barcode below HERE",st.session_state.submitted_val,placeholder=st.session_state.current_placeholder,key="barcode_text_input",on_change=handle_submit)
+    # barcode_entry_2 = barcode_field2.text_input("Scan new barcode below","",placeholder="")
 
-    barcode_field = st.text_input("Scan new barcode below","")
-    valid_barcode_text = st.text("")
-    valid_barcode_val = st.text("")
-    text_loot_gen = st.markdown("")
+    
     # data_load_state = st.text("Loading data...")
     # data_load_state.text('Loading data...DONE!')
-    valid_barcode = check_barcode(barcode_field)
-    
-    if valid_barcode:
-        valid_barcode_text.text(f"Valid Barcode = '{barcode_field}'")
-        valid_barcode_val.text(f"barcode mod 67: {abs(hash(barcode_field))%67}")
-        generate_encounter(barcode_field)
-    else:
-        valid_barcode_text.text("Please input a valid barcode")
-        valid_barcode_val.text("")
+    ##### valid_barcode = check_barcode(barcode_field)
+    with st.form("my_form", clear_on_submit=True):
+        barcode_field = st.text_input("Message")
+        submitted = st.form_submit_button("Send")
+        # if submitted:
+        #     st.write(f"Sent: {barcode_field}")
+        valid_barcode = check_barcode(barcode_field)      
+
+        valid_barcode_text = st.text("")
+        valid_barcode_val = st.text("")
         text_loot_gen = st.markdown("")
-    #df = pd.read_csv("my_data.csv")
-    #st.line_chart(df)
+
+        if valid_barcode:
+            valid_barcode_text.text(f"Valid Barcode = '{barcode_field}'")
+            valid_barcode_val.text(f"barcode mod 67: {abs(hash(barcode_field))%67}")
+            generate_encounter(barcode_field)
+            #st.session_state.barcode_text_input = st.text_input("Scan new barcode below","",placeholder=barcode_field,key="barcode_text_input")
+
+        else:
+            valid_barcode_text.text("Please input a valid barcode")
+            valid_barcode_val.text("")
+            text_loot_gen = st.markdown("")
+        #df = pd.read_csv("my_data.csv")
+        #st.line_chart(df)
+
 
 def generate_encounter(barcode_field):
     barcode_hash = abs(hash(barcode_field))
