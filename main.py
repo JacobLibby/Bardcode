@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import streamlit_viz as stv
+import psycopg2
 
 def main():
     print("hello world!")

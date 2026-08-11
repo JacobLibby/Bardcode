@@ -1,0 +1,20 @@
+UI
+remove red outline on barcode text input
+
+
+
+DB
+create db and connection
+    https://youtu.be/Q8iYj2ypWss?si=F3hICLKwgtGF9M1w&t=721
+
+
+if barcode entered and "ENTER" hit, next keystrokes should delete the inputted barcode --> change text to "hint"
+
+
+Map barcode to encounterable
+   
+    - 80x nothing
+    - 2x quest
+    - 5x encounter
+    - 50x item
+    - 15x monster
