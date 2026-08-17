@@ -26,7 +26,7 @@ def test1():
         if valid_barcode:
             valid_barcode_text.text(f"Valid Barcode = '{barcode_field}'")
             valid_barcode_val.text(f"barcode mod 67: {abs(hash(barcode_field))%67}")
-            generate_encounter(barcode_field)
+            generate_discovery(barcode_field)
             #st.session_state.barcode_text_input = st.text_input("Scan new barcode below","",placeholder=barcode_field,key="barcode_text_input")
 
         else:
@@ -37,7 +37,7 @@ def test1():
         #st.line_chart(df)
 
 
-def generate_encounter(barcode_field):
+def generate_discovery(barcode_field):
     barcode_hash = abs(hash(barcode_field))
     gen_seed_group = barcode_hash%67
     # if statements to determine nothing, quest, encounter, item, monster
@@ -50,7 +50,7 @@ def generate_encounter(barcode_field):
     elif gen_seed_group >= 46 and gen_seed_group <= 66:
         gen_item(barcode_hash)
     else:
-        raise ValueError(f"Something has gone horribly wrong, def generate_encounter({barcode_field})")
+        raise ValueError(f"Something has gone horribly wrong, def generate_discovery({barcode_field})")
 
 
 def gen_nothing(barcode_hash):
@@ -75,6 +75,14 @@ def gen_encounter(barcode_hash):
     print("gen_encounter(barcode_hash)")
     pass
 def gen_item(barcode_hash):
+    ct_items = 1000
+    gen_seed = abs(hash(barcode_hash))%ct_items
+
+    if gen_seed == 0:
+        pass
+    elif gen_seed <10:
+        pass
+
     text_loot_gen = st.markdown("WOW, it's a **THING**!")
     print("gen_item(barcode_hash):")
     pass
@@ -113,7 +121,6 @@ def check_barcode(barcode):
         14: check_barcode_gtin14,
         17: check_barcode_gsin,
         18: check_barcode_sscc
-
     }
     mapped_encoding = encoding_map.get(len(barcode))
     if not mapped_encoding:

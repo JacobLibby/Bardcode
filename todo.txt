@@ -8,13 +8,24 @@ create db and connection
     https://youtu.be/Q8iYj2ypWss?si=F3hICLKwgtGF9M1w&t=721
 
 
-if barcode entered and "ENTER" hit, next keystrokes should delete the inputted barcode --> change text to "hint"
+change text to "hint" on text_input?
 
+Make encounterables
 
-Map barcode to encounterable
-   
+Map barcode to discoveries
     - 80x nothing
     - 2x quest
     - 5x encounter
     - 50x item
     - 15x monster
+
+
+--------------------
+ item_rows = ('''INSERT INTO Items (id,title,name,description,weight,value,isWeapon,isEquippable,isScroll,isConsumable)
+                        VALUES(
+''')
+        """
+        IDEAS:
+        hash -> isGold -> gen_gold(hash)
+        hash -> items(hash)
+        """

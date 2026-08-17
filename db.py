@@ -17,32 +17,36 @@ def connect():
 
         # create_script = '''SELECT 31'''
 
-        create_scripts = (''' CREATE TABLE IF NOT EXISTS Inventory2 (
-                                id int PRIMARY KEY,
-                                itemID int,
-                                title varchar(255),
-                                description varchar(255),
-                                count int) ''',
+        create_scripts = (      '''CREATE TABLE IF NOT EXISTS Inventory2 (
+                                    id int PRIMARY KEY,
+                                    itemID int,
+                                    title varchar(255),
+                                    description varchar(255),
+                                    count int
+                                ) ''',
                                 '''CREATE TABLE IF NOT EXISTS NPCs (
-                                id int PRIMARY KEY)''',
+                                    id int PRIMARY KEY)''',
                                 '''CREATE TABLE IF NOT EXISTS Encounter (
-                                id int PRIMARY KEY,
-                                npcID int,
-                                npcIDs varchar(1000),
-                                name varchar(255),
-                                description varchar (510),
-                                CONSTRAINT npcID_FK
-                                FOREIGN KEY (npcID)
-                                REFERENCES NPCs(id)
+                                    id int PRIMARY KEY,
+                                    npcID int,
+                                    npcIDs varchar(1000),
+                                    name varchar(255),
+                                    description varchar (510),
+                                    CONSTRAINT npcID_FK
+                                    FOREIGN KEY (npcID)
+                                    REFERENCES NPCs(id)
                                 )'''
-        )
+                        
+ 
+        ) # should I not be storing floats? !!!
         # cur.execute(create_script)
 
         for create_script in create_scripts:
             cur.execute(create_script)
 
-
-
+       
+        
+            
         # cur_create = conn.cursor()
         # cur_create.execute("CREATE TABLE test1(" \
         # "id int, " \
