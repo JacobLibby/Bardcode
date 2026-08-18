@@ -1,0 +1,4 @@
+id int,title varchar(255),description varchar(255),category varchar(255),value int,damage varchar(64),heal varchar(64),status varchar(255)
+0,"Minor Health Potion","Feels better than a band-aid","potion",20,"0","1d10","heal"
+1,"Gunpowder Bomb","FIRE IN THE HOLE","bomb",35,"2d6","0","hurt"
+2,"Molotov Cocktail","If it's good enough for the Russians, it's good enough for me","bomb",25,"1d6","0","burn"

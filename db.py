@@ -1,7 +1,37 @@
 import psycopg2
 from config import config
+import os
+import pandas as pd
+import csv
 
 def connect():
+    create_script_index = 0
+    create_script_arr = []
+    for file in os.listdir('CreateTable_CSVs'):
+
+        header = 0
+        create_script = "CREATE TABLE IF NOT EXISTS " + str(file).replace("CREATETABLE_","").replace(".csv","")
+        filename = "CreateTable_CSVs\\" + file
+        print(f"Filename: {filename}")
+        with open(filename) as csv_file:
+            reader = csv.reader(csv_file,delimiter=',',quotechar='|')
+            for row in reader:
+                if header == 0:
+                    header = 1
+                    create_script += " (" + ','.join(row) + ") VALUES ("
+                elif header == 1:
+                    header = 2
+                    create_script += "(" + ','.join(row) + ")"
+                else:
+                    create_script += ",(" + ','.join(row) + ")"
+                    #print('\t' + ', '.join(row))
+            create_script += ")"
+        print(create_script)
+    print("Done.")
+
+
+
+    return True #STOP running code, testing CreateTable_CSVs
     conn = None
     try:
         params = config()
@@ -44,7 +74,9 @@ def connect():
         for create_script in create_scripts:
             cur.execute(create_script)
 
-       
+
+        for filename in os.listdir('CreateTable_CSVs'):
+            print(f"Filename: {filename}")
         
             
         # cur_create = conn.cursor()
