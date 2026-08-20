@@ -1,4 +1,4 @@
 id int,title varchar(255),description varchar(255),value int
-0,"Cool Rock","That's a cool rock",3
-1,"Normal Rock","That's a rock",1
-2,"Actively Un-cool Rock","You thought that was worth picking up? You disgust me",0
+0,'Cool Rock','That''s a cool rock',3
+1,'Normal Rock','That''s a rock',1
+2,'Actively Un-cool Rock','You thought that was worth picking up? You disgust me',0

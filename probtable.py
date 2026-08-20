@@ -17,7 +17,7 @@ class ProbTable(ABC):
 def get_from_prob_table(probTable, key):
     seed = key%(probTable()[-1]+1)
     for each in range(0,(len(probTable))):
-        if seed < probTable[each]:
+        if seed <= probTable[each]:
             mapped_encoding = probTable.get(key%probTable()[each])
             # result = mapped_encoding(key) # should i call function or create object?
             if callable(mapped_encoding):

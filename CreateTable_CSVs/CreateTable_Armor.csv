@@ -1,6 +1,6 @@
-id int,title varchar(255),description varchar(255),bodySlot varchar(255),category varchar(255),value int,acVal int,dexBonusMax int,strReq int,stealthDisadvantage bit,statBonus varchar(512)
-0,"Padded Armor","Nice job wrapping 1-ply toilet paper around you,bub","core","light",12, 11,2,-1,1,""
-1,"Leather Armor","Hopefully you fair better than the cow","core","light",25,11,-1,-1,0,""
-2,"Studded Leather Armor","I like the spikes, I didn't know there was a Hot Topic near here","core","light",100,12,-1,-1,0,""
-3,"Hide Armor","I guess this is different from leather?","core","medium",25,12,2,-1,0,""
-4,"Padded Helmet","Choosing to bring a baseball cap to a swordfight is an interesting move","head","light",8,0,0,-1,0,""
+id int,title varchar(255),description varchar(255),bodySlot varchar(255),category varchar(255),value int,acVal int,dexBonusMax int,strReq int,stealthDisadvantage boolean,statBonus varchar(512)
+0,"'Padded Armor'","'Nice job wrapping 1-ply toilet paper around you, bub'","'core'","'light'",12,11,2,-1,TRUE,"''"
+1,"'Leather Armor'","'Hopefully you fair better than the cow'","'core'","'light'",25,11,-1,-1,FALSE,"''"
+2,"'Studded Leather Armor'","'I like the spikes, I didn''t know there was a Hot Topic near here'","'core'","'light'",100,12,-1,-1,FALSE,"''"
+3,"'Hide Armor'","'I guess this is different from leather?'","'core'","'medium'",25,12,2,-1,FALSE,"''"
+4,"'Padded Helmet'","'Choosing to bring a baseball cap to a swordfight is an interesting move'","'head'","'light'",8,0,0,-1,FALSE,"''"
