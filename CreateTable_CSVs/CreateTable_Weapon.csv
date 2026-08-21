@@ -1,4 +1,4 @@
-id int,title varchar(255),description varchar(255),category varchar(255),damageType varchar(255),value int,damage varchar(64),toHit int
+_id int,title varchar(255),description varchar(255),category varchar(255),damageType varchar(255),value int,damage varchar(64),toHit int
 0,'Wooden Sword','Nary more than a toothpick, but better than nothing.....probably','sword','slashing',3,'1d4+1',0
 1,'Wooden Axe','There''s probably some angsty poem in there about an axe made of wood, but this weapon isn''t worth the breath','axe','slashing',4,'1d4+1',0
 2,'Shoestring Bow','You may be better off just spitting','bow','piercing',2,'1d2',-1

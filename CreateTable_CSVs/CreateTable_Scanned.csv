@@ -1,0 +1,1 @@
+_barcode varchar(510),acceptedCount int,lastAcceptedScan date

@@ -19,23 +19,37 @@ def connect():
         for file in os.listdir('CreateTable_CSVs'):
 
             header = 0
+            key = ""
+            primary_keys = []
+            foreign_keys = []
+            create_script_exists = False
+            insert_script_exists = False
             create_script = "CREATE TABLE IF NOT EXISTS " + str(file).replace("CreateTable_","").replace(".csv","")
-            print(create_script)
             insert_script = "INSERT INTO " + str(file).replace("CreateTable_","").replace(".csv","")
-            print(insert_script)
             filename = "CreateTable_CSVs\\" + file
             with open(filename) as csv_file:
                 reader = csv.reader(csv_file,delimiter=',',quotechar='"')
                 for row in reader:
-                    print(f"ROW: {row}")
+                    create_script_exists = True
                     row_arr = []
                     if header == 0:
                         header = 1
-                        create_script += " (" + ','.join(row) + ");" 
+
+                        for eachind in range(0,len(row)):
+                            if (row[eachind].split(" ")[0]).startswith("__"):
+                                foreign_keys.append(row[eachind].split(" ")[0].split("__")[1])
+                            elif (row[eachind].split(" ")[0]).startswith("_"):
+                                primary_keys.append(row[eachind].split(" ")[0].split("_")[1])
+                            else: #column is not a primary key or a foreign key
+                                pass
+                            row[eachind] = row[eachind].strip("_")
+                            
+                        create_script += " (" + ','.join(row)
                         for col in row:
                             row_arr.append(col.split(" ")[0])
                         insert_script += " (" + ','.join(row_arr) + ") VALUES " #### row has datatypes, how to remove?
                     else: # maybe delete?
+                        insert_script_exists = True
                         for col in row: # maybe delete?
                             row_arr.append(col.replace("`",",")) # maybe delete?
                         if header == 1:
@@ -43,20 +57,37 @@ def connect():
                             insert_script += "(" + ','.join(row_arr) + ")"
                         else:
                             insert_script += ",(" + ','.join(row_arr) + ")"
-                            #print('\t' + ', '.join(row))
-                    print(f"CREATE_SCRIPT: {create_script}")
-                    print(f"INSERT_SCRIPT: {insert_script}")
-                insert_script += " ON CONFLICT DO NOTHING"
-            print("HERE0")
-            cur.execute(create_script)
-            print("HERE1")
-            conn.commit()
-            print("HERE2")
-            insert_script = insert_script.replace('`',"'")
-            print(f"~~~~~INSERT SCRIPT: {insert_script}")
-            cur.execute(insert_script)
-            conn.commit()
+                    
+                insert_script += (" ON CONFLICT  DO NOTHING;")
+            if create_script_exists:
+                if primary_keys:
+                
+                    create_script += (f", PRIMARY KEY ({','.join(primary_keys)}));")
+                elif foreign_keys:
+                    create_script += (f", UNIQUE({','.join(foreign_keys)}));")
+                else:
+                    create_script += ");"
+                    print("NO KEYS IN THIS TABLE AT ALL")
+                print(create_script)
+                cur.execute(create_script)
+                conn.commit()
+            if insert_script_exists:
+                insert_script = insert_script.replace('`',"'")
+                print(insert_script)
+                cur.execute(insert_script)
+                conn.commit()
+
+        cur.execute('SELECT * FROM Weapon WHERE id > 1;')
+        select_test = []
+        # db_version = cur.fetchall()
+        select_test = cur.fetchall()
+        print(select_test)
+        # cur.execute('SELECT 12;')
+        apple = []
+        # apple = cur.fetchall()
+        # print(apple)
         cur.close()
+        print("Cursor closed.")
     
     except(Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -68,7 +99,7 @@ def connect():
 
 
 
-    return True #STOP running code, testing CreateTable_CSVs
+    return False #STOP running code, testing CreateTable_CSVs
     conn = None
     try:
         params = config()

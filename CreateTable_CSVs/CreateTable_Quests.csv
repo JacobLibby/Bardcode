@@ -1,0 +1,4 @@
+_id int,title varchar(255),description varchar(255),goal varchar(510)
+0,'KILL KILL KILL','Kill your first ''monster''','SELECT COUNT(*) > 0 as result FROM EncounterLog WHERE Kill = True'
+1,'You''re RICH! .....for an amoeba','Carry over 100 gold','SELECT COUNT(gold) >= 100 as result FROM Inventory' 
+2,'We had a good run','Death is only the end if you let it. Get back up. Get back in there.','SELECT HP <= 0 as result FROM Stats'
