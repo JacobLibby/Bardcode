@@ -75,14 +75,19 @@ def gen_encounter(barcode_hash):
     print("gen_encounter(barcode_hash)")
     pass
 def gen_item(barcode_hash):
-    ct_items = 1000
+    ct_items = 100
     gen_seed = abs(hash(barcode_hash))%ct_items
 
-    if gen_seed == 0:
-        pass
-    elif gen_seed <10:
-        pass
+    if gen_seed < 5: #Weapon
 
+        pass
+    elif gen_seed < 10: #Armor
+        pass
+    elif gen_seed < 70: #Consumable
+        pass
+    else: #Misc
+        pass
+    
     text_loot_gen = st.markdown("WOW, it's a **THING**!")
     print("gen_item(barcode_hash):")
     pass
