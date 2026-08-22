@@ -78,14 +78,14 @@ def gen_item(barcode_hash):
     ct_items = 100
     gen_seed = abs(hash(barcode_hash))%ct_items
 
-    if gen_seed < 5: #Weapon
-
+    if gen_seed < 5:    #Weapon
+        gen_item_weapon()
         pass
     elif gen_seed < 10: #Armor
         pass
     elif gen_seed < 70: #Consumable
         pass
-    else: #Misc
+    else:               #Misc
         pass
     
     text_loot_gen = st.markdown("WOW, it's a **THING**!")

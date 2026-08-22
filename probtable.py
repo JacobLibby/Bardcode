@@ -1,6 +1,6 @@
+from __future__ import annotations
 from abc import ABC, abstractmethod
 import hashlib
-
 
 class ProbTable(ABC):
     # loot
@@ -18,15 +18,41 @@ class ProbTable(ABC):
 class DiscoveryProbTable(ProbTable):
     # options
     # odds
-
-    probTable = {
-    0:  'quest'
+    quest_map = {
+        0: "quest.0"
+        ,2: "quest.2"
+    }
+    encounter_map = {
+        1: "Encounter Map needs entries"
+    }
+    weapon_map = {
+        10: "COOL ahh SWORD"
+    }
+    item_map = {
+        0:   weapon_map
+        ,30: weapon_map
+    }
+    discTable = {
+    0:   quest_map
     ,39: 'nothing'
-    ,45: 'encounter'
-    ,66: 'item'
+    ,45: encounter_map
+    ,66: item_map
     }
 
-    def generateTable(self,seed_input):
+    def generateTable(self,seed_input,probTable=discTable):
+        print(f"Called 'generateTable({seed_input},{probTable})'")
+        seed = abs(hash(seed_input))%(list(probTable.keys())[-1]+1)
+        print(f"SEED: {seed}, probtable: {probTable}")
+        for key,val in probTable.items():
+            if seed <= key:
+                if type(probTable[key]) == dict:
+                    return self.generateTable(seed,probTable[key]) # result =
+                else:
+                    result = probTable[key]
+                    return result
+                print(val)
+        return "NOTHING FOUND"
+        """
         seed = abs(hash(seed_input))%(list(self.probTable.keys())[-1]+1)
         if seed == 0:
             print("QuestProbTable(self,seed)")
@@ -41,18 +67,24 @@ class DiscoveryProbTable(ProbTable):
             print(ipt)
         else:
             print("MOD FUNCTION in DiscoveryProbTable.generateTable() NOT IMPLEMENTED PROPERLY")
+        """
         print(f"SEED INPUT: {seed_input}, SEED: {seed}")
-
-
+        
         print("DiscoveryProbTable: generateTable()")
         pass
     def generateDiscovery(self,seed):
         print("DiscoveryProbTable: generateDiscovery()")
         pass
 
+
+class test:
+    pass
+
+    
 class ItemProbTable(DiscoveryProbTable):
+    seed = ""
     probTable = {
-        0:  '1'
+        0:  'WeaponProbTable'
         ,39: '2'
         ,45: '3'
         ,66: '4'
@@ -60,6 +92,7 @@ class ItemProbTable(DiscoveryProbTable):
     def __init__(self,seed):
         super().__init__()
         seed = abs(hash(seed))%(list(self.probTable.keys())[-1]+1)
+        self.seed = seed
         for key,val in self.probTable.items():
             if seed <= key:
                 print(val)
@@ -78,7 +111,33 @@ class ItemProbTable(DiscoveryProbTable):
         print("DiscoveryProbTable: generateDiscovery()")
         pass
 
+class WeaponProbTable(ItemProbTable):
+    probTable = {
+            0:  0
+            ,10: 1
+            ,20: 3
+            ,100: 4
+    }
+    def __init__(self,seed):
+        super().__init__()
+        seed = abs(hash(seed))%(list(self.probTable.keys())[-1]+1)
+        for key,val in self.probTable.items():
+            if seed <= key:
+                print(val)
 
+    def generateTable(self,seed):
+        seed = abs(hash(seed))%(list(self.probTable.keys())[-1]+1)
+        for key,val in self.probTable.items():
+            if seed <= key:
+                print(val)
+
+
+
+        print("WeaponProbTable: generateTable()")
+        pass
+    def generateDiscovery(self,seed):
+        print("WeaponProbTable: generateDiscovery()")
+        pass
 
 
 def get_from_prob_table(probTable, key):
@@ -87,12 +146,12 @@ def get_from_prob_table(probTable, key):
         if seed <= list(probTable.keys())[each]:
             mapped_encoding = probTable.get(key%list(probTable.keys())[each])
             # result = mapped_encoding(key) # should i call function or create object?
-            if callable(mapped_encoding):
-                print("CALLABLE")
-                result = get_from_prob_table(mapped_encoding,abs(hash(key))) # should i call function or create object?
-            else:
-                print("ELSE")
+            if type(mapped_encoding) == int:
+                print(f"type({mapped_encoding}) == int")
                 result = mapped_encoding
+            else:
+                print(f"type({mapped_encoding}) != int")
+                result = get_from_prob_table(mapped_encoding,abs(hash(key))) # should i call function or create object?
             return result
     return False
 
@@ -195,7 +254,7 @@ class Discovery():
 def test():
     #print(get_from_prob_table(probTable_discCat_str,3781855356463334020))
     dpt = DiscoveryProbTable()
-    dpt.generateTable('12341234')
+    print(dpt.generateTable('12341234'))
     pass
 
 
