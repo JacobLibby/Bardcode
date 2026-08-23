@@ -19,8 +19,8 @@ class DiscoveryProbTable(ProbTable):
     # options
     # odds
     quest_map = {
-        0: "quest.0"
-        ,2: "quest.2"
+        0: "QUEST! You must Kill 10 monsters"
+        ,2: "QUEST! You must kill 1 monster in 1 hit"
     }
     encounter_map = {
         1: "Encounter Map needs entries"

@@ -1,61 +1,49 @@
 
 
-import psycopg2
-from config import config
-
-
 class discovery:
-    Quest = {
-        "name": "Quest"
-        ,0:  (1,"a QUEST! You must Kill 10 monsters")
+    quest_map = {
+        0:  (1,"a QUEST! You must Kill 10 monsters")
         ,1: (1,"a QUEST! You must kill 1 monster in 1 hit")
     }
-    Encounter = {
-        "name": "Encounter"
-        ,0:  (1,"an ENCOUNTER!")
+    encounter_map = {
+        0:  (1,"an ENCOUNTER!")
     }
-    Weapon = {
-        "name": "Weapon"
-        ,0:  (1,"a Wooden Sword")
+    weapon_map = {
+        0:  (1,"a Wooden Sword")
         ,1: (1,"a Wooden Axe")
         ,2: (1,"a Shoestring Bow")
         ,3: (1,"a Practice Bow")
         ,4: (1,"a Wooden Club")
     }
-    Armor = {
-        "name": "Armor"
-        ,0:  (1,"a Padded Armor")
+    armor_map = {
+        0:  (1,"a Padded Armor")
         ,1: (1,"a Leather Armor")
         ,2: (1,"a Studded Leather Armor")
         ,3: (1,"a Hide Armor")
         ,4: (1,"a Padded Helmet")
     }
-    Misc = {
-        "name": "Misc"
-        ,0:  (1,"a Cool Rock")
+    misc_item_map = {
+        0:  (1,"a Cool Rock")
         ,1: (1,"a Normal Rock")
         ,2: (1,"an Actively Un-cool Rock")
     }
-    Consumable = {
-        "name": "Consumable"
-        ,0:  (1,"a Minor Healing Potion")
+    consumable_map = {
+        0:  (1,"a Minor Healing Potion")
         ,1: (1,"a Gunpowder Bomb")
         ,2: (1,"a Molotov Cocktail")
     }
-    Item = {
-        "name": "Item"
-        ,0:  (10,Weapon)
-        ,1: (1,Armor)
-        ,2: (1,Consumable)
-        ,3: (1,Misc)
+    item_map = {
+        0:  (10,weapon_map)
+        ,1: (1,armor_map)
+        ,2: (1,consumable_map)
+        ,3: (1,misc_item_map)
     }
 
     discTable = {
-        "name": "Discovery"
-        ,0:  (1,Quest)
+        0:  (1,quest_map)
         ,1: (1,'nothing....... better luck next time')
-        ,2: (1,Encounter)
-        ,3: (1,Item)
+        ,2: (1,encounter_map)
+        ,3: (1,item_map)
     }
     def generateTable(self,seed_input,probTable_input=discTable):
         
@@ -79,8 +67,7 @@ class discovery:
         probTable = probTable_input
         totalProb = 0
         for key,val in probTable.items():
-            if type(key) == int:
-                totalProb += val[0]
+            totalProb += val[0]
         seed = (abs(hash(seed_input))%(totalProb))
         # print(f'\ntotalProb: {totalProb}')
         # print(f"SEED: {seed}, probtable: {probTable}")
@@ -88,47 +75,27 @@ class discovery:
         seedTicker = seed
         if totalProb >= 0:
             for key,val in probTable.items():
-                # print(f"Key: {key}, Val: {val}")
                 # print(f"seedTicker -= val[0] --> {seedTicker} - {val[0]}")
-                if type(key) == int:
-                    seedTicker -= val[0]
-                            
-                    if seedTicker < 0:
-                        if type(probTable[key][1]) == dict: #needing to dig deeper
-                            # print("Digging deeper")
-                            return self.generateTable(seed_input,(probTable[key][1]))
-                        # print("Found it")
-                        #found it
-                        self.printDiscovery(probTable[key][1],probTable['name'])
-                        self.fetchDiscovery(key,probTable['name'])
-                        return probTable[key][1],probTable['name']
-                    else:
-                        pass
+                seedTicker -= val[0]
+                
+                if seedTicker < 0:
+                    if type(probTable[key][1]) == dict: #needing to dig deeper
+                        # print("Digging deeper")
+                        return self.generateTable(seed_input,(probTable[key][1]))
+                    # print("Found it")
+                    #found it
+                    self.printDiscovery(probTable[key][1])
+                    return probTable[key][1]
+                else:
+                    pass
                     
             return "result?"
             
         return (f"Empty prob table: {probTable}")
-    def printDiscovery(self,discovery,table):
-        print(f"CONGRATS! You've found {discovery}, I'll grab info from the {table} table")
+    def printDiscovery(self,discovery):
+        print(f"CONGRATS! You've found {discovery}")
     def fetchDiscovery(self,discoveryID,discoveryTable):
-        conn = None
-        try:
-            params = config()
-            conn = psycopg2.connect(**params)
-    
-            # create a cursor
-            cur = conn.cursor()
-            selectScript = f"""
-            SELECT *
-            FROM {discoveryTable}
-            WHERE id = {discoveryID}
-            """
-            cur.execute(selectScript)
-            conn.commit()
-            selectDiscovery = cur.fetchall()
-            print(selectDiscovery)
-        except:
-            pass
+        pass
 
 
 gen = discovery()
@@ -141,49 +108,49 @@ gen.generateTable('12341234')
 
 
 
-# Quest = {
+# quest_map = {
 #     0: (1,"quest.0")
 #     ,1: (1,"quest.2")
 # }
-# Encounter = {
-#     0: (1,"ADD ENCOUNTERS TO Encounter")
+# encounter_map = {
+#     0: (1,"ADD ENCOUNTERS TO encounter_map")
 # }
-# Weapon = {
+# weapon_map = {
 #     0: (1,"Wooden Sword")
 #     ,1: (1,"Wooden Axe")
 #     ,2: (1,"Shoestring Bow")
 #     ,3: (1,"Practice Bow")
 #     ,4: (1,"Wooden Club")
 # }
-# Armor = {
+# armor_map = {
 #     0: (1,"Padded Armor")
 #     ,1: (1,"Leather Armor")
 #     ,2: (1,"Studded Leather Armor")
 #     ,3: (1,"Hide Armor")
 #     ,4: (1,"Padded Helmet")
 # }
-# Misc = {
+# misc_item_map = {
 #     0: (1,"Cool Rock")
 #     ,1: (1,"Normal Rock")
 #     ,2: (1,"Actively Un-cool Rock")
 # }
-# Consumable = {
+# consumable_map = {
 #     0: (1,"Minor Healing Potion")
 #     ,1: (1,"Gunpowder Bomb")
 #     ,2: (1,"Molotov Cocktail")
 # }
-# Item = {
-#     0:  (10,Weapon)
-#     ,1: (1,Armor)
-#     ,2: (1,Consumable)
-#     ,3: (1,Misc)
+# item_map = {
+#     0:  (10,weapon_map)
+#     ,1: (1,armor_map)
+#     ,2: (1,consumable_map)
+#     ,3: (1,misc_item_map)
 # }
 
 # discTable = {
-# 0: (1,Quest)
+# 0: (1,quest_map)
 # ,1: (1,'nothing')
-# ,2: (1,Encounter)
-# ,3: (1,Item)
+# ,2: (1,encounter_map)
+# ,3: (1,item_map)
 # }
 
 # testing = generateTable("12341234",discTable)
