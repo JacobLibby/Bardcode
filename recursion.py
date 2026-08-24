@@ -7,16 +7,16 @@ from config import config
 class discovery:
     Quest = {
         "name": "Quest"
-        ,0:  (1,"a QUEST! You must Kill 10 monsters")
+        ,0: (1,"a QUEST! You must Kill 10 monsters")
         ,1: (1,"a QUEST! You must kill 1 monster in 1 hit")
     }
     Encounter = {
         "name": "Encounter"
-        ,0:  (1,"an ENCOUNTER!")
+        ,0: (1,"an ENCOUNTER!")
     }
     Weapon = {
         "name": "Weapon"
-        ,0:  (1,"a Wooden Sword")
+        ,0: (1,"a Wooden Sword")
         ,1: (1,"a Wooden Axe")
         ,2: (1,"a Shoestring Bow")
         ,3: (1,"a Practice Bow")
@@ -24,7 +24,7 @@ class discovery:
     }
     Armor = {
         "name": "Armor"
-        ,0:  (1,"a Padded Armor")
+        ,0: (1,"a Padded Armor")
         ,1: (1,"a Leather Armor")
         ,2: (1,"a Studded Leather Armor")
         ,3: (1,"a Hide Armor")
@@ -32,19 +32,19 @@ class discovery:
     }
     Misc = {
         "name": "Misc"
-        ,0:  (1,"a Cool Rock")
+        ,0: (1,"a Cool Rock")
         ,1: (1,"a Normal Rock")
         ,2: (1,"an Actively Un-cool Rock")
     }
     Consumable = {
         "name": "Consumable"
-        ,0:  (1,"a Minor Healing Potion")
+        ,0: (1,"a Minor Healing Potion")
         ,1: (1,"a Gunpowder Bomb")
         ,2: (1,"a Molotov Cocktail")
     }
     Item = {
         "name": "Item"
-        ,0:  (10,Weapon)
+        ,0: (1,Weapon)
         ,1: (1,Armor)
         ,2: (1,Consumable)
         ,3: (1,Misc)
@@ -52,7 +52,7 @@ class discovery:
 
     discTable = {
         "name": "Discovery"
-        ,0:  (1,Quest)
+        ,0: (1,Quest)
         ,1: (1,'nothing....... better luck next time')
         ,2: (1,Encounter)
         ,3: (1,Item)
@@ -113,11 +113,15 @@ class discovery:
     def fetchDiscovery(self,discoveryID,discoveryTable):
         conn = None
         try:
+            print("DAMN")
+
             params = config()
             conn = psycopg2.connect(**params)
-    
             # create a cursor
             cur = conn.cursor()
+            cur.execute("SELECT pg_is_in_recovery();")
+            print(cur.fetchall())
+            
             selectScript = f"""
             SELECT *
             FROM {discoveryTable}
@@ -126,14 +130,22 @@ class discovery:
             cur.execute(selectScript)
             conn.commit()
             selectDiscovery = cur.fetchall()
-            print(selectDiscovery)
-        except:
-            pass
+            cur.close()
+
+        except(Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection terminated.')
+                
 
 
 gen = discovery()
 gen.generateTable('12341234')
 
+# cur.close()
+# conn.close()
 
 
 
