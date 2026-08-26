@@ -22,29 +22,34 @@ def connect():
             key = ""
             primary_keys = []
             foreign_keys = []
+            create_script_arr = []
             create_script_exists = False
             insert_script_exists = False
             create_script = "CREATE TABLE IF NOT EXISTS " + str(file).replace("CreateTable_","").replace(".csv","")
             insert_script = "INSERT INTO " + str(file).replace("CreateTable_","").replace(".csv","")
             filename = "CreateTable_CSVs\\" + file
             with open(filename) as csv_file:
-                reader = csv.reader(csv_file,delimiter=',',quotechar='"')
+                reader = csv.reader(csv_file,delimiter='|',quotechar='"')
                 for row in reader:
                     create_script_exists = True
+                    
                     row_arr = []
                     if header == 0:
                         header = 1
-
+                        
                         for eachind in range(0,len(row)):
                             if (row[eachind].split(" ")[0]).startswith("__"):
-                                foreign_keys.append(row[eachind].split(" ")[0].split("__")[1])
+                                create_script_arr.append(f"{str(row[eachind].split("__")[1])} references {str(row[eachind].split(" ")[0].split("__")[1]).upper().split("ID")[0]}(id)")
+                                foreign_keys.append(f"{str(row[eachind].split(" ")[0].split("__")[1])} references {str(row[eachind].split(" ")[0].split("__")[1]).upper().split("ID")[0]}(id)")
                             elif (row[eachind].split(" ")[0]).startswith("_"):
-                                primary_keys.append(row[eachind].split(" ")[0].split("_")[1])
+                                create_script_arr.append(f"{str(row[eachind].split("_")[1])} primary key")
+                                primary_keys.append(f"{str(row[eachind].split(" ")[0].split("_")[1])} primary key")
                             else: #column is not a primary key or a foreign key
+                                create_script_arr.append(row[eachind])
                                 pass
                             row[eachind] = row[eachind].strip("_")
                             
-                        create_script += " (" + ','.join(row)
+                        create_script += " (" + ','.join(create_script_arr)
                         for col in row:
                             row_arr.append(col.split(" ")[0])
                         insert_script += " (" + ','.join(row_arr) + ") VALUES " #### row has datatypes, how to remove?
@@ -60,20 +65,21 @@ def connect():
                     
                 insert_script += (" ON CONFLICT  DO NOTHING;")
             if create_script_exists:
-                if primary_keys:
-                
-                    create_script += (f", PRIMARY KEY ({','.join(primary_keys)}));")
-                elif foreign_keys:
-                    create_script += (f", UNIQUE({','.join(foreign_keys)}));")
-                else:
-                    create_script += ");"
-                    print("NO KEYS IN THIS TABLE AT ALL")
+                # if primary_keys:
+                #     create_script += (f", PRIMARY KEY ({','.join(primary_keys)}));")
+                # elif foreign_keys:
+                #     create_script += (f", UNIQUE({','.join(foreign_keys)}));")
+                # else:
+                #     create_script += ");"
+                #     print("NO KEYS IN THIS TABLE AT ALL")
+                create_script += ");"
                 print(create_script)
+                # print(create_script)
                 cur.execute(create_script)
                 conn.commit()
             if insert_script_exists:
                 insert_script = insert_script.replace('`',"'")
-                print(insert_script)
+                # print(insert_script)
                 cur.execute(insert_script)
                 conn.commit()
 
@@ -81,7 +87,7 @@ def connect():
         select_test = []
         # db_version = cur.fetchall()
         select_test = cur.fetchall()
-        print(select_test)
+        # print(select_test)
         # cur.execute('SELECT 12;')
         apple = []
         # apple = cur.fetchall()

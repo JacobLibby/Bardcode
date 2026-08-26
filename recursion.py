@@ -55,7 +55,7 @@ class discovery:
         ,0: (1,Quest)
         ,1: (1,'nothing....... better luck next time')
         ,2: (1,Encounter)
-        ,3: (1,Item)
+        ,3: (10,Item)
     }
     def generateTable(self,seed_input,probTable_input=discTable):
         
@@ -82,8 +82,8 @@ class discovery:
             if type(key) == int:
                 totalProb += val[0]
         seed = (abs(hash(seed_input))%(totalProb))
-        # print(f'\ntotalProb: {totalProb}')
-        # print(f"SEED: {seed}, probtable: {probTable}")
+        print(f'\ntotalProb: {totalProb}')
+        print(f"SEED: {seed}, probtable: {probTable}")
 
         seedTicker = seed
         if totalProb >= 0:
@@ -109,18 +109,20 @@ class discovery:
             
         return (f"Empty prob table: {probTable}")
     def printDiscovery(self,discovery,table):
-        print(f"CONGRATS! You've found {discovery}, I'll grab info from the {table} table")
+        if discovery == "nothing....... better luck next time":
+            print("CONGRATULATIONS on finding nothing :)")
+        else:
+            print(f"CONGRATS! You've found {discovery}, I'll grab info from the {table} table")
     def fetchDiscovery(self,discoveryID,discoveryTable):
         conn = None
         try:
-            print("DAMN")
 
             params = config()
             conn = psycopg2.connect(**params)
             # create a cursor
             cur = conn.cursor()
-            cur.execute("SELECT pg_is_in_recovery();")
-            print(cur.fetchall())
+            # cur.execute("SELECT pg_is_in_recovery();")
+            # print(cur.fetchall())
             
             selectScript = f"""
             SELECT *
@@ -140,9 +142,14 @@ class discovery:
                 print('Database connection terminated.')
                 
 
+def main():
+    # gen = discovery()
+    # gen.generateTable('12341234')
+    pass
 
-gen = discovery()
-gen.generateTable('12341234')
+if __name__ == '__main__':
+    main()
+
 
 # cur.close()
 # conn.close()

@@ -1,5 +1,5 @@
-_id int,tableName varchar(255)
-0,'Weapon'
-1,'Armor'
-2,'Consumable'
-3,'Misc'
+_id int|tableName varchar(255)
+0|'Weapon'
+1|'Armor'
+2|'Consumable'
+3|'Misc'
