@@ -1,5 +1,8 @@
-UI
+===========\
+- UI + GUI -\
+=============\
 remove red outline on barcode text input
+Pyside6 + Qt Quick?
 
 
 
@@ -18,6 +21,13 @@ Map barcode to discoveries
     - 5x encounter
     - 50x item
     - 15x monster
+
+
+===
+
+
+
+
 
 
 --------------------
