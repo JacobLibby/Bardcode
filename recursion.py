@@ -80,8 +80,8 @@ class discovery:
             if type(key) == int:
                 totalProb += val[0]
         seed = (abs(hash(seed_input))%(totalProb))
-        print(f'\ntotalProb: {totalProb}')
-        print(f"SEED: {seed}, probtable: {probTable}")
+        # print(f'\ntotalProb: {totalProb}')
+        # print(f"SEED: {seed}, probtable: {probTable}")
 
         seedTicker = seed
         if totalProb >= 0:
@@ -98,7 +98,7 @@ class discovery:
                         # print("Found it")
                         #found it
                         
-                        self.printDiscovery(probTable[key][1],probTable['name'])
+                        # self.printDiscovery(probTable[key][1],probTable['name'])
                         self.fetchDiscovery(key,probTable['name'])
                         return key,probTable['name']
                     else:
@@ -115,7 +115,7 @@ class discovery:
             print(f"CONGRATS! You've found {discovery}! I'll grab info from the {table} table")
         return (f"CONGRATS! You've found {discovery}, I'll grab info from the {table} table")
     def fetchDiscovery(self,discoveryID,discoveryTable):
-        print(f"FUNC fetchDiscovery() -- discoveryID: {discoveryID}, discoveryTable: {discoveryTable}")
+        # print(f"FUNC fetchDiscovery() -- discoveryID: {discoveryID}, discoveryTable: {discoveryTable}")
         conn = None
         selectDiscovery = None
         try:
@@ -143,7 +143,7 @@ class discovery:
             if conn is not None:
                 conn.close()
                 print('Database connection terminated.')
-            print(f"fetch: {selectDiscovery}")
+            # print(f"fetch: {selectDiscovery}")
             return selectDiscovery
         
 

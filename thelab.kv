@@ -1,0 +1,223 @@
+BoxLayoutExample:
+
+<basicTemplate>:
+    BoxLayoutExample:
+
+
+<WidgetExample>:
+    cols: 3
+    ToggleButton:
+        text: "OFF"
+        on_state: root.on_toggle_button_state(self)
+        font_size: "40dp"
+        color: 1,0,0,1
+        font_name: "fonts/ofont.ru_Fixedsys.ttf"
+        size_hint: None,1
+        width: "100dp"
+
+    Button:
+        text: "Click Here!"
+        on_press: root.on_button_click()
+        disabled: not root.count_enabled
+
+    Label:
+        font_name: "fonts/ofont.ru_Fixedsys.ttf" 
+        text: root.my_text
+        font_size: "40dp"
+        color: 1,0,0,1
+
+    Switch:
+        id: my_switch
+        width: "100dp"
+        size_hint: None,1
+        on_active: root.on_switch_active(self)
+        active: True
+
+    Slider:
+        id: my_slider
+        min: 0
+        max: 100
+        step: 1
+        #on_touch_up: root.on_slider_touch_up(self)
+        #on_value: root.on_slider_value(self)
+        value: 50
+        disabled: not my_switch.active
+        #orientation: "vertical"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: str(int(my_slider.value))
+        ProgressBar:
+            value: my_slider.value
+            max: 100
+    TextInput:
+        id: my_text_input
+        font_name: "fonts/ofont.ru_Fixedsys.ttf"
+        size_hint: None,1
+        width: "100dp"
+        suggestion: "foo"
+        multiline: False
+        on_text_validate: root.on_text_validate(self)
+    Label:
+        text: root.validated_text
+
+<PageLayoutExample>:
+    MainWidget:
+    BoxLayoutExample:
+    AnchorLayoutExample:
+    GridLayoutExample:
+
+<ScrollViewExample>:
+    StackLayoutExample:
+        size_hint:1,None
+        height:self.minimum_height
+
+
+<StackLayoutExample>:
+    # left-right,top-bottom
+    #orientation: "rl-bt"
+    #lrtb
+    #padding: ("20dp","20dp","20dp","20dp")
+    #spacing: "20dp", "20dp"
+
+
+#    Button:
+#        text: "A"
+#        size_hint:.4,.2
+#    Button:
+#        text: "B"
+#        size_hint:.4,.2
+#    Button:
+#        text: "C"
+#        size_hint:.4,.2
+
+
+
+<GridLayoutExample@GridLayout>:
+    # NEED to specify either "rows" and/or "cols"
+    cols: 3
+    Button:
+        text: "A"
+        size_hint:None,1
+        width:"60dp"
+    Button:
+        text: "B"
+        size_hint: .5,1
+    BoxLayoutExample:
+
+    Button:
+        text: "D"
+        size_hint:None,1
+        width:"60dp"
+    Button:
+        text: "E"
+        size_hint: .5,1
+    Button:
+        text: "F"
+
+<AnchorLayoutExample>:
+    # right, left, center
+    anchor_x: "center"
+    # bottom, top, center
+    anchor_y: "top"
+    BoxLayout:
+        size_hint: .1,.1
+        Button:
+            text: "A"
+        Button:
+            text: "B"
+<BoxLayoutExample>:
+    font_name: "fonts/ofont.ru_Fixedsys.ttf" 
+    orientation: "vertical"
+    RelativeLayout:
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "top"
+            BoxLayout:
+                size_hint: .1,.1
+                Button:
+                    text: "A"
+                Button:
+                    text: "B"
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+            Label:
+                spacing:5,5,5,5
+                font_name: "fonts/ofont.ru_Fixedsys.ttf" 
+                text: root.validated_text
+                font_size: "40dp"
+                text_size: self.width, None
+                size_hint: 1,None
+                height: self.texture_size[1]
+                color: 1,1,1,1
+                halign: "center"
+                padding_x:40
+                markup: True
+
+    TextInput:
+        id: my_text_input
+        font_name: "fonts/ofont.ru_Fixedsys.ttf"
+        suggestion: "foo"
+        multiline: False
+        on_text_validate: root.on_text_validate(self)
+        #size: 100,"60dp"
+        #size_hint: 1, None
+        size:"100dp","60dp"
+        size_hint: .8,None
+        pos_hint: {"center_x":.5}
+    BoxLayout:
+        BoxLayout:
+            spacing:"5dp"
+            size:"80dp","100dp"
+            size_hint:None,1
+            orientation: "vertical"
+            Button:
+                text: "Stat"
+                #size: "40dp","40dp"
+                #size_hint:None,None
+            Button:
+                text: "Inv"
+                #size: "40dp","40dp"
+                #size_hint:None,.2
+            Button:
+                text: "Quests"
+                #size: "40dp","40dp"
+                #size_hint:None,.2
+            Button:
+                text: "COG"
+                size: "40dp","40dp"
+                size_hint:1,None
+        ScrollView:
+            
+            StackLayoutExample:
+                size_hint:1,None
+                height:self.minimum_height
+
+
+
+<MainWidget>:
+    Button:
+        text: "Hello"
+        size: "100dp","80dp"
+        pos: "200dp","300dp"
+        color: 0,0,1,1
+
+    Label:
+        text: "Hello2"
+        size: "100dp","80dp"
+        pos: "200dp","300dp"
+        color: 1,0,0,1
+
+
+<ImageExample@GridLayout>:
+    cols: 3
+    Image:
+        source: "images/cake.jpg"
+    Image:
+        source: "images/cake.jpg"
+        allow_stretch: True
+    Image:
+        source: "images/cake.jpg"
+        allow_stretch: True
+        keep_ratio: False
