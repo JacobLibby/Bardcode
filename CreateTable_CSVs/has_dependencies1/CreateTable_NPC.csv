@@ -1,0 +1,2 @@
+_id int|species varchar(255)|name varchar(255)|__weaponID int|conversations varchar(4000)
+0|'bugbear'|'Stacy'|6|'{"-": "HEY, HOW ARE YOU DOING"}'
