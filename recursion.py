@@ -1,6 +1,6 @@
 import psycopg2
 from config import config
-
+from abc import ABC, abstractmethod
 
 class discovery:
     Quest = {
@@ -42,10 +42,10 @@ class discovery:
     }
     Item = {
         "name": "Item"
-        ,0: (1,Weapon)
+        ,0: (2,Weapon)
         ,1: (1,Armor)
-        ,2: (1,Consumable)
-        ,3: (1,Misc)
+        ,2: (5,Consumable)
+        ,3: (2,Misc)
     }
 
     discTable = {
@@ -97,9 +97,10 @@ class discovery:
                             return self.generateTable(seed_input,(probTable[key][1]))
                         # print("Found it")
                         #found it
+                        
                         self.printDiscovery(probTable[key][1],probTable['name'])
                         self.fetchDiscovery(key,probTable['name'])
-                        return probTable[key][1],probTable['name']
+                        return key,probTable['name']
                     else:
                         pass
                     
@@ -107,12 +108,16 @@ class discovery:
             
         return (f"Empty prob table: {probTable}")
     def printDiscovery(self,discovery,table):
+        print(f"FUNC printDiscovery() -- discovery: {discovery}, table: {table}")
         if discovery == "nothing....... better luck next time":
             print("CONGRATULATIONS on finding nothing :)")
         else:
-            print(f"CONGRATS! You've found {discovery}, I'll grab info from the {table} table")
+            print(f"CONGRATS! You've found {discovery}! I'll grab info from the {table} table")
+        return (f"CONGRATS! You've found {discovery}, I'll grab info from the {table} table")
     def fetchDiscovery(self,discoveryID,discoveryTable):
+        print(f"FUNC fetchDiscovery() -- discoveryID: {discoveryID}, discoveryTable: {discoveryTable}")
         conn = None
+        selectDiscovery = None
         try:
 
             params = config()
@@ -138,7 +143,118 @@ class discovery:
             if conn is not None:
                 conn.close()
                 print('Database connection terminated.')
-                
+            print(f"fetch: {selectDiscovery}")
+            return selectDiscovery
+        
+
+
+
+class DiscoveryInstance(ABC):
+    pass
+
+class DiscoveryWeapon(DiscoveryInstance):
+    id = -1
+    title = ""
+    description = ""
+    category = ""
+    damageType = ""
+    value = None
+    damage = ""
+    toHit = None
+
+    def __init__(self,infoList):
+        self.id = infoList[0]
+        self.title = infoList[1]
+        self.description = infoList[2]
+        self.category = infoList[3]
+        self.damageType = infoList[4]
+        self.value = infoList[5]
+        self.damage = infoList[6]
+        self.toHit = infoList[7]
+    
+
+class DiscoveryArmor(DiscoveryInstance):
+    id = -1
+    title = ""
+    description = ""
+    category = ""
+    bodySlot = ""
+    value = -1
+    acVal = -1
+    dexBonusMax = -1
+    strReq = -1
+    stealthDisadvantage = False
+    statBonus = ""
+
+    def __init__(self,infoList):
+        self.id = infoList[0]
+        self.title = infoList[1]
+        self.description = infoList[2]
+        self.category = infoList[3]
+        self.bodySlot = infoList[4]
+        self.value = infoList[5]
+        self.acVal = infoList[6]
+        self.dexBonusMax = infoList[7]
+        self.strReq = infoList[8]
+        self.stealthDisadvantage = infoList[9]
+        self.statBonus = infoList[10]
+
+class DiscoveryConsumable(DiscoveryInstance):
+    id = -1
+    title = ""
+    description = ""
+    category = ""
+    value = -1
+    damage = ""
+    heal = ""
+    status = ""
+
+    def __init__(self,infoList):
+        self.id = infoList[0]
+        self.title = infoList[1]
+        self.description = infoList[2]
+        self.category = infoList[3]
+        self.value = infoList[4]
+        self.damage = infoList[5]
+        self.heal = infoList[6]
+        self.status = infoList[7]
+
+class DiscoveryEncounter(DiscoveryInstance):
+    id = -1
+    name = ""
+    description = ""
+
+    def __init__(self,infoList):
+        self.id = infoList[0]
+        self.name = infoList[1]
+        self.description = infoList[2]
+    pass
+
+
+class DiscoveryMisc(DiscoveryInstance):
+    id = -1
+    title = ""
+    description = ""
+    value = -1
+
+    def __init__(self,infoList):
+        self.id = infoList[0]
+        self.title = infoList[1]
+        self.description = infoList[2]
+        self.value = infoList[3]
+
+
+class DiscoveryQuest(DiscoveryInstance):
+    id = -1
+    title = ""
+    description = ""
+    goal = ""
+
+    def __init__(self,infoList):
+        self.id = infoList[0]
+        self.title = infoList[1]
+        self.description = infoList[2]
+        self.goal = infoList[3]
 
 def main():
     # gen = discovery()

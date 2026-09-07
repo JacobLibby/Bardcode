@@ -1,3 +1,0 @@
-_id int|__itemID int|count int|equipped boolean
-
-CREATE TABLE (TABLE_NAME) AS (id int primary key, itemID int references fk_table(fk_col), count int, equipped boolean)
