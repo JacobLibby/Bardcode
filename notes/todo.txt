@@ -39,3 +39,25 @@ Map barcode to discoveries
         hash -> isGold -> gen_gold(hash)
         hash -> items(hash)
         """
+
+
+
+============
+NEXT STEPS:
+
+- add playerinventory
+- add items found to playerinventory
+- flesh out inventory
+    - display items
+    - remove items
+    - allow multiple of same item
+    - show item count
+
+- add questlog
+- add quests to questlog
+
+- add encounter functionality
+
+- magic system
+
+- conversation trees

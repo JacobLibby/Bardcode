@@ -1,2 +1,3 @@
 _id int|species varchar(255)|name varchar(255)|__weaponID int|conversations varchar(4000)
 0|'bugbear'|'Stacy'|6|'{"-": "HEY, HOW ARE YOU DOING"}'
+1|'fey'|'Potion Seller'|0|'{"-": "Greetings traveller, I sell potions to the strongest and mightiest.","_1":"What do you have for sale?","_2":"What potions are you selling?","1":"I sell potions that would kill a being as weak as you. You are too weak traveller","2":"I sell potions that would kill a being as weak as you. You are too weak traveller"}'
