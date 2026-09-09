@@ -1,6 +1,8 @@
 import psycopg2
 from config import config
 from abc import ABC, abstractmethod
+import logging
+logger = logging.getLogger(__name__)
 
 class discovery:
     Quest = {
@@ -115,6 +117,7 @@ class discovery:
             print(f"CONGRATS! You've found {discovery}! I'll grab info from the {table} table")
         return (f"CONGRATS! You've found {discovery}, I'll grab info from the {table} table")
     def fetchDiscovery(self,discoveryID,discoveryTable):
+        logger.info(f'fetchDiscovery({discoveryID},{discoveryTable})')
         # print(f"FUNC fetchDiscovery() -- discoveryID: {discoveryID}, discoveryTable: {discoveryTable}")
         conn = None
         selectDiscovery = None
@@ -163,6 +166,7 @@ class DiscoveryWeapon(DiscoveryInstance):
     toHit = None
 
     def __init__(self,infoList):
+        # logger.info(f'DiscoveryWeapon({DiscoveryInstance})')
         self.id = infoList[0]
         self.title = infoList[1]
         self.description = infoList[2]
@@ -187,6 +191,7 @@ class DiscoveryArmor(DiscoveryInstance):
     statBonus = ""
 
     def __init__(self,infoList):
+        # logger.info(f'DiscoveryArmor({DiscoveryInstance})')
         self.id = infoList[0]
         self.title = infoList[1]
         self.description = infoList[2]
@@ -210,6 +215,7 @@ class DiscoveryConsumable(DiscoveryInstance):
     status = ""
 
     def __init__(self,infoList):
+        # logger.info(f'DiscoveryConsumable({DiscoveryInstance})')
         self.id = infoList[0]
         self.title = infoList[1]
         self.description = infoList[2]
@@ -225,6 +231,7 @@ class DiscoveryEncounter(DiscoveryInstance):
     description = ""
 
     def __init__(self,infoList):
+        # logger.info(f'DiscoveryEncounter({DiscoveryInstance})')
         self.id = infoList[0]
         self.name = infoList[1]
         self.description = infoList[2]
@@ -238,6 +245,7 @@ class DiscoveryMisc(DiscoveryInstance):
     value = -1
 
     def __init__(self,infoList):
+        # logger.info(f'DiscoveryMisc({DiscoveryInstance})')
         self.id = infoList[0]
         self.title = infoList[1]
         self.description = infoList[2]
@@ -251,6 +259,7 @@ class DiscoveryQuest(DiscoveryInstance):
     goal = ""
 
     def __init__(self,infoList):
+        # logger.info(f'DiscoveryQuest({DiscoveryInstance})')
         self.id = infoList[0]
         self.title = infoList[1]
         self.description = infoList[2]

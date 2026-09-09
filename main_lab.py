@@ -10,6 +10,8 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.pagelayout import PageLayout
 from kivy.properties import StringProperty, BooleanProperty
 import recursion
+import logging
+logger = logging.getLogger(__name__)
 
 class basicTemplate(BoxLayout):
     my_text = StringProperty("How many clicks?")
@@ -223,5 +225,9 @@ class MainWidget(Widget):
 class TheLabApp(App):
     pass
 
-TheLabApp().run()
+if __name__ == '__main__':
+    logging.basicConfig(filename='Bardcode.log', level=logging.INFO)
+    logger.info('Started.')
+    TheLabApp().run()
+    logger.info('Finished.')
 

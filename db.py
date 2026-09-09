@@ -3,6 +3,8 @@ from config import config
 import os
 import pandas as pd
 import csv
+import logging
+logger = logging.getLogger(__name__)
 
 def connect(file_dir):
     create_script_index = 0
