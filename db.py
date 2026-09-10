@@ -30,7 +30,7 @@ def connect(file_dir):
                 insert_script_exists = False
                 create_script = "CREATE TABLE IF NOT EXISTS " + str(file).replace("CreateTable_","").replace(".csv","")
                 insert_script = "INSERT INTO " + str(file).replace("CreateTable_","").replace(".csv","")
-                filename = file_dir + "\\" + file
+                filename = file_dir + '\\' + file
                 with open(filename) as csv_file:
                     reader = csv.reader(csv_file,delimiter='|',quotechar='"')
                     for row in reader:
@@ -234,4 +234,5 @@ def selectDiscovery(discoveryKey,discoveryTable):
 
 if __name__ == "__main__":
     connect('CreateTable_CSVs')
-    connect('CreateTable_CSVs\\has_dependencies')
+    connect('CreateTable_CSVs\\has_dependencies1')
+    connect('CreateTable_CSVs\\has_dependencies2')

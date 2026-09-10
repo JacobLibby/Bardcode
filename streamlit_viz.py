@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import recursion
+import discoveryGen
 
 def test1():
     st.title("Bardcode")
@@ -26,7 +26,7 @@ def test1():
         if valid_barcode:
             valid_barcode_text.text(f"Valid Barcode = '{barcode_field}'")
             valid_barcode_val.text(f"barcode mod 67: {abs(hash(barcode_field))%67}")
-            gen = recursion.discovery()
+            gen = discoveryGen.discovery()
             text_loot_gen.text(gen.generateTable(barcode_field))
             #generate_discovery(barcode_field)
             #st.session_state.barcode_text_input = st.text_input("Scan new barcode below","",placeholder=barcode_field,key="barcode_text_input")

@@ -265,6 +265,12 @@ class DiscoveryQuest(DiscoveryInstance):
         self.description = infoList[2]
         self.goal = infoList[3]
 
+class PlayerInventory:
+    def addToInventory(self,table,itemID):
+        pass
+    def removeFromInventory(self,table,itemID):
+        pass
+
 def main():
     # gen = discovery()
     # gen.generateTable('12341234')

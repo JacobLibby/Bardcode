@@ -9,7 +9,7 @@ from kivy.metrics import dp
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.pagelayout import PageLayout
 from kivy.properties import StringProperty, BooleanProperty
-import recursion
+import discoveryGen
 import logging
 logger = logging.getLogger(__name__)
 
@@ -49,7 +49,7 @@ class basicTemplate(BoxLayout):
 
     def on_text_validate(self,widget):
         self.validated_text = widget.text
-        gen = recursion.discovery()
+        gen = discoveryGen.discovery()
         discoveryName, discoveryTable = gen.generateTable(self.validated_text)
         self.validated_text = gen.printDiscovery(discoveryName, discoveryTable)
 
@@ -91,7 +91,7 @@ class WidgetExample(GridLayout):
 
     def on_text_validate(self,widget):
         self.validated_text = widget.text
-        gen = recursion.discovery()
+        gen = discoveryGen.discovery()
         discoveryName, discoveryTable = gen.generateTable(self.validated_text)
         self.validated_text = gen.printDiscovery(discoveryName, discoveryTable)
 
@@ -175,26 +175,26 @@ class BoxLayoutExample(BoxLayout):
 
     def on_text_validate(self,widget):
         self.validated_text = widget.text
-        gen = recursion.discovery()
+        gen = discoveryGen.discovery()
         discoveryName, discoveryTable = gen.generateTable(self.validated_text)
         fetchD = gen.fetchDiscovery(discoveryName, discoveryTable)
         if discoveryTable == 'Weapon':
-            dI = recursion.DiscoveryWeapon(*fetchD)
+            dI = discoveryGen.DiscoveryWeapon(*fetchD)
             self.validated_text = (f'CONGRATS, you found a new weapon, a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
         elif discoveryTable == 'Armor':
-            dI = recursion.DiscoveryArmor(*fetchD)
+            dI = discoveryGen.DiscoveryArmor(*fetchD)
             self.validated_text = (f'CONGRATS, you found some new armor, a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
         elif discoveryTable == 'Consumable':
-            dI = recursion.DiscoveryConsumable(*fetchD)
+            dI = discoveryGen.DiscoveryConsumable(*fetchD)
             self.validated_text = (f'CONGRATS, you found some consumables, a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
         elif discoveryTable == 'Misc':
-            dI = recursion.DiscoveryMisc(*fetchD)
+            dI = discoveryGen.DiscoveryMisc(*fetchD)
             self.validated_text = (f'CONGRATS, you found a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
         elif discoveryTable == 'Quest':
-            dI = recursion.DiscoveryQuest(*fetchD)
+            dI = discoveryGen.DiscoveryQuest(*fetchD)
             self.validated_text = (f'WOAH, you found the quest: [color=00ffff]{dI.title}[/color]!\n\n{dI.description}')
         elif discoveryTable == 'Encounter':
-            dI = recursion.DiscoveryEncounter(*fetchD)
+            dI = discoveryGen.DiscoveryEncounter(*fetchD)
             self.validated_text = (f'You stumble upon [color=ff00ff]{dI.name}[/color]!\n\n{dI.description}, I should make the Encounter and referenced tables')
         else:
             self.validated_text = ('You found nothing...\n\ntry again?')
