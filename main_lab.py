@@ -10,6 +10,7 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.pagelayout import PageLayout
 from kivy.properties import StringProperty, BooleanProperty
 import discoveryGen
+import playerInventory
 import logging
 logger = logging.getLogger(__name__)
 
@@ -114,7 +115,7 @@ class StackLayoutExample(StackLayout):
             b = Button(text=str(i+1),size_hint=(1,None),size=(1,dp(40)))
             self.add_widget(b)
 
-    pass
+    
 
 
 class GridLayoutInfoList(GridLayout):
@@ -155,12 +156,10 @@ class BoxLayoutExample(BoxLayout):
             self.count_enabled = False
 
 
-    def on_button_click(self):
-        if self.count_enabled:
-            self.count += 1
-            self.my_text = str(self.count)
-            print("Clicked")
-        pass
+    def on_inv_button_click(self):
+        print("on_inv_button_click(self)")
+        inv = playerInventory.PlayerInventory()
+        print(inv.fetchInventory())
 
     def on_switch_active(self,widget):
         print(f"Switch: {widget.active}")
@@ -223,7 +222,22 @@ class MainWidget(Widget):
 
 # need to have "App" suffix AND reference
 class TheLabApp(App):
+    activeMenu = "Inv"
+    def on_inv_button_click(self):
+        print("on_inv_button_click(self)")
+        inv = playerInventory.PlayerInventory()
+        print(inv.fetchInventory())
+        self.activeMenu = "Inv"
     pass
+
+    def hide_widget(wid, dohide=True):
+            if hasattr(wid, 'saved_attrs'):
+                if not dohide:
+                    wid.height, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+                    del wid.saved_attrs
+            elif dohide:
+                wid.saved_attrs = wid.height, wid.size_hint_y, wid.opacity, wid.disabled
+                wid.height, wid.size_hint_y, wid.opacity, wid.disabled = 0, None, 0, True
 
 if __name__ == '__main__':
     logging.basicConfig(filename='Bardcode.log', level=logging.INFO)
