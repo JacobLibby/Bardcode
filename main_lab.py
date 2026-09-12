@@ -106,14 +106,61 @@ class ScrollViewExample(ScrollView):
     pass
 
 class StackLayoutExample(StackLayout):
+    showing = "Inv"
+
+    def update(self):
+        list = []
+        if self.showing == "Inv":
+            list = playerInventory.PlayerInventory().fetchInventory()
+        elif self.showing == "Quests":
+            print("Show quests")
+            list = ['Quest'] 
+            # should quests be in player inventory?
+            pass
+        elif self.showing == "Stats":
+            print("Show stats")
+            list = ['Stats','Stats','Stats']
+        self.clear_widgets()
+        for each in list:
+            print(each)
+            b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)))
+            self.add_widget(b)
+        pass
+
+    def clear_widgets(self, children=None):
+        return super().clear_widgets(children)
+
     def __init__(self,**kwargs):
+        print("INIT")
         super().__init__(**kwargs)
         self.orientation = "lr-tb"
-        for i in range(0,100):
+        for i in range(0,10):
             #size = dp(100)
             #b = Button(text=str(i+1),size_hint=(None,None),size=(size,size))
             b = Button(text=str(i+1),size_hint=(1,None),size=(1,dp(40)))
             self.add_widget(b)
+    def do_layout(self, *largs):
+        
+        super().do_layout(*largs)
+        # print("DO LAYOUT")
+        # print(f'\t*largs: {largs}')
+        # self.showing = widget.value
+        if type(largs[0]) != float:
+            self.showing = largs[0].value
+            # print(f"self.showing: {self.showing}")
+            self.update()
+            if self.showing == "Inv":
+                print("INV")
+                # b = Button(text="ADDING",size_hint=(1,None),size=(1,dp(40)))
+                # self.add_widget(b)
+            else:
+                print(self.showing)
+                # self.orientation = "lr-tb"
+                # for i in range(0,100):
+                #     #size = dp(100)
+                #     #b = Button(text=str(i+1),size_hint=(None,None),size=(size,size))
+                #     b = Button(text=str(i+1),size_hint=(1,None),size=(1,dp(40)))
+                #     self.add_widget(b)
 
     
 

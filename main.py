@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import streamlit_viz as stv
+import bk.streamlit_viz as stv
 import psycopg2
 import db
 

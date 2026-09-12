@@ -102,6 +102,7 @@ class discovery:
                         
                         # self.printDiscovery(probTable[key][1],probTable['name'])
                         self.fetchDiscovery(key,probTable['name'])
+                        self.addtoInventory(key,probTable['name'])
                         return key,probTable['name']
                     else:
                         pass
@@ -134,6 +135,43 @@ class discovery:
             SELECT *
             FROM {discoveryTable}
             WHERE id = {discoveryID}
+            """
+            cur.execute(selectScript)
+            conn.commit()
+            selectDiscovery = cur.fetchall()
+            cur.close()
+
+        except(Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection terminated.')
+            # print(f"fetch: {selectDiscovery}")
+            return selectDiscovery
+    def addToInventory(self,discovery,table):
+        table_index = ["Weapon","Armor","Consumable","Misc"]
+        conn = None
+        selectDiscovery = None
+        try:
+
+            params = config()
+            conn = psycopg2.connect(**params)
+            # create a cursor
+            cur = conn.cursor()
+            # cur.execute("SELECT pg_is_in_recovery();")
+            # print(cur.fetchall())
+            
+            insertScript = f"""
+            SELECT id FROM playerInventory WHERE itemID = {table_index.index(table)} AND itemDetailID = {discovery}
+
+
+            INSERT INTO playerInventory (id, itemID, itemDetailID, count)
+
+            SELECT *
+            FROM {table}
+            WHERE id = {discovery}
+            ON DUPLICATE 
             """
             cur.execute(selectScript)
             conn.commit()

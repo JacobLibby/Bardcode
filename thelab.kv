@@ -173,25 +173,34 @@ BoxLayoutExample:
             size_hint:None,1
             orientation: "vertical"
             Button:
-                text: "Stat"
+                text: "Stats"
                 #size: "40dp","40dp"
                 #size_hint:None,None
+                value: "Stats"
+                on_press: StackLayoutExampleID.do_layout(self)
             Button:
                 text: "Inv"
                 #size: "40dp","40dp"
                 #size_hint:None,.2
-                on_press: app.on_inv_button_click()
+                on_press: StackLayoutExampleID.do_layout(self)
+                #on_press: app.on_inv_button_click()
+                value: "Inv"
             Button:
                 text: "Quests"
                 #size: "40dp","40dp"
                 #size_hint:None,.2
+                value: "Quests"
+                on_press: StackLayoutExampleID.do_layout(self)
             Button:
                 text: "COG"
                 size: "40dp","40dp"
                 size_hint:1,None
+                value: "Settings"
+                on_press: StackLayoutExampleID.clear_widgets()
         ScrollView:
-            
+            id: scrollviewID
             StackLayoutExample:
+                id: StackLayoutExampleID
                 size_hint:1,None
                 height:self.minimum_height
 
