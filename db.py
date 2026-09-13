@@ -6,6 +6,44 @@ import csv
 import logging
 logger = logging.getLogger(__name__)
 
+
+
+def drop_if_new_schema():
+    #INPUT: 
+    #OUTPUT:
+
+    # given filename, lookup table and see if header of file matches table header and datatypes
+    pass
+
+
+def drop_tables(tables_arr):
+    try:
+        params = config()
+        print('Connecting to PostgreSQL database')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+        for table in tables_arr:
+            drop_script = "DROP TABLE IF EXISTS " + str(table) + ";"
+            
+            cur.execute(drop_script)
+            print(f"TABLE {table} SUCCESSFULLY DROPPED")
+            conn.commit()
+
+        cur.close()
+
+    except psycopg2.Error as e:
+        print(f"Error dropping table: {e}")
+        conn.rollback()
+    finally:
+        cur.close()
+        if conn is not None:
+            conn.close()
+            print('Database connection terminated.')
+    print("Done.")
+
+
 def connect(file_dir):
     create_script_index = 0
     create_script_arr = []
@@ -88,16 +126,6 @@ def connect(file_dir):
                     conn.commit()
 
 
-
-        cur.execute('SELECT * FROM Weapon WHERE id > 1;')
-        select_test = []
-        # db_version = cur.fetchall()
-        select_test = cur.fetchall()
-        # print(select_test)
-        # cur.execute('SELECT 12;')
-        apple = []
-        # apple = cur.fetchall()
-        # print(apple)
         cur.close()
         print("Cursor closed.")
     
@@ -233,6 +261,8 @@ def selectDiscovery(discoveryKey,discoveryTable):
     return False #STOP running code, testing CreateTable_CSVs
 
 if __name__ == "__main__":
+    drop_tables(['encounternpc','monster','npc','playerinventory','scanned','Weapon','Armor','Consumable','discovery','encounter','item','misc','quest'])
+    # drop_tables(['Weapon','Armor','Consumable','discovery','encounter','item','misc','quest'])
     connect('CreateTable_CSVs')
     connect('CreateTable_CSVs\\has_dependencies1')
     connect('CreateTable_CSVs\\has_dependencies2')

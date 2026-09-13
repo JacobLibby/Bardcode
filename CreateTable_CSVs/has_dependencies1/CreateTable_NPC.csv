@@ -1,5 +1,5 @@
-_id varchar(255)|species varchar(255)|name varchar(255)|__weaponID int|conversations varchar(4000)
-'d2c601d3138bd8ba4e1fb737e58a9eb5757a29fded69ad156b33d824abb1731f'|'bugbear'|'Stacy'|6|'{''-'': ''HEY, HOW ARE YOU DOING''}'
-'2b05b8a1db42398a9d0a3a25925ba1de3e854c3cfaadde36574d693b27670d76'|'fey'|'Potion Seller'|0|'{''-'': ''Greetings traveller, I sell potions to the strongest and mightiest.'',''_1'':''What do you have for sale?'',''_2'':''What potions are you selling?'',''1'':''I sell potions that would kill a being as weak as you. You are too weak traveller'',''2'':''I sell potions that would kill a being as weak as you. You are too weak traveller''}'
+_id varchar(255)|species varchar(255)|name varchar(255)|__weaponID varchar(255)|conversations varchar(4000)
+'d2c601d3138bd8ba4e1fb737e58a9eb5757a29fded69ad156b33d824abb1731f'|'bugbear'|'Stacy'|'13995abb6fa6d0ace8215bd235c3ae2117171d139ae55c26c772ca09a5fa9031'|'{''-'': ''HEY, HOW ARE YOU DOING''}'
+'2b05b8a1db42398a9d0a3a25925ba1de3e854c3cfaadde36574d693b27670d76'|'fey'|'Potion Seller'|'f39bc858dd349745fa035664d0c63cea28d00937caaf8ab93ffb32b75973d974'|'{''-'': ''Greetings traveller, I sell potions to the strongest and mightiest.'',''_1'':''What do you have for sale?'',''_2'':''What potions are you selling?'',''1'':''I sell potions that would kill a being as weak as you. You are too weak traveller'',''2'':''I sell potions that would kill a being as weak as you. You are too weak traveller''}'
 '4d6b47b7252d8a38ed152df8b1c85713758c2fdb5ddb114ee722242954c5439f'|'human'|'Jeff'|Null|'{''-'':''You''ll never guess my name''}'
 '4d7681a518d2bada7d511ef86927727c1df15a407aa38dce0e7a2716892d95cc'|'elf'|'Buddy'|Null|'{''-'':''''sup''}'

@@ -1,4 +1,4 @@
-_id varchar(255)|__itemID int|itemDetailID int|count int|equipped boolean
+_id varchar(255)|itemID varchar(255)|itemDetailID int|count int|equipped boolean
 'cb11ca3e3c64e0a85adac855f5de28d0bc11702696c0ab4e3155038ce04d687b'|0|0|1|True
 '8c230b914b976786a264c8e85f9d3137dde1e9988320e0148515ce04322a8a66'|0|1|2|False
 '220988843f5779b46a898d21a5817a9c1332d2042edb290ac5c6d7cc1cfdc547'|1|3|1|True

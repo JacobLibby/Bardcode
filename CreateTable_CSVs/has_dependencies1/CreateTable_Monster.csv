@@ -1,4 +1,4 @@
-_id varchar(255)|species varchar(255)|name varchar(255)|__weaponID int|conversations varchar(4000)
-'e0dbab0d9787e41dc28c89c15bdd39be0e56fc6044e91abb7ac6ff283515b69f'|'bugbear'|'Stacy'|6|'{''-'': ''HEY, DIE''}'
-'54e62f580ddf967d91f40a73866193389ab947c3d3935bbf6406401420afa672'|'bugbear'|'Sticky'|6|'{''-'': ''HEY, DIE''}'
-'0b78773d367fe6143c779599f705e3c969a11554424c4df74581f4ab5ce692e2'|'bugbear'|'Stinky'|6|'{''-'': ''HEY, DIE''}'
+_id varchar(255)|species varchar(255)|name varchar(255)|__weaponID varchar(255)|conversations varchar(4000)
+'e0dbab0d9787e41dc28c89c15bdd39be0e56fc6044e91abb7ac6ff283515b69f'|'bugbear'|'Stacy'|'13995abb6fa6d0ace8215bd235c3ae2117171d139ae55c26c772ca09a5fa9031'|'{''-'': ''HEY, DIE''}'
+'54e62f580ddf967d91f40a73866193389ab947c3d3935bbf6406401420afa672'|'bugbear'|'Sticky'|'13995abb6fa6d0ace8215bd235c3ae2117171d139ae55c26c772ca09a5fa9031'|'{''-'': ''HEY, DIE''}'
+'0b78773d367fe6143c779599f705e3c969a11554424c4df74581f4ab5ce692e2'|'bugbear'|'Stinky'|'f29fc08aa4313fb70bfc52d461b8e2e6eed1782cb9d8b84c764455a5da616bd9'|'{''-'': ''HEY, DIE''}'
