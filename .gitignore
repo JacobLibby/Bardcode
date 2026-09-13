@@ -6,3 +6,4 @@ Scripts/
 etc/
 pyvenv.cfg
 share/
+bk/*

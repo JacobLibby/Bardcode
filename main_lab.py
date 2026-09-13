@@ -223,7 +223,10 @@ class BoxLayoutExample(BoxLayout):
         self.validated_text = widget.text
         gen = discoveryGen.discovery()
         discoveryName, discoveryTable = gen.generateTable(self.validated_text)
+        print(discoveryName, discoveryTable)
         fetchD = gen.fetchDiscovery(discoveryName, discoveryTable)
+        print(fetchD)
+        print(*fetchD)
         if discoveryTable == 'Weapon':
             dI = discoveryGen.DiscoveryWeapon(*fetchD)
             self.validated_text = (f'CONGRATS, you found a new weapon, a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')

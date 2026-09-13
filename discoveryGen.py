@@ -3,59 +3,60 @@ from config import config
 from abc import ABC, abstractmethod
 import logging
 logger = logging.getLogger(__name__)
+import playerInventory
 
 class discovery:
     Quest = {
         "name": "Quest"
-        ,0: (1,"a QUEST! You must Kill 10 monsters")
-        ,1: (1,"a QUEST! You must kill 1 monster in 1 hit")
+        ,1002: (1,"a QUEST! You must Kill 10 monsters")
+        ,1003: (1,"a QUEST! You must kill 1 monster in 1 hit")
     }
     Encounter = {
         "name": "Encounter"
-        ,0: (1,"an ENCOUNTER!")
+        ,3002: (1,"an ENCOUNTER!")
     }
     Weapon = {
         "name": "Weapon"
-        ,0: (1,"a Wooden Sword")
-        ,1: (1,"a Wooden Axe")
-        ,2: (1,"a Shoestring Bow")
-        ,3: (1,"a Practice Bow")
-        ,4: (1,"a Wooden Club")
+        ,6002: (1,"a Wooden Sword")
+        ,6003: (1,"a Wooden Axe")
+        ,6004: (1,"a Shoestring Bow")
+        ,6005: (1,"a Practice Bow")
+        ,6006: (1,"a Wooden Club")
     }
     Armor = {
         "name": "Armor"
-        ,0: (1,"a Padded Armor")
-        ,1: (1,"a Leather Armor")
-        ,2: (1,"a Studded Leather Armor")
-        ,3: (1,"a Hide Armor")
-        ,4: (1,"a Padded Helmet")
-    }
-    Misc = {
-        "name": "Misc"
-        ,0: (1,"a Cool Rock")
-        ,1: (1,"a Normal Rock")
-        ,2: (1,"an Actively Un-cool Rock")
+        ,7002: (1,"a Padded Armor")
+        ,7003: (1,"a Leather Armor")
+        ,7004: (1,"a Studded Leather Armor")
+        ,7005: (1,"a Hide Armor")
+        ,7006: (1,"a Padded Helmet")
     }
     Consumable = {
         "name": "Consumable"
-        ,0: (1,"a Minor Healing Potion")
-        ,1: (1,"a Gunpowder Bomb")
-        ,2: (1,"a Molotov Cocktail")
+        ,8002: (1,"a Minor Healing Potion")
+        ,8003: (1,"a Gunpowder Bomb")
+        ,8004: (1,"a Molotov Cocktail")
+    }
+    Misc = {
+        "name": "Misc"
+        ,9002: (1,"a Cool Rock")
+        ,9003: (1,"a Normal Rock")
+        ,9004: (1,"an Actively Un-cool Rock")
     }
     Item = {
         "name": "Item"
-        ,0: (2,Weapon)
-        ,1: (1,Armor)
-        ,2: (5,Consumable)
-        ,3: (2,Misc)
+        ,6001: (2,Weapon)
+        ,7001: (1,Armor)
+        ,8001: (5,Consumable)
+        ,9001: (2,Misc)
     }
 
     discTable = {
         "name": "Discovery"
-        ,0: (1,Quest)
-        ,1: (1,'nothing....... better luck next time')
-        ,2: (1,Encounter)
-        ,3: (10,Item)
+        ,0: (1,'nothing....... better luck next time')
+        ,1000: (1,Quest)
+        ,3000: (1,Encounter)
+        ,6000: (10,Item)
     }
     def generateTable(self,seed_input,probTable_input=discTable):
         
@@ -82,15 +83,11 @@ class discovery:
             if type(key) == int:
                 totalProb += val[0]
         seed = (abs(hash(seed_input))%(totalProb))
-        # print(f'\ntotalProb: {totalProb}')
-        # print(f"SEED: {seed}, probtable: {probTable}")
 
         seedTicker = seed
         if totalProb >= 0:
             for key,val in probTable.items():
-                # print(f"Key: {key}, Val: {val}")
-                # print(f"seedTicker -= val[0] --> {seedTicker} - {val[0]}")
-                if type(key) == int:
+               if type(key) == int:
                     seedTicker -= val[0]
                             
                     if seedTicker < 0:
@@ -102,7 +99,8 @@ class discovery:
                         
                         # self.printDiscovery(probTable[key][1],probTable['name'])
                         self.fetchDiscovery(key,probTable['name'])
-                        self.addtoInventory(key,probTable['name'])
+                        pI = playerInventory.PlayerInventory()
+                        pI.addToInventory(key,probTable['name'])
                         return key,probTable['name']
                     else:
                         pass
@@ -149,43 +147,7 @@ class discovery:
                 print('Database connection terminated.')
             # print(f"fetch: {selectDiscovery}")
             return selectDiscovery
-    def addToInventory(self,discovery,table):
-        table_index = ["Weapon","Armor","Consumable","Misc"]
-        conn = None
-        selectDiscovery = None
-        try:
-
-            params = config()
-            conn = psycopg2.connect(**params)
-            # create a cursor
-            cur = conn.cursor()
-            # cur.execute("SELECT pg_is_in_recovery();")
-            # print(cur.fetchall())
-            
-            insertScript = f"""
-            SELECT id FROM playerInventory WHERE itemID = {table_index.index(table)} AND itemDetailID = {discovery}
-
-
-            INSERT INTO playerInventory (id, itemID, itemDetailID, count)
-
-            SELECT *
-            FROM {table}
-            WHERE id = {discovery}
-            ON DUPLICATE 
-            """
-            cur.execute(selectScript)
-            conn.commit()
-            selectDiscovery = cur.fetchall()
-            cur.close()
-
-        except(Exception, psycopg2.DatabaseError) as error:
-            print(error)
-        finally:
-            if conn is not None:
-                conn.close()
-                print('Database connection terminated.')
-            # print(f"fetch: {selectDiscovery}")
-            return selectDiscovery
+    
         
 
 
@@ -303,11 +265,11 @@ class DiscoveryQuest(DiscoveryInstance):
         self.description = infoList[2]
         self.goal = infoList[3]
 
-class PlayerInventory:
-    def addToInventory(self,table,itemID):
-        pass
-    def removeFromInventory(self,table,itemID):
-        pass
+# class PlayerInventory:
+#     def addToInventory(self,table,itemID):
+#         pass
+#     def removeFromInventory(self,table,itemID):
+#         pass
 
 def main():
     # gen = discovery()

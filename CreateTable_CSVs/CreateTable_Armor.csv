@@ -1,6 +1,6 @@
-_id int|title varchar(255)|description varchar(255)|category varchar(255)|bodySlot varchar(255)|value int|acVal int|dexBonusMax int|strReq int|stealthDisadvantage boolean|statBonus varchar(512)
-0|'Padded Armor'|'Nice job wrapping 1-ply toilet paper around you, bub'|'light'|'core'|12|11|2|-1|TRUE|''
-1|'Leather Armor'|'Hopefully you fair better than the cow'|'light'|'core'|25|11|-1|-1|FALSE|''
-2|'Studded Leather Armor'|'I like the spikes, I didn''t know there was a Hot Topic near here'|'light'|'core'|100|12|-1|-1|FALSE|''
-3|'Hide Armor'|'I guess this is different from leather?'|'medium'|'core'|25|12|2|-1|FALSE|''
-4|'Padded Helmet'|'Choosing to bring a baseball cap to a swordfight is an interesting move'|'light'|'head'|8|0|0|-1|FALSE|''
+_id varchar(255)|title varchar(255)|description varchar(255)|category varchar(255)|bodySlot varchar(255)|value int|acVal int|dexBonusMax int|strReq int|stealthDisadvantage boolean|statBonus varchar(512)
+'8ebd2fb9c3e8de71906500275f2b1a74a953e40a14e4a9a3e6ec8cf00e4d309f'|'Padded Armor'|'Nice job wrapping 1-ply toilet paper around you, bub'|'light'|'core'|12|11|2|-1|TRUE|''
+'c0630e1c5a22d72dd9d1fab565a4df720fa95223613f74f0e23b5448d42bd212'|'Leather Armor'|'Hopefully you fair better than the cow'|'light'|'core'|25|11|-1|-1|FALSE|''
+'8c895bc8e01e925c4f5a6a039d749e1e7741649c133ddf3d015ebf8c6dcc3694'|'Studded Leather Armor'|'I like the spikes, I didn''t know there was a Hot Topic near here'|'light'|'core'|100|12|-1|-1|FALSE|''
+'eaf9268749eeb31f211bff0c242b01c8298e7ee18f6b23bc465df75ff3097cef'|'Hide Armor'|'I guess this is different from leather?'|'medium'|'core'|25|12|2|-1|FALSE|''
+'e2c908a912f233412a13a8d0840fcc43f90c0dfe4fb5e464982d0fbfb2190337'|'Padded Helmet'|'Choosing to bring a baseball cap to a swordfight is an interesting move'|'light'|'head'|8|0|0|-1|FALSE|''

@@ -1,4 +1,4 @@
-_id int|title varchar(255)|description varchar(255)|value int
-0|'Cool Rock'|'That''s a cool rock'|3
-1|'Normal Rock'|'That''s a rock'|1
-2|'Actively Un-cool Rock'|'You thought that was worth picking up? You disgust me'|0
+_id varchar(255)|title varchar(255)|description varchar(255)|value int
+'b5328d80569c6948118af71010f75be79bc799c087d74f6ea6d1f253c1ff6390'|'Cool Rock'|'That''s a cool rock'|3
+'49e5fa467f862c14356a7fa1bd38b32b61bb919729dc574e100b7e5420ce7e52'|'Normal Rock'|'That''s a rock'|1
+'0f2865ed0cc1daa68b03955df8e921660364dbacef3b74c249f6838cb77bc6dd'|'Actively Un-cool Rock'|'You thought that was worth picking up? You disgust me'|0

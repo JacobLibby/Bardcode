@@ -1,4 +1,4 @@
-_id int|tableName varchar(255)
-0|'Quest'
-1|'Encounter'
-2|'Item'
+_id varchar(255)|tableName varchar(255)
+'9f7cae0cab63d80deaad8856b0c223ad4b8c9976191bc3cb570954d03b5c29cd'|'Quest'
+'38c2c95fda3a994bcc1d58bce99803b0e7e345cf8d552a8da108c53a368114cc'|'Encounter'
+'9c97282b81c28b5c03c6b3bbb01dc24c23d5f523fe5cef519fb495ec6d61e9b6'|'Item'

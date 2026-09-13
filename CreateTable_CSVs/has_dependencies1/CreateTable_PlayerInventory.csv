@@ -1,6 +1,6 @@
-_id int|__itemID int|itemDetailID int|count int|equipped boolean
-0,0,0,1,True
-1,0,1,2,False
-2,1,3,1,True
-3,0,2,1,False
-4,3,0,3,False
+_id varchar(255)|__itemID int|itemDetailID int|count int|equipped boolean
+'cb11ca3e3c64e0a85adac855f5de28d0bc11702696c0ab4e3155038ce04d687b'|0|0|1|True
+'8c230b914b976786a264c8e85f9d3137dde1e9988320e0148515ce04322a8a66'|0|1|2|False
+'220988843f5779b46a898d21a5817a9c1332d2042edb290ac5c6d7cc1cfdc547'|1|3|1|True
+'4555b2f9dabfafa436607ca714100297961d742ec7faa67001501bcaf4eeae3c'|0|2|1|False
+'37d70638aefd1bd7938ae16baa49962428aabd73a0f08584a218f3be004b3407'|3|0|3|False

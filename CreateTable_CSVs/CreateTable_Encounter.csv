@@ -1,3 +1,3 @@
-_id int|name varchar(255)|description varchar(510)
-0|'Humble Shopkeep'|'Greetings wary Traveller, feel free to browse my inventory as I do the same.'
-1|'Potion Seller'|'Hmmmm.'
+_id varchar(255)|name varchar(255)|description varchar(510)
+'3cc645231b061098c09adbdfeb98980697421d10070d074df5301af7c6887153'|'Humble Shopkeep'|'Greetings wary Traveller, feel free to browse my inventory as I do the same.'
+'a17eec10480e6eedae33cd675e5fdf40b7c1bdacd9eddebff8574fb1784e924c'|'Potion Seller'|'Hmmmm.'

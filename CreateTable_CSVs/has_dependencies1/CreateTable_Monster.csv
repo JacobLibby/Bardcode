@@ -1,4 +1,4 @@
-_id int|species varchar(255)|name varchar(255)|__weaponID int|conversations varchar(4000)
-0|'bugbear'|'Stacy'|6|'{"-": "HEY, DIE"}'
-1|'bugbear'|'Sticky'|6|'{"-": "HEY, DIE"}'
-2|'bugbear'|'Stinky'|6|'{"-": "HEY, DIE"}'
+_id varchar(255)|species varchar(255)|name varchar(255)|__weaponID int|conversations varchar(4000)
+'e0dbab0d9787e41dc28c89c15bdd39be0e56fc6044e91abb7ac6ff283515b69f'|'bugbear'|'Stacy'|6|'{''-'': ''HEY, DIE''}'
+'54e62f580ddf967d91f40a73866193389ab947c3d3935bbf6406401420afa672'|'bugbear'|'Sticky'|6|'{''-'': ''HEY, DIE''}'
+'0b78773d367fe6143c779599f705e3c969a11554424c4df74581f4ab5ce692e2'|'bugbear'|'Stinky'|6|'{''-'': ''HEY, DIE''}'
