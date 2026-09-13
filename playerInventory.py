@@ -17,9 +17,6 @@ class PlayerInventory:
     def fetchInventoryDetail(self):
         select_script = "SELECT * FROM playerInventory"
         sql = """
-        SELECT pi.id, i.tablename, pi.count, pi.equipped FROM playerInventory pi
-        LEFT JOIN item i ON pi.itemID i.id
-
         SELECT
         pi.id
         , CASE 
@@ -112,6 +109,44 @@ class PlayerInventory:
         return select_ret
 
     def addToInventory(self,table,itemID):
+        table_index = ["Weapon","Armor","Consumable","Misc"]
+        conn = None
+        selectDiscovery = None
+        try:
+
+            params = config()
+            conn = psycopg2.connect(**params)
+            # create a cursor
+            cur = conn.cursor()
+            # cur.execute("SELECT pg_is_in_recovery();")
+            # print(cur.fetchall())
+            
+            insertScript = f"""
+            SELECT id FROM playerInventory WHERE itemID = {table_index.index(table)} AND itemDetailID = {itemID}
+
+
+            INSERT INTO playerInventory (id, itemID, itemDetailID, count)
+
+            SELECT *
+            FROM {table}
+            WHERE id = {itemID}
+            ON DUPLICATE 
+            """
+            cur.execute(insertScript)
+            conn.commit()
+            selectDiscovery = cur.fetchall()
+            cur.close()
+            print(f"successfully completed 'try' block in playerInventory.addToInventory()")
+        except(Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection terminated.')
+            # print(f"fetch: {selectDiscovery}")
+            return selectDiscovery
+        
+        
         pass
 
     def removeFromInventory(self,table,itemID):

@@ -1,6 +1,7 @@
 import psycopg2
 from config import config
 from abc import ABC, abstractmethod
+import playerInventory
 import logging
 logger = logging.getLogger(__name__)
 
@@ -102,7 +103,8 @@ class discovery:
                         
                         # self.printDiscovery(probTable[key][1],probTable['name'])
                         self.fetchDiscovery(key,probTable['name'])
-                        self.addtoInventory(key,probTable['name'])
+                        pI = playerInventory.PlayerInventory()
+                        pI.addToInventory(key,probTable['name'])
                         return key,probTable['name']
                     else:
                         pass
@@ -149,43 +151,43 @@ class discovery:
                 print('Database connection terminated.')
             # print(f"fetch: {selectDiscovery}")
             return selectDiscovery
-    def addToInventory(self,discovery,table):
-        table_index = ["Weapon","Armor","Consumable","Misc"]
-        conn = None
-        selectDiscovery = None
-        try:
+    # def addToInventory(self,discovery,table):
+    #     table_index = ["Weapon","Armor","Consumable","Misc"]
+    #     conn = None
+    #     selectDiscovery = None
+    #     try:
 
-            params = config()
-            conn = psycopg2.connect(**params)
-            # create a cursor
-            cur = conn.cursor()
-            # cur.execute("SELECT pg_is_in_recovery();")
-            # print(cur.fetchall())
+    #         params = config()
+    #         conn = psycopg2.connect(**params)
+    #         # create a cursor
+    #         cur = conn.cursor()
+    #         # cur.execute("SELECT pg_is_in_recovery();")
+    #         # print(cur.fetchall())
             
-            insertScript = f"""
-            SELECT id FROM playerInventory WHERE itemID = {table_index.index(table)} AND itemDetailID = {discovery}
+    #         insertScript = f"""
+    #         SELECT id FROM playerInventory WHERE itemID = {table_index.index(table)} AND itemDetailID = {discovery}
 
 
-            INSERT INTO playerInventory (id, itemID, itemDetailID, count)
+    #         INSERT INTO playerInventory (id, itemID, itemDetailID, count)
 
-            SELECT *
-            FROM {table}
-            WHERE id = {discovery}
-            ON DUPLICATE 
-            """
-            cur.execute(selectScript)
-            conn.commit()
-            selectDiscovery = cur.fetchall()
-            cur.close()
+    #         SELECT *
+    #         FROM {table}
+    #         WHERE id = {discovery}
+    #         ON DUPLICATE 
+    #         """
+    #         cur.execute(selectScript)
+    #         conn.commit()
+    #         selectDiscovery = cur.fetchall()
+    #         cur.close()
 
-        except(Exception, psycopg2.DatabaseError) as error:
-            print(error)
-        finally:
-            if conn is not None:
-                conn.close()
-                print('Database connection terminated.')
-            # print(f"fetch: {selectDiscovery}")
-            return selectDiscovery
+    #     except(Exception, psycopg2.DatabaseError) as error:
+    #         print(error)
+    #     finally:
+    #         if conn is not None:
+    #             conn.close()
+    #             print('Database connection terminated.')
+    #         # print(f"fetch: {selectDiscovery}")
+    #         return selectDiscovery
         
 
 
