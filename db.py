@@ -261,8 +261,13 @@ def selectDiscovery(discoveryKey,discoveryTable):
     return False #STOP running code, testing CreateTable_CSVs
 
 if __name__ == "__main__":
-    drop_tables(['encounternpc','monster','npc','playerinventory','scanned','Weapon','Armor','Consumable','discovery','encounter','item','misc','quest'])
+    main()
+    # drop_tables(['encounternpc','monster','npc','playerinventory','scanned','Weapon','Armor','Consumable','discovery','encounter','item','misc','quest'])
     # drop_tables(['Weapon','Armor','Consumable','discovery','encounter','item','misc','quest'])
-    connect('CreateTable_CSVs')
-    connect('CreateTable_CSVs\\has_dependencies1')
-    connect('CreateTable_CSVs\\has_dependencies2')
+    # connect('CreateTable_CSVs')
+    # connect('CreateTable_CSVs\\has_dependencies1')
+    # connect('CreateTable_CSVs\\has_dependencies2')
+
+def main():
+    #lilBobby
+    print('lil'' bobby drop tables')

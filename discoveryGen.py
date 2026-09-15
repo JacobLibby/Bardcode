@@ -8,47 +8,54 @@ import playerInventory
 class discovery:
     Quest = {
         "name": "Quest"
-        ,1002: (1,"a QUEST! You must Kill 10 monsters")
-        ,1003: (1,"a QUEST! You must kill 1 monster in 1 hit")
+        ,'6ddedb89f6a1a2741b70ada74ba100d345310de3f50fb387590cbbe3c0d12aae': (1,"KILL KILL KILL")
+        ,'473fc7cff56505f60f49479154f7bd172bd7dfe05d0ca4d915b0c8e51c1dc798': (1,"You''re RICH! .....for an amoeba")
+        ,'2e1cbda90b2636f4fdfd16261ab8ccb1233f174cd72f32144bce53aeb331381e': (1,"We had a good run")
     }
     Encounter = {
         "name": "Encounter"
-        ,3002: (1,"an ENCOUNTER!")
+        ,'3cc645231b061098c09adbdfeb98980697421d10070d074df5301af7c6887153': (1, 'Humble Shopkeep')
+        ,'a17eec10480e6eedae33cd675e5fdf40b7c1bdacd9eddebff8574fb1784e924c': (1, 'Potion Seller')
     }
     Weapon = {
         "name": "Weapon"
-        ,6002: (1,"a Wooden Sword")
-        ,6003: (1,"a Wooden Axe")
-        ,6004: (1,"a Shoestring Bow")
-        ,6005: (1,"a Practice Bow")
-        ,6006: (1,"a Wooden Club")
+        ,'f39bc858dd349745fa035664d0c63cea28d00937caaf8ab93ffb32b75973d974': (1, "a Wooden Sword")
+        ,'0dad16b82c9c0e85d5e3bcbbef61ed013d30c9667b14a0981896faf66cfd7f18': (1, "a Wooden Axe")
+        ,'a62a4aed9d38c9268ef877baf39addc378106c4b9208291e66614d7a4dfbd8da': (1, "a Shoestring Bow")
+        ,'7eb4e2866c9dfd71ef78ff533049ad511c649924d16e9d16f98da5a0c0f07cdb': (1, "a Practice Bow")
+        ,'f29fc08aa4313fb70bfc52d461b8e2e6eed1782cb9d8b84c764455a5da616bd9': (1, "a Wooden Club")
+        ,'13995abb6fa6d0ace8215bd235c3ae2117171d139ae55c26c772ca09a5fa9031': (1, "Iron Sword")
+        ,'f5ff83b2eb20678a35dd0457333bb0f30b1ffac4c7b0eb87b58d702b4248bfd9': (1, "Iron Axe")
+        ,'e19b5d2c604425aace9ac16a35165c2d02b6db591f1c452381e71d0407eef430': (1, "Spiked Club")
+        ,'94737ed7a8bcdfea5710f5ee2c7014d7e58c888caab6aae216aacd60bcdb4222': (1, "Stick")
+
     }
     Armor = {
         "name": "Armor"
-        ,7002: (1,"a Padded Armor")
-        ,7003: (1,"a Leather Armor")
-        ,7004: (1,"a Studded Leather Armor")
-        ,7005: (1,"a Hide Armor")
-        ,7006: (1,"a Padded Helmet")
+        ,'8ebd2fb9c3e8de71906500275f2b1a74a953e40a14e4a9a3e6ec8cf00e4d309f': (1,"a Padded Armor")
+        ,'c0630e1c5a22d72dd9d1fab565a4df720fa95223613f74f0e23b5448d42bd212': (1,"a Leather Armor")
+        ,'8c895bc8e01e925c4f5a6a039d749e1e7741649c133ddf3d015ebf8c6dcc3694': (1,"a Studded Leather Armor")
+        ,'eaf9268749eeb31f211bff0c242b01c8298e7ee18f6b23bc465df75ff3097cef': (1,"a Hide Armor")
+        ,'e2c908a912f233412a13a8d0840fcc43f90c0dfe4fb5e464982d0fbfb2190337': (1,"a Padded Helmet")
     }
     Consumable = {
         "name": "Consumable"
-        ,8002: (1,"a Minor Healing Potion")
-        ,8003: (1,"a Gunpowder Bomb")
-        ,8004: (1,"a Molotov Cocktail")
+        ,'05072d07d2964cb2daf2ca5d88bc6e32780b444745af946ac99ead505fe37aa5': (1,"a Minor Healing Potion")
+        ,'3b603038d196da75d15aaf73a1b105e63e5dc75a8b4272088f1b71246012efaf': (1,"a Gunpowder Bomb")
+        ,'d292e8e04a260ebadc309c0617da61894350c39ae28cb945c23f77dc446b16a3': (1,"a Molotov Cocktail")
     }
     Misc = {
         "name": "Misc"
-        ,9002: (1,"a Cool Rock")
-        ,9003: (1,"a Normal Rock")
-        ,9004: (1,"an Actively Un-cool Rock")
+        ,'b5328d80569c6948118af71010f75be79bc799c087d74f6ea6d1f253c1ff6390': (1,"a Cool Rock")
+        ,'49e5fa467f862c14356a7fa1bd38b32b61bb919729dc574e100b7e5420ce7e52': (1,"a Normal Rock")
+        ,'0f2865ed0cc1daa68b03955df8e921660364dbacef3b74c249f6838cb77bc6dd': (1,"an Actively Un-cool Rock")
     }
     Item = {
         "name": "Item"
-        ,6001: (2,Weapon)
-        ,7001: (1,Armor)
-        ,8001: (5,Consumable)
-        ,9001: (2,Misc)
+        ,'d56ef73153d98add091bfb2d51f0a0947e86af70a74c5ebea46c273f039fc5b3': (2,Weapon)
+        ,'0b3c88385e7ab701236d9e7e1bb8974a4cdd315bcd5cee13d2957cc28c8d74d3': (1,Armor)
+        ,'bccdab060fd35ba292271c9d10ef5aecdebce64defb1cbbdac3c5b566539fd42': (5,Consumable)
+        ,'484f5b5a0173e7d27d10ffd160e8a5423ad2583d035af7d9287716efa285dff3': (2,Misc)
     }
 
     discTable = {
@@ -80,14 +87,18 @@ class discovery:
         probTable = probTable_input
         totalProb = 0
         for key,val in probTable.items():
-            if type(key) == int:
+            if type(val) == tuple:
+                print(f"key: {key}, val: {val}")
                 totalProb += val[0]
+        print(str(probTable.items()) + '\n')
         seed = (abs(hash(seed_input))%(totalProb))
 
         seedTicker = seed
         if totalProb >= 0:
             for key,val in probTable.items():
-               if type(key) == int:
+               print(f"=-=-=-=-=-=   seedTicker: {seedTicker}")
+               print(f"----key: {key}, val: {val}")
+               if type(val) == tuple:
                     seedTicker -= val[0]
                             
                     if seedTicker < 0:
@@ -98,14 +109,19 @@ class discovery:
                         #found it
                         
                         # self.printDiscovery(probTable[key][1],probTable['name'])
+                        print(0)
                         self.fetchDiscovery(key,probTable['name'])
+                        print(1)
                         pI = playerInventory.PlayerInventory()
-                        pI.addToInventory(key,probTable['name'])
+                        print(2)
+                        # pI.addToInventory(key,probTable['name'])
+                        print(3)
+                        print("print(key, probTable['name'])")
+                        print(key, probTable['name'])
                         return key,probTable['name']
-                    else:
-                        pass
                     
-            return "result?"
+                    
+            return "result?", "result?2"
             
         return (f"Empty prob table: {probTable}")
     def printDiscovery(self,discovery,table):
@@ -132,8 +148,9 @@ class discovery:
             selectScript = f"""
             SELECT *
             FROM {discoveryTable}
-            WHERE id = {discoveryID}
+            WHERE id = '{discoveryID}'
             """
+            print(f"=======fetchDiscovery..selectScript: {selectScript}")
             cur.execute(selectScript)
             conn.commit()
             selectDiscovery = cur.fetchall()
@@ -156,7 +173,7 @@ class DiscoveryInstance(ABC):
     pass
 
 class DiscoveryWeapon(DiscoveryInstance):
-    id = -1
+    id = ""
     title = ""
     description = ""
     category = ""
@@ -178,7 +195,7 @@ class DiscoveryWeapon(DiscoveryInstance):
     
 
 class DiscoveryArmor(DiscoveryInstance):
-    id = -1
+    id = ""
     title = ""
     description = ""
     category = ""
@@ -205,7 +222,7 @@ class DiscoveryArmor(DiscoveryInstance):
         self.statBonus = infoList[10]
 
 class DiscoveryConsumable(DiscoveryInstance):
-    id = -1
+    id = ""
     title = ""
     description = ""
     category = ""
@@ -226,7 +243,7 @@ class DiscoveryConsumable(DiscoveryInstance):
         self.status = infoList[7]
 
 class DiscoveryEncounter(DiscoveryInstance):
-    id = -1
+    id = ""
     name = ""
     description = ""
 
@@ -239,7 +256,7 @@ class DiscoveryEncounter(DiscoveryInstance):
 
 
 class DiscoveryMisc(DiscoveryInstance):
-    id = -1
+    id = ""
     title = ""
     description = ""
     value = -1
@@ -253,7 +270,7 @@ class DiscoveryMisc(DiscoveryInstance):
 
 
 class DiscoveryQuest(DiscoveryInstance):
-    id = -1
+    id = ""
     title = ""
     description = ""
     goal = ""
