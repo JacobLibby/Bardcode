@@ -227,22 +227,22 @@ class BoxLayoutExample(BoxLayout):
         fetchD = gen.fetchDiscovery(discoveryName, discoveryTable)
         print(fetchD)
         # print(*fetchD)
-        if discoveryTable == 'Weapon':
+        if discoveryTable == 'weapon':
             dI = discoveryGen.DiscoveryWeapon(*fetchD)
             self.validated_text = (f'CONGRATS, you found a new weapon, a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
-        elif discoveryTable == 'Armor':
+        elif discoveryTable == 'armor':
             dI = discoveryGen.DiscoveryArmor(*fetchD)
             self.validated_text = (f'CONGRATS, you found some new armor, a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
-        elif discoveryTable == 'Consumable':
+        elif discoveryTable == 'consumable':
             dI = discoveryGen.DiscoveryConsumable(*fetchD)
             self.validated_text = (f'CONGRATS, you found some consumables, a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
-        elif discoveryTable == 'Misc':
+        elif discoveryTable == 'misc':
             dI = discoveryGen.DiscoveryMisc(*fetchD)
             self.validated_text = (f'CONGRATS, you found a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
-        elif discoveryTable == 'Quest':
+        elif discoveryTable == 'quest':
             dI = discoveryGen.DiscoveryQuest(*fetchD)
             self.validated_text = (f'WOAH, you found the quest: [color=00ffff]{dI.title}[/color]!\n\n{dI.description}')
-        elif discoveryTable == 'Encounter':
+        elif discoveryTable == 'encounter':
             dI = discoveryGen.DiscoveryEncounter(*fetchD)
             self.validated_text = (f'You stumble upon [color=ff00ff]{dI.name}[/color]!\n\n{dI.description}, I should make the Encounter and referenced tables')
         else:

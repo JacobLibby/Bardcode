@@ -6,19 +6,19 @@ logger = logging.getLogger(__name__)
 import playerInventory
 
 class discovery:
-    Quest = {
-        "name": "Quest"
+    quest = {
+        "name": "quest"
         ,'6ddedb89f6a1a2741b70ada74ba100d345310de3f50fb387590cbbe3c0d12aae': (1,"KILL KILL KILL")
         ,'473fc7cff56505f60f49479154f7bd172bd7dfe05d0ca4d915b0c8e51c1dc798': (1,"You''re RICH! .....for an amoeba")
         ,'2e1cbda90b2636f4fdfd16261ab8ccb1233f174cd72f32144bce53aeb331381e': (1,"We had a good run")
     }
-    Encounter = {
-        "name": "Encounter"
+    encounter = {
+        "name": "encounter"
         ,'3cc645231b061098c09adbdfeb98980697421d10070d074df5301af7c6887153': (1, 'Humble Shopkeep')
         ,'a17eec10480e6eedae33cd675e5fdf40b7c1bdacd9eddebff8574fb1784e924c': (1, 'Potion Seller')
     }
-    Weapon = {
-        "name": "Weapon"
+    weapon = {
+        "name": "weapon"
         ,'f39bc858dd349745fa035664d0c63cea28d00937caaf8ab93ffb32b75973d974': (1, "a Wooden Sword")
         ,'0dad16b82c9c0e85d5e3bcbbef61ed013d30c9667b14a0981896faf66cfd7f18': (1, "a Wooden Axe")
         ,'a62a4aed9d38c9268ef877baf39addc378106c4b9208291e66614d7a4dfbd8da': (1, "a Shoestring Bow")
@@ -30,40 +30,40 @@ class discovery:
         ,'94737ed7a8bcdfea5710f5ee2c7014d7e58c888caab6aae216aacd60bcdb4222': (1, "Stick")
 
     }
-    Armor = {
-        "name": "Armor"
+    armor = {
+        "name": "armor"
         ,'8ebd2fb9c3e8de71906500275f2b1a74a953e40a14e4a9a3e6ec8cf00e4d309f': (1,"a Padded Armor")
         ,'c0630e1c5a22d72dd9d1fab565a4df720fa95223613f74f0e23b5448d42bd212': (1,"a Leather Armor")
         ,'8c895bc8e01e925c4f5a6a039d749e1e7741649c133ddf3d015ebf8c6dcc3694': (1,"a Studded Leather Armor")
         ,'eaf9268749eeb31f211bff0c242b01c8298e7ee18f6b23bc465df75ff3097cef': (1,"a Hide Armor")
         ,'e2c908a912f233412a13a8d0840fcc43f90c0dfe4fb5e464982d0fbfb2190337': (1,"a Padded Helmet")
     }
-    Consumable = {
-        "name": "Consumable"
+    consumable = {
+        "name": "consumable"
         ,'05072d07d2964cb2daf2ca5d88bc6e32780b444745af946ac99ead505fe37aa5': (1,"a Minor Healing Potion")
         ,'3b603038d196da75d15aaf73a1b105e63e5dc75a8b4272088f1b71246012efaf': (1,"a Gunpowder Bomb")
         ,'d292e8e04a260ebadc309c0617da61894350c39ae28cb945c23f77dc446b16a3': (1,"a Molotov Cocktail")
     }
-    Misc = {
-        "name": "Misc"
+    misc = {
+        "name": "misc"
         ,'b5328d80569c6948118af71010f75be79bc799c087d74f6ea6d1f253c1ff6390': (1,"a Cool Rock")
         ,'49e5fa467f862c14356a7fa1bd38b32b61bb919729dc574e100b7e5420ce7e52': (1,"a Normal Rock")
         ,'0f2865ed0cc1daa68b03955df8e921660364dbacef3b74c249f6838cb77bc6dd': (1,"an Actively Un-cool Rock")
     }
-    Item = {
-        "name": "Item"
-        ,'d56ef73153d98add091bfb2d51f0a0947e86af70a74c5ebea46c273f039fc5b3': (2,Weapon)
-        ,'0b3c88385e7ab701236d9e7e1bb8974a4cdd315bcd5cee13d2957cc28c8d74d3': (1,Armor)
-        ,'bccdab060fd35ba292271c9d10ef5aecdebce64defb1cbbdac3c5b566539fd42': (5,Consumable)
-        ,'484f5b5a0173e7d27d10ffd160e8a5423ad2583d035af7d9287716efa285dff3': (2,Misc)
+    item = {
+        "name": "item"
+        ,'d56ef73153d98add091bfb2d51f0a0947e86af70a74c5ebea46c273f039fc5b3': (2,weapon)
+        ,'0b3c88385e7ab701236d9e7e1bb8974a4cdd315bcd5cee13d2957cc28c8d74d3': (1,armor)
+        ,'bccdab060fd35ba292271c9d10ef5aecdebce64defb1cbbdac3c5b566539fd42': (5,consumable)
+        ,'484f5b5a0173e7d27d10ffd160e8a5423ad2583d035af7d9287716efa285dff3': (2,misc)
     }
 
     discTable = {
-        "name": "Discovery"
+        "name": "discovery"
         ,0: (1,'nothing....... better luck next time')
-        ,1000: (1,Quest)
-        ,3000: (1,Encounter)
-        ,6000: (10,Item)
+        ,1000: (1,quest)
+        ,3000: (1,encounter)
+        ,6000: (10,item)
     }
     def generateTable(self,seed_input,probTable_input=discTable):
         
@@ -96,8 +96,6 @@ class discovery:
         seedTicker = seed
         if totalProb >= 0:
             for key,val in probTable.items():
-               print(f"=-=-=-=-=-=   seedTicker: {seedTicker}")
-               print(f"----key: {key}, val: {val}")
                if type(val) == tuple:
                     seedTicker -= val[0]
                             
@@ -108,16 +106,12 @@ class discovery:
                         # print("Found it")
                         #found it
                         
-                        # self.printDiscovery(probTable[key][1],probTable['name'])
-                        print(0)
                         self.fetchDiscovery(key,probTable['name'])
-                        print(1)
-                        pI = playerInventory.PlayerInventory()
-                        print(2)
-                        # pI.addToInventory(key,probTable['name'])
-                        print(3)
-                        print("print(key, probTable['name'])")
-                        print(key, probTable['name'])
+                        if probTable['name'] in ('weapon','armor','consumable','misc'):
+
+                            pI = playerInventory.PlayerInventory()
+                            pI.addToInventory(key,probTable['name'])
+                        print(f"print(key, probTable['name']) --> {key, probTable['name']}")
                         return key,probTable['name']
                     
                     
@@ -282,11 +276,6 @@ class DiscoveryQuest(DiscoveryInstance):
         self.description = infoList[2]
         self.goal = infoList[3]
 
-# class PlayerInventory:
-#     def addToInventory(self,table,itemID):
-#         pass
-#     def removeFromInventory(self,table,itemID):
-#         pass
 
 def main():
     # gen = discovery()

@@ -14,78 +14,78 @@ class PlayerInventory:
             cls.instance = super().__new__(cls)
         return cls.instance
 
-    def fetchInventoryDetail(self):
-        select_script = "SELECT * FROM playerInventory"
-        sql = """
-        SELECT pi.id, i.tablename, pi.count, pi.equipped FROM playerInventory pi
-        LEFT JOIN item i ON pi.itemID i.id
+    # def fetchInventoryDetail(self):
+    #     select_script = "SELECT * FROM playerInventory"
+    #     sql = """
+    #     SELECT pi.id, i.tablename, pi.count, pi.equipped FROM playerInventory pi
+    #     LEFT JOIN item i ON pi.itemID i.id
 
-        SELECT
-        pi.id
-        , CASE 
-            WHEN pi.itemID = 0 THEN w.title
-            WHEN pi.itemID = 1 THEN a.title
-            WHEN pi.itemID = 2 THEN c.title
-            WHEN pi.itemID = 3 THEN m.title
-            else NULL
-        END AS title
-        , i.tablename
-        , pi.count
-        , pi.equipped
-        FROM playerInventory pi
-        LEFT JOIN item i ON pi.itemID = i.id
-        LEFT JOIN weapon w ON w.id = pi.itemDetailID
-        LEFT JOIN armor a ON a.id = pi.itemDetailID
-        LEFT JOIN consumable c ON c.id = pi.itemDetailID
-        LEFT JOIN misc m ON .id = pi.itemDetailID
-        """
-        item_table = "SELECT * FROM {} WHERE id = {}"
-        pI = {}
-        self.inventory = {}
-        select_ret = ""
-        conn = None
-        try:
-            params = config()
-            print('Connecting to PostgreSQL database')
-            conn = psycopg2.connect(**params)
+    #     SELECT
+    #     pi.id
+    #     , CASE 
+    #         WHEN pi.itemID = 0 THEN w.title
+    #         WHEN pi.itemID = 1 THEN a.title
+    #         WHEN pi.itemID = 2 THEN c.title
+    #         WHEN pi.itemID = 3 THEN m.title
+    #         else NULL
+    #     END AS title
+    #     , i.tablename
+    #     , pi.count
+    #     , pi.equipped
+    #     FROM playerInventory pi
+    #     LEFT JOIN item i ON pi.itemID = i.id
+    #     LEFT JOIN weapon w ON w.id = pi.itemID
+    #     LEFT JOIN armor a ON a.id = pi.itemID
+    #     LEFT JOIN consumable c ON c.id = pi.itemID
+    #     LEFT JOIN misc m ON m.id = pi.itemID
+    #     """
+    #     item_table = "SELECT * FROM {} WHERE id = {}"
+    #     pI = {}
+    #     self.inventory = {}
+    #     select_ret = ""
+    #     conn = None
+    #     try:
+    #         params = config()
+    #         print('Connecting to PostgreSQL database')
+    #         conn = psycopg2.connect(**params)
     
-            # create a cursor
-            cur = conn.cursor()
-            print('PostgreSQL database version: ')
-            cur.execute(select_script)
-            conn.commit()
-            select_ret = cur.fetchall()
-            cur.close()
-            print("Cursor closed.")
-        except(Exception, psycopg2.DatabaseError) as error:
-            print(error)
-        finally:
-            if conn is not None:
-                conn.close()
-                print('Database connection terminated.')
-        # print(f"fetched inventory. len={len(select_ret)}")
-        return select_ret
+    #         # create a cursor
+    #         cur = conn.cursor()
+    #         print('PostgreSQL database version: ')
+    #         cur.execute(select_script)
+    #         conn.commit()
+    #         select_ret = cur.fetchall()
+    #         cur.close()
+    #         print("Cursor closed.")
+    #     except(Exception, psycopg2.DatabaseError) as error:
+    #         print(error)
+    #     finally:
+    #         if conn is not None:
+    #             conn.close()
+    #             print('Database connection terminated.')
+    #     # print(f"fetched inventory. len={len(select_ret)}")
+    #     return select_ret
 
     def fetchInventory(self):
         select_script = """
         SELECT
         pi.id
         , CASE 
-            WHEN pi.itemID = 0 THEN w.title
-            WHEN pi.itemID = 1 THEN a.title
-            WHEN pi.itemID = 2 THEN c.title
-            WHEN pi.itemID = 3 THEN m.title
+            WHEN pi.itemCat = 'Weapon' THEN w.title
+            WHEN pi.itemCat = 'Armor' THEN a.title
+            WHEN pi.itemCat = 'Consumable' THEN c.title
+            WHEN pi.itemCat = 'Misc' THEN m.title
             else NULL
         END AS title
         , i.tablename
         , pi.count
         , pi.equipped
         FROM playerInventory pi
-        LEFT JOIN item i ON pi.itemID = i.id
-        LEFT JOIN weapon w ON w.id = pi.itemDetailID
-        LEFT JOIN armor a ON a.id = pi.itemDetailID
-        LEFT JOIN consumable c ON c.id = pi.itemDetailID
-        LEFT JOIN misc m ON m.id = pi.itemDetailID
+        LEFT JOIN item i ON i.id = pi.itemID
+        LEFT JOIN weapon w ON w.id = pi.itemID
+        LEFT JOIN armor a ON a.id = pi.itemID
+        LEFT JOIN consumable c ON c.id = pi.itemID
+        LEFT JOIN misc m ON m.id = pi.itemID
         """
         select_ret = ""
         conn = None
@@ -111,8 +111,77 @@ class PlayerInventory:
         # print(f"fetched inventory. len={len(select_ret)}")
         return select_ret
 
-    def addToInventory(self,table,itemID):
-        pass
+    def getTableCols(self,table):
+        selectScript = f"""
+        SELECT column_name
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_NAME = '{table}'
+
+        """
+        print(f"*******table: {table}")
+        print(f"*******select_script: {selectScript}")
+        select_ret = []
+        ret = ''
+        conn = None
+        try:
+            params = config()
+            print('Connecting to PostgreSQL database')
+            conn = psycopg2.connect(**params)
+
+            # create a cursor
+            cur = conn.cursor()
+            cur.execute(selectScript)
+
+            # conn.commit()
+            select_ret = cur.fetchall()
+            cur.close()
+            print("Cursor closed.")
+        except(Exception, psycopg2.DatabaseError) as error:
+            print(f"playerInventory.addToInventory --> {error}")
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection terminated.')
+        print(f"***select_ret: {select_ret}")
+        for each in select_ret:
+            ret += str(each[0]) + ','
+        ret = ret[:-1]
+        print(ret)
+        return ret, select_ret
+    
+
+    def addToInventory(self,itemID,table):
+        tableCols, tableColsArr = self.getTableCols(table)
+        if len(tableColsArr) < 3:
+            # can't normally create new ID w hash
+            pass
+            
+        # insertScript = """
+        # INSERT INTO {table}
+
+
+        # """
+        # conn = None
+        # try:
+        #     params = config()
+        #     print('Connecting to PostgreSQL database')
+        #     conn = psycopg2.connect(**params)
+
+        #     # create a cursor
+        #     cur = conn.cursor()
+        #     cur.execute(insertScript)
+
+        #     conn.commit()
+        #     select_ret = cur.fetchall()
+        #     cur.close()
+        #     print("Cursor closed.")
+        # except(Exception, psycopg2.DatabaseError) as error:
+        #     print(f"playerInventory.addToInventory --> {error}")
+        # finally:
+        #     if conn is not None:
+        #         conn.close()
+        #         print('Database connection terminated.')
+        # return select_ret
 
     def removeFromInventory(self,table,itemID):
         pass
