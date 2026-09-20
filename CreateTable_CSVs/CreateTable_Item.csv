@@ -1,5 +1,5 @@
 _id varchar(255)|tableName varchar(255)
-'d56ef73153d98add091bfb2d51f0a0947e86af70a74c5ebea46c273f039fc5b3'|'Weapon'
-'0b3c88385e7ab701236d9e7e1bb8974a4cdd315bcd5cee13d2957cc28c8d74d3'|'Armor'
-'bccdab060fd35ba292271c9d10ef5aecdebce64defb1cbbdac3c5b566539fd42'|'Consumable'
-'484f5b5a0173e7d27d10ffd160e8a5423ad2583d035af7d9287716efa285dff3'|'Misc'
+'d56ef73153d98add091bfb2d51f0a0947e86af70a74c5ebea46c273f039fc5b3'|'weapon'
+'0b3c88385e7ab701236d9e7e1bb8974a4cdd315bcd5cee13d2957cc28c8d74d3'|'armor'
+'bccdab060fd35ba292271c9d10ef5aecdebce64defb1cbbdac3c5b566539fd42'|'consumable'
+'484f5b5a0173e7d27d10ffd160e8a5423ad2583d035af7d9287716efa285dff3'|'misc'

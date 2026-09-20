@@ -265,7 +265,7 @@ def selectDiscovery(discoveryKey,discoveryTable):
 def main():
     #lilBobby
     print('lil'' bobby drop tables')
-    drop_tables(['PlayerInventory'])
+    # drop_tables(['PlayerInventory','Item'])
     connect('CreateTable_CSVs')
     connect('CreateTable_CSVs\\has_dependencies1')
     connect('CreateTable_CSVs\\has_dependencies2')
