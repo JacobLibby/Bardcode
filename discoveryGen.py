@@ -88,9 +88,9 @@ class discovery:
         totalProb = 0
         for key,val in probTable.items():
             if type(val) == tuple:
-                print(f"key: {key}, val: {val}")
+                # print(f"key: {key}, val: {val}")
                 totalProb += val[0]
-        print(str(probTable.items()) + '\n')
+        # print(str(probTable.items()) + '\n')
         seed = (abs(hash(seed_input))%(totalProb))
 
         seedTicker = seed
@@ -108,10 +108,10 @@ class discovery:
                         
                         self.fetchDiscovery(key,probTable['name'])
                         if probTable['name'] in ('weapon','armor','consumable','misc'):
-
+                            print(f"++++++++++++discoveryGent.discovery.generateTable()")
                             pI = playerInventory.PlayerInventory()
                             pI.addToInventory(key,probTable['name'])
-                        print(f"print(key, probTable['name']) --> {key, probTable['name']}")
+                        # print(f"print(key, probTable['name']) --> {key, probTable['name']}")
                         return key,probTable['name']
                     
                     
@@ -144,7 +144,7 @@ class discovery:
             FROM {discoveryTable}
             WHERE id = '{discoveryID}'
             """
-            print(f"=======fetchDiscovery..selectScript: {selectScript}")
+            # print(f"=======fetchDiscovery..selectScript: {selectScript}")
             cur.execute(selectScript)
             conn.commit()
             selectDiscovery = cur.fetchall()

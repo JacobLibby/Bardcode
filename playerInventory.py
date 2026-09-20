@@ -1,6 +1,7 @@
 import psycopg2
 from config import config
 from abc import ABC, abstractmethod
+import hashlib
 import logging
 logger = logging.getLogger(__name__)
 
@@ -144,37 +145,106 @@ class PlayerInventory:
     
 
     def addToInventory(self,itemID,table):
+        """
+        if itemID in playerInventory
+            increment count by 1 -- later by itemCount?
+        else: -- if itemID not in playerInventory
+            insert into playerInventory:
+                itemID = itemID
+                itemCat = table
+                id = hash(table, "'" + str(itemID) + "''" + str(itemCat) + "'")
+                count = 1
+                equipped = False
+        """
         tableCols, tableColsArr = self.getTableCols(table)
+        piTableCols, piTableColsArr = self.getTableCols('playerinventory')
+
         if len(tableColsArr) < 3:
+            print(f"+++++++len(tableColsArr) < 3")
             # can't normally create new ID w hash
-            pass
-            
-        # insertScript = """
-        # INSERT INTO {table}
+            return False
 
-
+        # selectScriptHashVals = f"""
+        # SELECT {tableColsArr[1][0]},{tableColsArr[2][0]}
+        # FROM {table}
+        # WHERE id = '{itemID}'
         # """
-        # conn = None
-        # try:
-        #     params = config()
-        #     print('Connecting to PostgreSQL database')
-        #     conn = psycopg2.connect(**params)
+        selectScriptInventory = f"""
+        SELECT *
+        FROM PlayerInventory
+        WHERE itemID = '{itemID}'
+                    """
 
-        #     # create a cursor
-        #     cur = conn.cursor()
-        #     cur.execute(insertScript)
+        conn = None
+        try:
+            params = config()
+            print('Connecting to PostgreSQL database')
+            conn = psycopg2.connect(**params)
 
-        #     conn.commit()
-        #     select_ret = cur.fetchall()
-        #     cur.close()
-        #     print("Cursor closed.")
-        # except(Exception, psycopg2.DatabaseError) as error:
-        #     print(f"playerInventory.addToInventory --> {error}")
-        # finally:
-        #     if conn is not None:
-        #         conn.close()
-        #         print('Database connection terminated.')
-        # return select_ret
+            # create a cursor
+            cur = conn.cursor()
+            cur.execute(selectScriptInventory)
+            conn.commit()
+            selectScriptInventory_ret = cur.fetchall()
+
+            inventoryScript = ''
+            if selectScriptInventory_ret:
+                # item is already in inventory --> increment count
+                print(f"+++++++INCREMENT COUNT OF ITEM IN INVENTORY")
+                inventoryScript = f"""
+                UPDATE {'PlayerInventory'}
+                SET count = count + 1
+                WHERE itemID = '{itemID}'
+                """
+
+                pass
+            else:
+                # item is not in inventory --> add to inventory
+                playerInventoryID = hashlib.sha256(bytes('PlayerInventory' + "'" + str(itemID) + "''" + str(table) + "'","utf-8")).hexdigest()
+                print(f"++++++++ADD ITEM TO INVENTORY")
+                inventoryScript = f"""
+                INSERT INTO PlayerInventory 
+                VALUES ('{str(playerInventoryID)}','{itemID}','{table}',1,False)
+                """
+                #({piTableCols})
+
+
+            print(inventoryScript)
+            cur.execute(inventoryScript)
+            conn.commit()
+            # inventoryScript_ret = cur.fetchall()
+            
+            cur.close()
+            print("Cursor closed.")
+            
+            hashval =""
+            hashID = hashlib.sha256(bytes(table + hashval,"utf-8")).hexdigest()
+
+            # see if already in inventory (then would need to increase count)
+            
+                
+            insertScript = """
+            INSERT INTO PlayerInventory ({piTableCols})
+            VALUES ({table})
+
+
+            """
+
+            """ OBJECTIVE: add info to csv and table
+            1. add new row to csv
+            2. add row to table ()
+            """
+
+
+            
+            
+        except(Exception, psycopg2.DatabaseError) as error:
+            print(f"+++++++++++++++++++++++++++playerInventory.addToInventory --> {error}")
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection terminated.')
+        return True #select_ret
 
     def removeFromInventory(self,table,itemID):
         pass

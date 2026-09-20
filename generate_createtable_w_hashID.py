@@ -10,8 +10,8 @@ csv.register_dialect('pipe_delim', delimiter='|', quoting=csv.QUOTE_NONE)
 def main():
 
     gen_ct_csv('CreateTable_CSVs')
-    gen_ct_csv('CreateTable_CSVs\\has_dependencies1')
-    gen_ct_csv('CreateTable_CSVs\\has_dependencies2')
+    # gen_ct_csv('CreateTable_CSVs\\has_dependencies1')
+    # gen_ct_csv('CreateTable_CSVs\\has_dependencies2')
 
 def gen_ct_csv(dir):
     temp_header = "temp_header.csv"
@@ -55,7 +55,10 @@ def gen_ct_csv(dir):
                                     elif ct > 2:
                                         break
                                 ct+=1
+                            print(f"\thash_val: {hash_val}")
+                            print(f"\tval_to_be_hashed: {table_name + hash_val}")
                             list_of_dicts[each][id_key] = "'" + hashlib.sha256(bytes(table_name + hash_val,"utf-8")).hexdigest() + "'"
+                        print(f"\t\tlist_of_dicts: {list_of_dicts}")
                         writer = csv.DictWriter(fout, reader.fieldnames, delimiter='|')
                         writer.writeheader()
                         writer.writerows(list_of_dicts)

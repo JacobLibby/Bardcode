@@ -226,6 +226,7 @@ class BoxLayoutExample(BoxLayout):
         print(discoveryName, discoveryTable)
         fetchD = gen.fetchDiscovery(discoveryName, discoveryTable)
         print(fetchD)
+        discoveredNothing = False
         # print(*fetchD)
         if discoveryTable == 'weapon':
             dI = discoveryGen.DiscoveryWeapon(*fetchD)
@@ -246,7 +247,14 @@ class BoxLayoutExample(BoxLayout):
             dI = discoveryGen.DiscoveryEncounter(*fetchD)
             self.validated_text = (f'You stumble upon [color=ff00ff]{dI.name}[/color]!\n\n{dI.description}, I should make the Encounter and referenced tables')
         else:
+            discoveredNothing = True
             self.validated_text = ('You found nothing...\n\ntry again?')
+        if discoveredNothing == False:
+            pass
+            # self.Inv.on_inv_button_click()
+            # pI = playerInventory.PlayerInventory()
+            # pI.addToInventory(dI.id, discoveryTable)
+
 
         # discoveryData = gen.fetchDiscovery(discoveryName, discoveryTable)
         # self.validated_text = discoveryData[]
