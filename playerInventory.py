@@ -80,6 +80,7 @@ class PlayerInventory:
         LEFT JOIN armor a ON a.id = pi.itemID
         LEFT JOIN consumable c ON c.id = pi.itemID
         LEFT JOIN misc m ON m.id = pi.itemID
+        ORDER BY title ASC
         """
         select_ret = ""
         conn = None

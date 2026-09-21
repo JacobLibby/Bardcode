@@ -208,6 +208,7 @@ class BoxLayoutExample(BoxLayout):
         inv = playerInventory.PlayerInventory()
         print(inv.fetchInventory())
 
+
     def on_switch_active(self,widget):
         print(f"Switch: {widget.active}")
 
