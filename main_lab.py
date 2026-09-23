@@ -53,7 +53,7 @@ class basicTemplate(BoxLayout):
         gen = discoveryGen.discovery()
         discoveryName, discoveryTable = gen.generateTable(self.validated_text)
         self.validated_text = gen.printDiscovery(discoveryName, discoveryTable)
-
+        #### NTS ^ change from printDiscovery to fetchDiscovery
         pass
 
 class WidgetExample(GridLayout):
@@ -95,6 +95,7 @@ class WidgetExample(GridLayout):
         gen = discoveryGen.discovery()
         discoveryName, discoveryTable = gen.generateTable(self.validated_text)
         self.validated_text = gen.printDiscovery(discoveryName, discoveryTable)
+        #### NTS ^ change from printDiscovery to fetchDiscovery
 
         pass
     
@@ -121,9 +122,15 @@ class StackLayoutExample(StackLayout):
             print("Show stats")
             list = ['Stats','Stats','Stats']
         self.clear_widgets()
+        color_map = {
+            'weapon': 'ffffff'
+            ,'armor': '00ffff'
+            ,'consumable': 'ff00ff'
+            ,'misc': 'ffff00'
+        }
         for each in list:
             print(each)
-            b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)))
+            b = Button(text=str(f"{str(each[1])}    count: {each[3]}"),size_hint=(1,None),size=(1,dp(40)),color=color_map[each[2]])
             self.add_widget(b)
         pass
 
@@ -224,9 +231,9 @@ class BoxLayoutExample(BoxLayout):
         self.validated_text = widget.text
         gen = discoveryGen.discovery()
         discoveryName, discoveryTable = gen.generateTable(self.validated_text)
-        print(discoveryName, discoveryTable)
+        # print(discoveryName, discoveryTable)
         fetchD = gen.fetchDiscovery(discoveryName, discoveryTable)
-        print(fetchD)
+        # print(fetchD)
         discoveredNothing = False
         # print(*fetchD)
         if discoveryTable == 'weapon':
@@ -285,7 +292,7 @@ class TheLabApp(App):
     def on_inv_button_click(self):
         print("on_inv_button_click(self)")
         inv = playerInventory.PlayerInventory()
-        print(inv.fetchInventory())
+        # print(inv.fetchInventory())
         self.activeMenu = "Inv"
     pass
 

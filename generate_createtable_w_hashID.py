@@ -55,10 +55,10 @@ def gen_ct_csv(dir):
                                     elif ct > 2:
                                         break
                                 ct+=1
-                            print(f"\thash_val: {hash_val}")
-                            print(f"\tval_to_be_hashed: {table_name + hash_val}")
+                            # print(f"\thash_val: {hash_val}")
+                            # print(f"\tval_to_be_hashed: {table_name + hash_val}")
                             list_of_dicts[each][id_key] = "'" + hashlib.sha256(bytes(table_name + hash_val,"utf-8")).hexdigest() + "'"
-                        print(f"\t\tlist_of_dicts: {list_of_dicts}")
+                        # print(f"\t\tlist_of_dicts: {list_of_dicts}")
                         writer = csv.DictWriter(fout, reader.fieldnames, delimiter='|')
                         writer.writeheader()
                         writer.writerows(list_of_dicts)

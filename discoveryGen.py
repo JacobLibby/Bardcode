@@ -108,7 +108,7 @@ class discovery:
                         
                         self.fetchDiscovery(key,probTable['name'])
                         if probTable['name'] in ('weapon','armor','consumable','misc'):
-                            print(f"++++++++++++discoveryGent.discovery.generateTable()")
+                            # print(f"++++++++++++discoveryGent.discovery.generateTable()")
                             pI = playerInventory.PlayerInventory()
                             pI.addToInventory(key,probTable['name'])
                         # print(f"print(key, probTable['name']) --> {key, probTable['name']}")
@@ -119,7 +119,7 @@ class discovery:
             
         return (f"Empty prob table: {probTable}")
     def printDiscovery(self,discovery,table):
-        print(f"FUNC printDiscovery() -- discovery: {discovery}, table: {table}")
+        # print(f"FUNC printDiscovery() -- discovery: {discovery}, table: {table}")
         if discovery == "nothing....... better luck next time":
             print("CONGRATULATIONS on finding nothing :)")
         else:

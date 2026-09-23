@@ -4,7 +4,7 @@
 remove red outline on barcode text input
 Pyside6 + Qt Quick?
 
-
+* Make inv tab and other tabs automatically refresh when something changes in db
 
 DB
 create db and connection
