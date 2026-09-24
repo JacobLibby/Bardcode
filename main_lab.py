@@ -111,27 +111,39 @@ class StackLayoutExample(StackLayout):
 
     def update(self):
         list = []
+        self.clear_widgets()
+        
         if self.showing == "Inv":
+            color_map = {
+                        'weapon': 'ffffff'
+                        ,'armor': '00ffff'
+                        ,'consumable': 'ff00ff'
+                        ,'misc': 'ffff00'
+                    }
             list = playerInventory.PlayerInventory().fetchInventory()
+            for each in list:
+                print(each)
+                b = Button(text=str(f"{str(each[1])}    count: {each[3]}"),size_hint=(1,None),size=(1,dp(40)),color=color_map[each[2]])
+                self.add_widget(b)
         elif self.showing == "Quests":
             print("Show quests")
             list = ['Quest'] 
+            for each in list:
+                print(each)
+                b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)))
+                self.add_widget(b)
             # should quests be in player inventory?
             pass
         elif self.showing == "Stats":
             print("Show stats")
             list = ['Stats','Stats','Stats']
-        self.clear_widgets()
-        color_map = {
-            'weapon': 'ffffff'
-            ,'armor': '00ffff'
-            ,'consumable': 'ff00ff'
-            ,'misc': 'ffff00'
-        }
-        for each in list:
-            print(each)
-            b = Button(text=str(f"{str(each[1])}    count: {each[3]}"),size_hint=(1,None),size=(1,dp(40)),color=color_map[each[2]])
-            self.add_widget(b)
+            for each in list:
+                print(each)
+                b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)))
+                self.add_widget(b)
+        
+        
+        
         pass
 
     def clear_widgets(self, children=None):
