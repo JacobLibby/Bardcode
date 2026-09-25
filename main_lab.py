@@ -5,6 +5,7 @@ from kivy.uix.button import Button
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.stacklayout import StackLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.metrics import dp
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.pagelayout import PageLayout
@@ -12,6 +13,8 @@ from kivy.properties import StringProperty, BooleanProperty
 import discoveryGen
 import playerInventory
 import logging
+
+from kivy.uix.label import Label
 logger = logging.getLogger(__name__)
 
 class basicTemplate(BoxLayout):
@@ -103,11 +106,19 @@ class PageLayoutExample(PageLayout):
     pass
 
 class ScrollViewExample(ScrollView):
-
     pass
+
+
+class InventoryItem(FloatLayout):
+    pass
+
 
 class StackLayoutExample(StackLayout):
     showing = "Inv"
+
+    def labelPressed(self):
+        print("Label has been pressed")
+        print(f"label '' '' has been pressed")
 
     def update(self):
         list = []
@@ -115,22 +126,43 @@ class StackLayoutExample(StackLayout):
         
         if self.showing == "Inv":
             color_map = {
-                        'weapon': 'ffffff'
-                        ,'armor': '00ffff'
-                        ,'consumable': 'ff00ff'
-                        ,'misc': 'ffff00'
+                        'weapon': 'ff0000'
+                        ,'armor': 'ffa500'
+                        ,'consumable': 'ffff00'
+                        ,'misc': '00ff00'
                     }
+            icon_map = {
+                'weapon': 'W'
+                ,'armor': 'A'
+                ,'consumable': 'C'
+                ,'misc': 'M'
+            }
             list = playerInventory.PlayerInventory().fetchInventory()
             for each in list:
                 print(each)
-                b = Button(text=str(f"{str(each[1])}    count: {each[3]}"),size_hint=(1,None),size=(1,dp(40)),color=color_map[each[2]])
-                self.add_widget(b)
+                # b.bind(on_ref_press=self.labelPressed)
+                # f = FloatLayout(size_hint=(1,None),size=(1,dp(40)))
+                b_icon = Button(text=str(f"{str(icon_map[each[2]])}"),pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
+                b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
+                b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
+
+                # f.add_widget(b_icon)
+                # f.add_widget(b_name)
+                # # f.add_widget(b_count)
+
+                # self.add_widget(f)
+                self.add_widget(b_icon)
+                self.add_widget(b_name)
+                self.add_widget(b_count)
+                # b = Button(text=str(f"{str(each[1])}    count: {each[3]}"),size_hint=(1,None),size=(1,dp(40)),background_color=color_map[each[2]])
+                # self.add_widget(b)
+                
         elif self.showing == "Quests":
             print("Show quests")
             list = ['Quest'] 
             for each in list:
                 print(each)
-                b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)))
+                b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)),background_color="0000ff")
                 self.add_widget(b)
             # should quests be in player inventory?
             pass
@@ -139,7 +171,7 @@ class StackLayoutExample(StackLayout):
             list = ['Stats','Stats','Stats']
             for each in list:
                 print(each)
-                b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)))
+                b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)),background_color="ff00ff")
                 self.add_widget(b)
         
         
@@ -205,7 +237,6 @@ class AnchorLayoutExample(AnchorLayout):
 
 
 
-
 class BoxLayoutExample(BoxLayout):
     my_text = StringProperty("How many clicks?")
     count = 0
@@ -243,26 +274,23 @@ class BoxLayoutExample(BoxLayout):
         self.validated_text = widget.text
         gen = discoveryGen.discovery()
         discoveryName, discoveryTable = gen.generateTable(self.validated_text)
-        # print(discoveryName, discoveryTable)
         fetchD = gen.fetchDiscovery(discoveryName, discoveryTable)
-        # print(fetchD)
         discoveredNothing = False
-        # print(*fetchD)
         if discoveryTable == 'weapon':
             dI = discoveryGen.DiscoveryWeapon(*fetchD)
-            self.validated_text = (f'CONGRATS, you found a new weapon, a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
+            self.validated_text = (f'CONGRATS, you found a new weapon, a [color=ff0000]{dI.title}[/color]!\n\n{dI.description}')
         elif discoveryTable == 'armor':
             dI = discoveryGen.DiscoveryArmor(*fetchD)
-            self.validated_text = (f'CONGRATS, you found some new armor, a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
+            self.validated_text = (f'CONGRATS, you found some new armor, a [color=ffa500]{dI.title}[/color]!\n\n{dI.description}')
         elif discoveryTable == 'consumable':
             dI = discoveryGen.DiscoveryConsumable(*fetchD)
-            self.validated_text = (f'CONGRATS, you found some consumables, a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
+            self.validated_text = (f'CONGRATS, you found some consumables, a [color=ffff00]{dI.title}[/color]!\n\n{dI.description}')
         elif discoveryTable == 'misc':
             dI = discoveryGen.DiscoveryMisc(*fetchD)
-            self.validated_text = (f'CONGRATS, you found a [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
+            self.validated_text = (f'CONGRATS, you found a [color=00ff00]{dI.title}[/color]!\n\n{dI.description}')
         elif discoveryTable == 'quest':
             dI = discoveryGen.DiscoveryQuest(*fetchD)
-            self.validated_text = (f'WOAH, you found the quest: [color=00ffff]{dI.title}[/color]!\n\n{dI.description}')
+            self.validated_text = (f'WOAH, you found the quest: [color=0000ff]{dI.title}[/color]!\n\n{dI.description}')
         elif discoveryTable == 'encounter':
             dI = discoveryGen.DiscoveryEncounter(*fetchD)
             self.validated_text = (f'You stumble upon [color=ff00ff]{dI.name}[/color]!\n\n{dI.description}, I should make the Encounter and referenced tables')
