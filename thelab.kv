@@ -1,5 +1,27 @@
-BoxLayoutExample:
-
+#BoxLayoutExample:
+Button:
+    size_hint:(.8,None)
+    size:(1,dp(300))
+    background_color:1,.5,.5,.5
+    on_press: print('on_press')
+    AnchorLayout:
+        anchor_x:'left'
+        anchor_y:'center'
+        Label:
+            color:1,0,0,1
+            text:"cat"
+    AnchorLayout:
+        anchor_x:'center'
+        anchor_y:'center'
+        Label:
+            color:1,0,0,1
+            text:"NAME"
+    AnchorLayout:
+        anchor_x:'right'
+        anchor_y:'center'
+        Label:
+            color:1,0,0,1
+            text:"xCount"
 <basicTemplate>:
     BoxLayoutExample:
 
@@ -113,6 +135,8 @@ BoxLayoutExample:
         size_hint: .5,1
     Button:
         text: "F"
+<IconButton>:
+    on_press: print('on_press')
 
 <AnchorLayoutExample>:
     # right, left, center

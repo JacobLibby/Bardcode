@@ -13,6 +13,8 @@ from kivy.properties import StringProperty, BooleanProperty
 import discoveryGen
 import playerInventory
 import logging
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.image import Image
 
 from kivy.uix.label import Label
 logger = logging.getLogger(__name__)
@@ -112,6 +114,11 @@ class ScrollViewExample(ScrollView):
 class InventoryItem(FloatLayout):
     pass
 
+
+
+class IconButton(ButtonBehavior, Image):
+    def on_press(self):
+        print("IcontButton:on_press")
 
 class StackLayoutExample(StackLayout):
     showing = "Inv"
