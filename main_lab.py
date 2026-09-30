@@ -16,9 +16,21 @@ import logging
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
 from kivy.graphics import Color, Rectangle
+from kivy.uix.tabbedpanel import TabbedPanel
+
 
 from kivy.uix.label import Label
 logger = logging.getLogger(__name__)
+
+
+class MyLayout(Widget):
+    pass
+
+class TabbedLayout(TabbedPanel):
+    pass
+
+class TabbedLayoutOg(BoxLayout):
+    pass
 
 class basicTemplate(BoxLayout):
     my_text = StringProperty("How many clicks?")
@@ -206,11 +218,12 @@ class StackLayoutExample(StackLayout):
         print("INIT")
         super().__init__(**kwargs)
         self.orientation = "lr-tb"
-        for i in range(0,10):
-            #size = dp(100)
-            #b = Button(text=str(i+1),size_hint=(None,None),size=(size,size))
-            b = Button(text=str(i+1),size_hint=(1,None),size=(1,dp(40)))
-            self.add_widget(b)
+        # for i in range(0,10):
+        #     #size = dp(100)
+        #     #b = Button(text=str(i+1),size_hint=(None,None),size=(size,size))
+        #     b = Button(text=str(i+1),size_hint=(1,None),size=(1,dp(40)))
+        #     self.add_widget(b)
+        self.update()
     def do_layout(self, *largs):
         
         super().do_layout(*largs)
@@ -357,14 +370,14 @@ class TheLabApp(App):
         self.activeMenu = "Inv"
     pass
 
-    def hide_widget(wid, dohide=True):
-            if hasattr(wid, 'saved_attrs'):
-                if not dohide:
-                    wid.height, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
-                    del wid.saved_attrs
-            elif dohide:
-                wid.saved_attrs = wid.height, wid.size_hint_y, wid.opacity, wid.disabled
-                wid.height, wid.size_hint_y, wid.opacity, wid.disabled = 0, None, 0, True
+    # def hide_widget(wid, dohide=True):
+    #         if hasattr(wid, 'saved_attrs'):
+    #             if not dohide:
+    #                 wid.height, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+    #                 del wid.saved_attrs
+    #         elif dohide:
+    #             wid.saved_attrs = wid.height, wid.size_hint_y, wid.opacity, wid.disabled
+    #             wid.height, wid.size_hint_y, wid.opacity, wid.disabled = 0, None, 0, True
 
 if __name__ == '__main__':
     logging.basicConfig(filename='Bardcode.log', level=logging.INFO)

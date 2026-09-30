@@ -1,30 +1,116 @@
 
-BoxLayoutExample:
+#BoxLayoutExample:
 
-<IconButton>:
-#    size_hint:(1,1)
-    size_hint:None,None
-    height:"200dp"
-    width:"500dp"
-    color:0,.5,0,1
-    on_press: print('on_press')
-    padding:5,5,5,5
-    GridLayout:
-        size_hint:(1,1)
-        cols:3
-        MyLabel:
-            text: "icon"
-            size_hint:(.3,1)
-            color:1,0,0,1
-            background_color:0,.5,.5,1
-        Label:
-            text: "test2"
-            size_hint:(.4,1)
-            color:1,0,0,1
-        Label:
-            text: "test3"
-            size_hint:(.3,1)
-            color:1,0,0,1
+BoxLayoutExample
+
+<TabbedLayoutOg>:
+    BoxLayout:
+        spacing:"5dp"
+        size:"80dp","100dp"
+        size_hint:None,1
+        orientation: "vertical"
+        Button:
+            text: "Stats"
+            #size: "40dp","40dp"
+            #size_hint:None,None
+            value: "Stats"
+            on_press: StackLayoutExampleID.do_layout(self)
+        Button:
+            text: "Inv"
+            #size: "40dp","40dp"
+            #size_hint:None,.2
+            on_press: StackLayoutExampleID.do_layout(self)
+            #on_press: app.on_inv_button_click()
+            value: "Inv"
+        Button:
+            text: "Quests"
+            #size: "40dp","40dp"
+            #size_hint:None,.2
+            value: "Quests"
+            on_press: StackLayoutExampleID.do_layout(self)
+        Button:
+            text: "COG"
+            size: "40dp","40dp"
+            size_hint:1,None
+            value: "Settings"
+            on_press: StackLayoutExampleID.clear_widgets()
+    ScrollView:
+        id: scrollviewID
+        StackLayoutExample:
+            id: StackLayoutExampleID
+            size_hint:1,None
+            height:self.minimum_height
+
+
+<BoxLayoutTemp@BoxLayout>:
+    BoxLayoutExample:
+        TabbedLayout:
+
+
+<TabbedLayout>:
+    do_default_tab: False
+    tab_pos: "left_mid"
+
+    TabbedPanelItem:
+        id:"Inv"
+        text: "Inv"
+        value: "Inv"
+        on_press: StackLayoutExampleID.do_layout(self)
+
+        ScrollView:
+            id: scrollviewID
+            StackLayoutExample:
+                id: StackLayoutExampleID
+                size_hint:1,None
+                height:self.minimum_height
+        
+
+      
+    TabbedPanelItem:
+        text: "Quest"
+       
+        Button:
+            text: "Click here!"
+
+    TabbedPanelItem:
+        text: "smthn"
+        
+
+<MyLayout>:
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        padding: 50
+        spacing: 20
+
+        Button:
+            text: "Hello World!"
+            on_press:print("hi")
+
+        RoundedButton:
+            text: "Goodbye World!"
+            pos_hint:{'center_x':0.5}
+            size_hint:(1,.3)
+            #background_color:(48/255,84/255,150/255,1)
+            #background_normal: ''
+
+
+
+
+
+<RoundedButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba:(48/255,84/255,150/255,1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [40]
+    on_press:print('bye')
+
 
 <CustomLabel@Label>:
     text_size: root.width, None
@@ -259,43 +345,7 @@ BoxLayoutExample:
         size:"100dp","60dp"
         size_hint: .8,None
         pos_hint: {"center_x":.5}
-    BoxLayout:
-        BoxLayout:
-            spacing:"5dp"
-            size:"80dp","100dp"
-            size_hint:None,1
-            orientation: "vertical"
-            Button:
-                text: "Stats"
-                #size: "40dp","40dp"
-                #size_hint:None,None
-                value: "Stats"
-                on_press: StackLayoutExampleID.do_layout(self)
-            Button:
-                text: "Inv"
-                #size: "40dp","40dp"
-                #size_hint:None,.2
-                on_press: StackLayoutExampleID.do_layout(self)
-                #on_press: app.on_inv_button_click()
-                value: "Inv"
-            Button:
-                text: "Quests"
-                #size: "40dp","40dp"
-                #size_hint:None,.2
-                value: "Quests"
-                on_press: StackLayoutExampleID.do_layout(self)
-            Button:
-                text: "COG"
-                size: "40dp","40dp"
-                size_hint:1,None
-                value: "Settings"
-                on_press: StackLayoutExampleID.clear_widgets()
-        ScrollView:
-            id: scrollviewID
-            StackLayoutExample:
-                id: StackLayoutExampleID
-                size_hint:1,None
-                height:self.minimum_height
+    TabbedLayoutOg:
 
 
 
