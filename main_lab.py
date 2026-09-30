@@ -15,6 +15,7 @@ import playerInventory
 import logging
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
+from kivy.graphics import Color, Rectangle
 
 from kivy.uix.label import Label
 logger = logging.getLogger(__name__)
@@ -114,11 +115,24 @@ class ScrollViewExample(ScrollView):
 class InventoryItem(FloatLayout):
     pass
 
+class MyLabel(Label):
+    def on_size(self, *args):
+        self.canvas.before.clear()
+        with self.canvas.before:
+            Color(0, 1, 0, 0.25)
+            Rectangle(pos=self.pos, size=self.size)
 
+class CustomButton(ButtonBehavior, BoxLayout):
+    route = StringProperty('route')
+    stations = StringProperty('stations')
+    commute = StringProperty('commute')
+
+    def on_release(self):
+        print("\troute={0}, stations={1}, commute={2}".format(self.route, self.stations, self.commute))
 
 class IconButton(ButtonBehavior, Image):
     def on_press(self):
-        print("IcontButton:on_press")
+        print("IconButton:on_press")
 
 class StackLayoutExample(StackLayout):
     showing = "Inv"

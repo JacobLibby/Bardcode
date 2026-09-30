@@ -1,29 +1,97 @@
 
 BoxLayoutExample:
 
-<Button2>:
-    size_hint:(.8,None)
-    size:(1,dp(300))
-    background_color:1,.5,.5,.5
+<IconButton>:
+#    size_hint:(1,1)
+    size_hint:None,None
+    height:"200dp"
+    width:"500dp"
+    color:0,.5,0,1
     on_press: print('on_press')
-    AnchorLayout:
-        anchor_x:'left'
-        anchor_y:'center'
-        Label:
+    padding:5,5,5,5
+    GridLayout:
+        size_hint:(1,1)
+        cols:3
+        MyLabel:
+            text: "icon"
+            size_hint:(.3,1)
             color:1,0,0,1
-            text:"cat"
-    AnchorLayout:
-        anchor_x:'center'
-        anchor_y:'center'
+            background_color:0,.5,.5,1
         Label:
+            text: "test2"
+            size_hint:(.4,1)
             color:1,0,0,1
-            text:"NAME"
-    AnchorLayout:
-        anchor_x:'right'
-        anchor_y:'center'
         Label:
+            text: "test3"
+            size_hint:(.3,1)
             color:1,0,0,1
-            text:"xCount"
+
+<CustomLabel@Label>:
+    text_size: root.width, None
+    size: self.texture_size
+    valign: 'center'
+    halign: 'right'
+
+<CustomButton>:
+    color: 0, 0, 0, 1    # black color text
+
+    orientation: 'vertical'
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    size_hint: 1, None
+    height: 200
+    padding: 5, 5, 5, 5
+
+    background_color: [0.50196, 0.50196, 0.50196, 1] if self.state == 'normal' else [0, 1, 1, 1]
+
+    AnchorLayout:
+        canvas.before:
+            Color:
+                rgba: [1, 1, 1, 1] if root.background_color is None else root.background_color
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        AnchorLayout:
+            anchor_x: 'left'
+            anchor_y: 'center'
+            CustomLabel:
+                text: root.route
+                color: root.color
+                halign: 'left'
+
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+            CustomLabel:
+                text: root.stations
+                color: root.color
+                halign:'center'  
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+            CustomLabel:
+                text: root.stations
+                color: root.color
+                halign:'right'  
+
+    AnchorLayout:
+        canvas.before:
+            Color:
+                rgba: [1, 1, 1, 1] if root.background_color is None else root.background_color
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        anchor_x: 'right'
+        anchor_y: 'center'
+
+        CustomLabel:
+            text: root.commute
+            color: root.color
+
 <basicTemplate>:
     BoxLayoutExample:
 
