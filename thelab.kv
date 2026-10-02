@@ -14,6 +14,55 @@ BoxLayoutExample
             #size: "40dp","40dp"
             #size_hint:None,None
             value: "Stats"
+            on_press: StackLayoutExampleID.do_layout(self);app.on_stats_button_click()
+        Button:
+            text: "Inv"
+            #size: "40dp","40dp"
+            #size_hint:None,.2
+            on_press: StackLayoutExampleID.do_layout(self);app.on_inv_button_click()
+            #on_press: app.on_inv_button_click()
+            value: "Inv"
+        Button:
+            text: "Quests"
+            #size: "40dp","40dp"
+            #size_hint:None,.2
+            value: "Quests"
+            on_press: StackLayoutExampleID.do_layout(self)
+        Button:
+            text: "COG"
+            size: "40dp","40dp"
+            size_hint:1,None
+            value: "Settings"
+            on_press: StackLayoutExampleID.clear_widgets();print(app.activeMenu)
+    Label:
+        id: "Label1"
+        text: "WOWZA"
+    ScrollView:
+        id: scrollviewID
+        StackLayoutExample:
+            id: StackLayoutExampleID
+            size_hint:1,None
+            height:self.minimum_height
+
+<Tab_BoxLayout>:
+    ScrollView:
+        id: scrollviewID
+        StackLayoutExample:
+            id: StackLayoutExampleID
+            size_hint:1,None
+            height:self.minimum_height
+
+<TabbedLayoutOg_bk>:
+    BoxLayout:
+        spacing:"5dp"
+        size:"80dp","100dp"
+        size_hint:None,1
+        orientation: "vertical"
+        Button:
+            text: "Stats"
+            #size: "40dp","40dp"
+            #size_hint:None,None
+            value: "Stats"
             on_press: StackLayoutExampleID.do_layout(self)
         Button:
             text: "Inv"
@@ -40,7 +89,6 @@ BoxLayoutExample
             id: StackLayoutExampleID
             size_hint:1,None
             height:self.minimum_height
-
 
 <BoxLayoutTemp@BoxLayout>:
     BoxLayoutExample:

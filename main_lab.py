@@ -146,6 +146,9 @@ class IconButton(ButtonBehavior, Image):
     def on_press(self):
         print("IconButton:on_press")
 
+class Tab_BoxLayout(BoxLayout):
+    pass
+
 class StackLayoutExample(StackLayout):
     showing = "Inv"
 
@@ -363,21 +366,35 @@ class MainWidget(Widget):
 # need to have "App" suffix AND reference
 class TheLabApp(App):
     activeMenu = "Inv"
+    
+
+    def on_stats_button_click(self):
+        print("on_stats_button_click(self)")
+        self.activeMenu = "Stats"
+
     def on_inv_button_click(self):
         print("on_inv_button_click(self)")
         inv = playerInventory.PlayerInventory()
         # print(inv.fetchInventory())
         self.activeMenu = "Inv"
-    pass
 
-    # def hide_widget(wid, dohide=True):
-    #         if hasattr(wid, 'saved_attrs'):
-    #             if not dohide:
-    #                 wid.height, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
-    #                 del wid.saved_attrs
-    #         elif dohide:
-    #             wid.saved_attrs = wid.height, wid.size_hint_y, wid.opacity, wid.disabled
-    #             wid.height, wid.size_hint_y, wid.opacity, wid.disabled = 0, None, 0, True
+    def on_quests_button_click(self):
+        print("on_quests_button_click(self)")
+        self.activeMenu = "Quests"
+
+    def on_settings_button_click(self):
+        print('on_settings_button_click(self)')
+        self.activeMenu = "Settings"
+
+
+    def hide_widget(wid, dohide=True):
+            if hasattr(wid, 'saved_attrs'):
+                if not dohide:
+                    wid.height, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+                    del wid.saved_attrs
+            elif dohide:
+                wid.saved_attrs = wid.height, wid.size_hint_y, wid.opacity, wid.disabled
+                wid.height, wid.size_hint_y, wid.opacity, wid.disabled = 0, None, 0, True
 
 if __name__ == '__main__':
     logging.basicConfig(filename='Bardcode.log', level=logging.INFO)
