@@ -25,6 +25,18 @@ Map barcode to discoveries
 
 ===
 
+UI Thoughts
+
+
+- DISTINGUISH CATEGORIES
+    - color of button?
+    - icon in button?
+    - location?
+
+
+
+
+===
 
 
 
