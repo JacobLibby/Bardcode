@@ -14,12 +14,12 @@ BoxLayoutExample
             #size: "40dp","40dp"
             #size_hint:None,None
             value: "Stats"
-            on_press: StackLayoutExampleID.do_layout(self);app.on_stats_button_click()
+            on_press: StackLayoutExampleID.do_layout(self);app.on_stats_button_click();app.hide_widget(Label1,dohide=False)
         Button:
             text: "Inv"
             #size: "40dp","40dp"
             #size_hint:None,.2
-            on_press: StackLayoutExampleID.do_layout(self);app.on_inv_button_click()
+            on_press: StackLayoutExampleID.do_layout(self);app.on_inv_button_click();app.hide_widget(Label1,dohide=False)
             #on_press: app.on_inv_button_click()
             value: "Inv"
         Button:
@@ -27,16 +27,18 @@ BoxLayoutExample
             #size: "40dp","40dp"
             #size_hint:None,.2
             value: "Quests"
-            on_press: StackLayoutExampleID.do_layout(self)
+            on_press: StackLayoutExampleID.do_layout(self);app.on_quests_button_click();print(Label1.size);app.hide_widget(Label1,dohide=True)
         Button:
             text: "COG"
             size: "40dp","40dp"
             size_hint:1,None
             value: "Settings"
             on_press: StackLayoutExampleID.clear_widgets();print(app.activeMenu)
-    Label:
-        id: "Label1"
-        text: "WOWZA"
+
+    Image:
+        id: Label1
+        source: "images/rf.jpg"
+    
     ScrollView:
         id: scrollviewID
         StackLayoutExample:

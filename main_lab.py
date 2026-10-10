@@ -377,24 +377,31 @@ class TheLabApp(App):
         inv = playerInventory.PlayerInventory()
         # print(inv.fetchInventory())
         self.activeMenu = "Inv"
+        # self.hide_widget("Label1",dohide=False) #doesnt work
+
 
     def on_quests_button_click(self):
         print("on_quests_button_click(self)")
         self.activeMenu = "Quests"
+        # self.hide_widget("Label1",dohide=True) #doesnt work
 
     def on_settings_button_click(self):
         print('on_settings_button_click(self)')
         self.activeMenu = "Settings"
 
 
-    def hide_widget(wid, dohide=True):
+    def hide_widget(self,wid, dohide=True):
             if hasattr(wid, 'saved_attrs'):
                 if not dohide:
-                    wid.height, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+                    wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+                    # wid.opacity = wid.saved_attrs
+
                     del wid.saved_attrs
             elif dohide:
-                wid.saved_attrs = wid.height, wid.size_hint_y, wid.opacity, wid.disabled
-                wid.height, wid.size_hint_y, wid.opacity, wid.disabled = 0, None, 0, True
+                wid.saved_attrs = wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled
+                # wid.saved_attrs = wid.opacity
+                wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = 0, 0, None, None, 0, True
+                # wid.opacity  = 0
 
 if __name__ == '__main__':
     logging.basicConfig(filename='Bardcode.log', level=logging.INFO)
