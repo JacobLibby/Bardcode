@@ -30,7 +30,12 @@ class TabbedLayout(TabbedPanel):
     pass
 
 class TabbedLayoutOg(BoxLayout):
-    pass
+
+    def stats_pressed(self):
+        self.ids.stats_image.source="images/stats_pressed.png"
+
+    def stats_released(self):
+        self.ids.stats_image.source="images/stats.png"
 
 class basicTemplate(BoxLayout):
     my_text = StringProperty("How many clicks?")
