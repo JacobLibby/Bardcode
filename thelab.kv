@@ -17,13 +17,16 @@ BoxLayoutExample
             value: "Stats"
             on_press: StackLayoutExampleID.do_layout(self);app.on_stats_button_click();app.hide_widget(Label1,dohide=False);root.stats_pressed()
             on_release: root.stats_released()
+            
             Image:
                 id: stats_image
-                source: "images/stats.png"
+                #source: "images/stats.png"
+                source: "images/button_cat.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: .15,.15
                 allow_stretch: True
+                
                 #keep_ratio: False
         Button:
             text: "Inv"

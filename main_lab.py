@@ -37,6 +37,8 @@ class TabbedLayoutOg(BoxLayout):
     def stats_released(self):
         self.ids.stats_image.source="images/stats.png"
 
+
+
 class basicTemplate(BoxLayout):
     my_text = StringProperty("How many clicks?")
     count = 0
@@ -407,6 +409,9 @@ class TheLabApp(App):
                 # wid.saved_attrs = wid.opacity
                 wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = 0, 0, None, None, 0, True
                 # wid.opacity  = 0
+    
+    
+
 
 if __name__ == '__main__':
     logging.basicConfig(filename='Bardcode.log', level=logging.INFO)
