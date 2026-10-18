@@ -22,7 +22,6 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.label import Label
 logger = logging.getLogger(__name__)
 
-
 class MyLayout(Widget):
     pass
 
@@ -371,9 +370,10 @@ class MainWidget(Widget):
     pass
 
 # need to have "App" suffix AND reference
-class TheLabApp(App):
+class BardcodeApp(App):
     activeMenu = "Inv"
-    
+    def build(self):
+        self.icon = 'images/sword_pixel.png'
 
     def on_stats_button_click(self):
         print("on_stats_button_click(self)")
@@ -416,6 +416,6 @@ class TheLabApp(App):
 if __name__ == '__main__':
     logging.basicConfig(filename='Bardcode.log', level=logging.INFO)
     logger.info('Started.')
-    TheLabApp().run()
+    BardcodeApp().run()
     logger.info('Finished.')
 
