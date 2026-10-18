@@ -66,12 +66,25 @@ MenuScreen:
     #    id: Label1
     #    source: "images/rf.jpg"
     
-    ScrollView:
-        id: scrollviewID
-        StackLayoutExample:
-            id: StackLayoutExampleID
-            size_hint:1,None
-            height:self.minimum_height
+    ScrollViewExample:
+        id: scrollviewStats
+        BoxLayout:
+            orientation:vertical
+            StackLayoutExample:
+                menu: "Stats"
+                id: StackLayoutExampleStats
+                size_hint:1,None
+                height:self.minimum_height
+            StackLayoutExample:
+                menu: "Inv"
+                id: StackLayoutExampleInv
+                size_hint:1,None
+                height:self.minimum_height
+            StackLayoutExample:
+                menu: "Quests"
+                id: StackLayoutExampleQuests
+                size_hint:1,None
+                height:self.minimum_height
 
 <Tab_BoxLayout>:
     ScrollView:
