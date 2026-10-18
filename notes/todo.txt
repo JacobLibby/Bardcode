@@ -1,27 +1,17 @@
 ===========\
 - UI + GUI -\
 =============\
-remove red outline on barcode text input
-Pyside6 + Qt Quick?
+
 
 * Make inv tab and other tabs automatically refresh when something changes in db
+* Make separate stacklayouts for all menus, but toggle visibility.
 
-DB
-create db and connection
-    https://youtu.be/Q8iYj2ypWss?si=F3hICLKwgtGF9M1w&t=721
+* buttons for "add to inventory" and "leave behind"
 
 
 change text to "hint" on text_input?
 
 Make encounterables
-
-Map barcode to discoveries
-    - 80x nothing
-    - 2x quest
-    - 5x encounter
-    - 50x item
-    - 15x monster
-
 
 ===
 
@@ -32,9 +22,7 @@ UI Thoughts
     - color of button?
     - icon in button?
     - location?
-
-
-
+    - UNIQUE SYMBOL (helmet, sword, potion, bundle)
 
 ===
 
@@ -57,7 +45,6 @@ UI Thoughts
 ============
 NEXT STEPS:
 
-- add playerinventory
 - add items found to playerinventory
 - flesh out inventory
     - display items
