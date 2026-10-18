@@ -17,10 +17,50 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
 from kivy.graphics import Color, Rectangle
 from kivy.uix.tabbedpanel import TabbedPanel
-
+from kivy.uix.screenmanager import Screen
+from kivy.clock import Clock
+from kivy.core.window import Window
 
 from kivy.uix.label import Label
 logger = logging.getLogger(__name__)
+Window.show_cursor = False 
+
+
+class MenuScreen(Screen):
+    # def init(self, **kwargs): 
+    #     super(MenuScreen, self).init(**kwargs)
+    #     Window.show_cursor = False 
+    #     Clock.schedule_interval(self.cursorPosition, 1 / 60) #FPS
+
+    def __init__(self, **kwargs):
+        super(MenuScreen, self).__init__(**kwargs)
+        Clock.schedule_interval(self.cursorPosition, 1/60)
+    def cursorPosition(self, dt): 
+        self.ids.cursor.pos = Window.mouse_pos[0] - self.ids.cursor.width/2, \
+                              Window.mouse_pos[1] - self.ids.cursor.height/2
+
+    def on_touch_down(self,touch):
+        self.ids.cursor.source="images/cursor_wand_sparkle.png"
+        # push the current coordinate, to be able to restore it later
+        touch.push()
+
+        # transform the touch coordinate to local space
+        touch.apply_transform_2d(self.to_local)
+
+        # dispatch the touch as usual to children
+        # the coordinate in the touch is now in local space
+        ret = super().on_touch_down(touch)
+
+        # whatever the result, don't forget to pop your transformation
+        # after the call, so the coordinate will be back in parent space
+        touch.pop()
+
+        # return the result (depending what you want.)
+        return ret
+
+    def on_touch_up(self,touch):
+        self.ids.cursor.source="images/cursor_wand.png"
+
 
 class MyLayout(Widget):
     pass

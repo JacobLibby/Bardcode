@@ -1,7 +1,18 @@
 
 #BoxLayoutExample:
 
-BoxLayoutExample
+#BoxLayoutExample
+
+
+MenuScreen:
+    name: "menu" 
+    
+    
+    BoxLayoutExample:
+    Image:
+        id: cursor
+        source: 'images/cursor_wand.png'
+        size_hint: 0.1, 0.1
 
 <TabbedLayoutOg>:
     BoxLayout:
@@ -21,7 +32,7 @@ BoxLayoutExample
             Image:
                 id: stats_image
                 #source: "images/stats.png"
-                source: "images/button_cat.png"
+                source: "images/stick.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: .15,.15
@@ -409,6 +420,10 @@ BoxLayoutExample
         size_hint: .8,None
         pos_hint: {"center_x":.5}
     TabbedLayoutOg:
+    Image:
+        id: cursor
+        source: 'images/cursors/cursor.png'
+        size_hint: 0.1, 0.1
 
 
 
