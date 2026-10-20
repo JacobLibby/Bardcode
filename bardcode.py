@@ -251,6 +251,26 @@ class ScrollViewSettings(ScrollViewExample):
 class InventoryItem(FloatLayout):
     pass
 
+class BoxLayoutHoldingScrollViews(BoxLayout):
+    # def do_layout(self, *largs):
+    #     if BardcodeApp.activeMenu == "Inv":
+    #         self.hide_widget(self.ids.scrollViewStats.id,dohide=True)
+    #         self.hide_widget(self.ids.scrollViewInv.id,dohide=False)
+    #         self.hide_widget(self.ids.scrollViewQuests.id,dohide=True)
+
+    def hide_widget(self,wid, dohide=True):
+        if hasattr(wid, 'saved_attrs'):
+            if not dohide:
+                wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+                # wid.opacity = wid.saved_attrs
+
+                del wid.saved_attrs
+        elif dohide:
+            wid.saved_attrs = wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled
+            # wid.saved_attrs = wid.opacity
+            wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = 0, 0, None, None, 0, True
+            # wid.opacity  = 0
+
 class MyLabel(Label):
     def on_size(self, *args):
         self.canvas.before.clear()
@@ -276,6 +296,7 @@ class Tab_BoxLayout(BoxLayout):
 class StackLayoutExample(StackLayout):
     showing = StringProperty()
     menu = StringProperty()
+    id = StringProperty()
 
     def __init__(self,**kwargs):
         print("INIT")
@@ -290,6 +311,7 @@ class StackLayoutExample(StackLayout):
 
     # def __init__(self,menu):
         # self.menu = kwargs.menu
+    def on_menu(self,instance,value):
         print(f"StackLayoutExample:SELF.MENU == {self.menu}")
         if self.menu == "Inv":
             color_map = {
@@ -351,10 +373,13 @@ class StackLayoutExample(StackLayout):
     def update(self):
         list = []
         # self.clear_widgets()
-        if self.showing == self.menu:
+        if App.showing == self.menu:
             self.visibility = True
+            self.hide_widget(self.id,False)
         else:
             self.visibility = False
+            self.hide_widget(self.id,True)
+
         # if self.showing == "Inv":
         #     color_map = {
         #                 'weapon': 'ff0000'
@@ -426,7 +451,7 @@ class StackLayoutExample(StackLayout):
                 # b = Button(text="ADDING",size_hint=(1,None),size=(1,dp(40)))
                 # self.add_widget(b)
             else:
-                print(self.showing)
+                print(f'StackLayoutExample:do_layout(): self.showing: {self.showing}')
                 # self.orientation = "lr-tb"
                 # for i in range(0,100):
                 #     #size = dp(100)
@@ -581,6 +606,9 @@ class BardcodeApp(App):
         inv = playerInventory.PlayerInventory()
         # print(inv.fetchInventory())
         self.activeMenu = "Inv"
+        self.hide_widget("scrollViewInv",dohide=False)
+        self.hide_widget("scrollViewStats",dohide=True)
+        self.hide_widget("scrollViewQuests",dohide=True)
         # self.hide_widget("Label1",dohide=False) #doesnt work
 
 

@@ -26,9 +26,10 @@ MenuScreen:
             #size: "40dp","40dp"
             #size_hint:None,None
             value: "Stats"
-            on_press: StackLayoutExampleID.do_layout(self);app.on_stats_button_click();app.hide_widget(Label1,dohide=False);root.stats_pressed()
+            # on_press: StackLayoutExampleID.do_layout(self);app.on_stats_button_click();app.hide_widget(Label1,dohide=False);root.stats_pressed()
             on_release: root.stats_released()
-            
+            on_press: app.hide_widget(scrollViewStats,dohide=False);app.hide_widget(scrollViewQuests,dohide=True);app.hide_widget(scrollViewInv,dohide=True)
+
             Image:
                 id: stats_image
                 #source: "images/stats.png"
@@ -43,7 +44,8 @@ MenuScreen:
             text: "Inv"
             #size: "40dp","40dp"
             #size_hint:None,.2
-            on_press: StackLayoutExampleID.do_layout(self);app.on_inv_button_click();app.hide_widget(Label1,dohide=False)
+            on_press: app.hide_widget(scrollViewStats,dohide=True);app.hide_widget(scrollViewQuests,dohide=True);app.hide_widget(scrollViewInv,dohide=False)
+            # on_press: StackLayoutExampleID.do_layout(self);app.on_inv_button_click();app.hide_widget(Label1,dohide=False)
             #on_press: app.on_inv_button_click()
             value: "Inv"
         Button:
@@ -51,13 +53,16 @@ MenuScreen:
             #size: "40dp","40dp"
             #size_hint:None,.2
             value: "Quests"
-            on_press: StackLayoutExampleID.do_layout(self);app.on_quests_button_click();print(Label1.size);app.hide_widget(Label1,dohide=True)
+            # on_press: StackLayoutExampleID.do_layout(self);app.on_quests_button_click();print(Label1.size);app.hide_widget(Label1,dohide=True)
+            on_press: app.on_quests_button_click();app.hide_widget(scrollViewInv,dohide=True);app.hide_widget(scrollViewStats,dohide=True);app.hide_widget(scrollViewQuests,dohide=False)
+            # scrollViewMenus.do_layout(self);
         Button:
             text: "COG"
             size: "40dp","40dp"
             size_hint:1,None
             value: "Settings"
-            on_press: StackLayoutExampleID.clear_widgets();print(app.activeMenu)
+            # on_press: StackLayoutExampleID.clear_widgets();print(app.activeMenu)
+            on_press: print(app.activeMenu)
 
     Label:
         id: Label1
@@ -66,39 +71,40 @@ MenuScreen:
     #    id: Label1
     #    source: "images/rf.jpg"
     
-
-    ScrollViewStats:
-        id: scrollViewStats
-        # menu:"Stats"
-        StackLayoutExample:
-            id: StackLayoutExampleStats
+    BoxLayoutHoldingScrollViews:
+        id: scrollViewMenus
+        ScrollViewStats:
+            id: scrollViewStats
             menu:"Stats"
-            size_hint:1,None
-            height:self.minimum_height
-    ScrollViewInv:
-        id:scrollViewInv
-        # menu:"Inv"
-        StackLayoutExample:
-            id: StackLayoutExampleInv
+            StackLayoutExample:
+                id: StackLayoutExampleStats
+                menu:"Stats"
+                size_hint:1,None
+                height:self.minimum_height
+        ScrollViewInv:
+            id:scrollViewInv
             menu:"Inv"
-            size_hint:1,None
-            height:self.minimum_height
-            
-    ScrollViewQuests:
-        id:scrollViewQuests
-        # menu:"Quests"
-        StackLayoutExample:
-            id: StackLayoutExampleQuests
+            StackLayoutExample:
+                id: StackLayoutExampleInv
+                menu:"Inv"
+                size_hint:1,None
+                height:self.minimum_height
+                
+        ScrollViewQuests:
+            id:scrollViewQuests
             menu:"Quests"
-            size_hint:1,None
-            height:self.minimum_height    
+            StackLayoutExample:
+                id: StackLayoutExampleQuests
+                menu:"Quests"
+                size_hint:1,None
+                height:self.minimum_height    
         
 # NEED 3 SEPARATE scrollViews
 # OR
 # NEED 1 Scrollview and 1 LARGE stacklayout <---- seems like the easiest
 
 # do I need separate classes for each stacklayout?
-
+<BoxLayoutHoldingScrollViews>:
 
 <Tab_BoxLayout>:
     ScrollView:
@@ -450,7 +456,7 @@ MenuScreen:
     TabbedLayoutOg:
     Image:
         id: cursor
-        source: 'images/cursors/cursor.png'
+        source: 'images/cursor.png'
         size_hint: 0.1, 0.1
 
 
