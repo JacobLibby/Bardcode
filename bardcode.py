@@ -169,70 +169,84 @@ class PageLayoutExample(PageLayout):
 
 class ScrollViewExample(ScrollView):
 
-    # def __init__(self,**kwargs):
-    #     print(kwargs)
-    #     self.menu = "pizza"
-    #     if self.menu:
-    #         pass
-    #     else:
-    #         self.menu = ""
-    #     print(self.menu)
+    def __init__(self,**kwargs):
+        super().__init__(**kwargs)
+        # print(self.menu)
+        # self.menu = "pizza"
+        # if self.menu:
+        #     pass
+        # else:
+        #     self.menu = ""
+        # print(self.menu)
 
     #     print("INIT")
     #     super().__init__(**kwargs)
     #     self.orientation = "lr-tb"
-    #     if self.menu == "Inv":
-    #         color_map = {
-    #                     'weapon': 'ff0000'
-    #                     ,'armor': 'ffa500'
-    #                     ,'consumable': 'ffff00'
-    #                     ,'misc': '00ff00'
-    #                 }
-    #         icon_map = {
-    #             'weapon': 'W'
-    #             ,'armor': 'A'
-    #             ,'consumable': 'C'
-    #             ,'misc': 'M'
-    #         }
-    #         list = playerInventory.PlayerInventory().fetchInventory()
-    #         for each in list:
-    #             print(each)
-    #             # b.bind(on_ref_press=self.labelPressed)
-    #             # f = FloatLayout(size_hint=(1,None),size=(1,dp(40)))
-    #             b_icon = Button(text=str(f"{str(icon_map[each[2]])}"),pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
-    #             b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
-    #             b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
 
-    #             # f.add_widget(b_icon)
-    #             # f.add_widget(b_name)
-    #             # # f.add_widget(b_count)
+"""
+    def build(self):
+        if self.id == "scrollViewInv":
+            color_map = {
+                        'weapon': 'ff0000'
+                        ,'armor': 'ffa500'
+                        ,'consumable': 'ffff00'
+                        ,'misc': '00ff00'
+                    }
+            icon_map = {
+                'weapon': 'W'
+                ,'armor': 'A'
+                ,'consumable': 'C'
+                ,'misc': 'M'
+            }
+            list = playerInventory.PlayerInventory().fetchInventory()
+            for each in list:
+                print(each)
+                # b.bind(on_ref_press=self.labelPressed)
+                # f = FloatLayout(size_hint=(1,None),size=(1,dp(40)))
+                b_icon = Button(text=str(f"{str(icon_map[each[2]])}"),pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
+                b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
+                b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
 
-    #             # self.add_widget(f)
-    #             self.add_widget(b_icon)
-    #             self.add_widget(b_name)
-    #             self.add_widget(b_count)
-    #             # b = Button(text=str(f"{str(each[1])}    count: {each[3]}"),size_hint=(1,None),size=(1,dp(40)),background_color=color_map[each[2]])
-    #             # self.add_widget(b)
+                # f.add_widget(b_icon)
+                # f.add_widget(b_name)
+                # # f.add_widget(b_count)
+
+                # self.add_widget(f)
+                self.add_widget(b_icon)
+                self.add_widget(b_name)
+                self.add_widget(b_count)
+                # b = Button(text=str(f"{str(each[1])}    count: {each[3]}"),size_hint=(1,None),size=(1,dp(40)),background_color=color_map[each[2]])
+                # self.add_widget(b)
                 
-    #     elif self.menu == "Quests":
-    #         print("Show quests")
-    #         list = ['Quest'] 
-    #         for each in list:
-    #             print(each)
-    #             b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)),background_color="0000ff")
-    #             self.add_widget(b)
-    #         # should quests be in player inventory?
-    #         pass
-    #     elif self.menu == "Stats":
-    #         print("Show stats")
-    #         list = ['Stats','Stats','Stats']
-    #         for each in list:
-    #             print(each)
-    #             b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)),background_color="ff00ff")
-    #             self.add_widget(b)
-                
-        pass
+        elif self.id == "scrollViewQuests":
+            print("Show quests")
+            list = ['Quest'] 
+            for each in list:
+                print(each)
+                b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)),background_color="0000ff")
+                self.add_widget(b)
+            # should quests be in player inventory?
+            App.hideWidget(self,True)
+        elif self.id == "scrollViewStats":
+            print("Show stats")
+            list = ['Stats','Stats','Stats']
+            for each in list:
+                print(each)
+                b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)),background_color="ff00ff")
+                self.add_widget(b)
+            App.hideWidget(self,True)
+"""
+class ScrollViewStats(ScrollViewExample):
+    pass
 
+class ScrollViewInv(ScrollViewExample):
+    pass
+
+class ScrollViewQuests(ScrollViewExample):
+    pass
+
+class ScrollViewSettings(ScrollViewExample):
+    pass
 
 class InventoryItem(FloatLayout):
     pass
@@ -261,11 +275,12 @@ class Tab_BoxLayout(BoxLayout):
 
 class StackLayoutExample(StackLayout):
     showing = "Inv"
-
+    menu = "Inv"
 
     def __init__(self,**kwargs):
         print("INIT")
-        super().__init__(**kwargs)
+        print(f"======= my parent is: {self.parent()}")
+        super(StackLayoutExample,self).__init__(**kwargs) # super().__init__(**kwargs)
         self.orientation = "lr-tb"
         # for i in range(0,10):
         #     #size = dp(100)
@@ -276,6 +291,7 @@ class StackLayoutExample(StackLayout):
 
     # def __init__(self,menu):
         # self.menu = kwargs.menu
+        print(f"StackLayoutExample:SELF.MENU == {self.menu}")
         if self.menu == "Inv":
             color_map = {
                         'weapon': 'ff0000'
@@ -396,6 +412,7 @@ class StackLayoutExample(StackLayout):
 
 
     def do_layout(self, *largs):
+        print("StackLayoutExample:do_layout")
         
         super().do_layout(*largs)
         # print("DO LAYOUT")
@@ -417,9 +434,28 @@ class StackLayoutExample(StackLayout):
                 #     #b = Button(text=str(i+1),size_hint=(None,None),size=(size,size))
                 #     b = Button(text=str(i+1),size_hint=(1,None),size=(1,dp(40)))
                 #     self.add_widget(b)
-
     
+    def hide_widget(self,wid, dohide=True):
+            if hasattr(wid, 'saved_attrs'):
+                if not dohide:
+                    wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+                    # wid.opacity = wid.saved_attrs
 
+                    del wid.saved_attrs
+            elif dohide:
+                wid.saved_attrs = wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled
+                # wid.saved_attrs = wid.opacity
+                wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = 0, 0, None, None, 0, True
+                # wid.opacity  = 0
+    
+class StackLayoutStats(StackLayoutExample):
+    pass
+class StackLayoutInv(StackLayoutExample):
+    pass
+class StackLayoutQuests(StackLayoutExample):
+    pass
+class StackLayoutSettings(StackLayoutExample):
+    pass
 
 class GridLayoutInfoList(GridLayout):
     def __init__(self,**kwargs):

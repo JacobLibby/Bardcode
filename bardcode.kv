@@ -66,25 +66,39 @@ MenuScreen:
     #    id: Label1
     #    source: "images/rf.jpg"
     
-    ScrollViewExample:
-        id: scrollviewStats
-        BoxLayout:
-            orientation:vertical
-            StackLayoutExample:
-                menu: "Stats"
-                id: StackLayoutExampleStats
-                size_hint:1,None
-                height:self.minimum_height
-            StackLayoutExample:
-                menu: "Inv"
-                id: StackLayoutExampleInv
-                size_hint:1,None
-                height:self.minimum_height
-            StackLayoutExample:
-                menu: "Quests"
-                id: StackLayoutExampleQuests
-                size_hint:1,None
-                height:self.minimum_height
+
+    ScrollViewStats:
+        id: scrollViewStats
+        # menu:"Stats"
+        StackLayoutExample:
+            id: StackLayoutExampleStats
+            menu:"Stats"
+            size_hint:1,None
+            height:self.minimum_height
+    ScrollViewInv:
+        id:scrollViewInv
+        # menu:"Inv"
+        StackLayoutExample:
+            id: StackLayoutExampleInv
+            menu:"Inv"
+            size_hint:1,None
+            height:self.minimum_height
+            
+    ScrollViewQuests:
+        id:scrollViewQuests
+        # menu:"Quests"
+        StackLayoutExample:
+            id: StackLayoutExampleQuests
+            menu:"Quests"
+            size_hint:1,None
+            height:self.minimum_height    
+        
+# NEED 3 SEPARATE scrollViews
+# OR
+# NEED 1 Scrollview and 1 LARGE stacklayout <---- seems like the easiest
+
+# do I need separate classes for each stacklayout?
+
 
 <Tab_BoxLayout>:
     ScrollView:
@@ -336,9 +350,7 @@ MenuScreen:
     GridLayoutExample:
 
 <ScrollViewExample>:
-    StackLayoutExample:
-        size_hint:1,None
-        height:self.minimum_height
+    
 
 <StackLayoutExample>:
     # left-right,top-bottom
