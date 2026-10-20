@@ -274,12 +274,11 @@ class Tab_BoxLayout(BoxLayout):
     pass
 
 class StackLayoutExample(StackLayout):
-    showing = "Inv"
-    menu = "Inv"
+    showing = StringProperty()
+    menu = StringProperty()
 
     def __init__(self,**kwargs):
         print("INIT")
-        print(f"======= my parent is: {self.parent()}")
         super(StackLayoutExample,self).__init__(**kwargs) # super().__init__(**kwargs)
         self.orientation = "lr-tb"
         # for i in range(0,10):
@@ -434,7 +433,7 @@ class StackLayoutExample(StackLayout):
                 #     #b = Button(text=str(i+1),size_hint=(None,None),size=(size,size))
                 #     b = Button(text=str(i+1),size_hint=(1,None),size=(1,dp(40)))
                 #     self.add_widget(b)
-    
+
     def hide_widget(self,wid, dohide=True):
             if hasattr(wid, 'saved_attrs'):
                 if not dohide:
