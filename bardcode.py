@@ -168,7 +168,7 @@ class PageLayoutExample(PageLayout):
     pass
 
 class ScrollViewExample(ScrollView):
-
+    id = StringProperty()
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         # print(self.menu)
@@ -179,9 +179,26 @@ class ScrollViewExample(ScrollView):
         #     self.menu = ""
         # print(self.menu)
 
+    def on_menu(self):
+        print(f"SELF.ID: {self.id}")
+        print(f"SELF.MENU: {self.menu}")
     #     print("INIT")
     #     super().__init__(**kwargs)
     #     self.orientation = "lr-tb"
+
+    def hide_widget(self,wid, dohide=True):
+        if hasattr(wid, 'saved_attrs'):
+            if not dohide:
+                wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+                # wid.opacity = wid.saved_attrs
+
+                del wid.saved_attrs
+        elif dohide:
+            wid.saved_attrs = wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled
+            # wid.saved_attrs = wid.opacity
+            wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = 0, 0, None, None, 0, True
+            # wid.opacity  = 0
+
 
 """
     def build(self):
@@ -237,13 +254,18 @@ class ScrollViewExample(ScrollView):
             App.hideWidget(self,True)
 """
 class ScrollViewStats(ScrollViewExample):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.hide_widget(self,dohide=True)
     pass
 
 class ScrollViewInv(ScrollViewExample):
     pass
 
 class ScrollViewQuests(ScrollViewExample):
-    pass
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.hide_widget(self,dohide=True)
 
 class ScrollViewSettings(ScrollViewExample):
     pass
@@ -302,6 +324,7 @@ class StackLayoutExample(StackLayout):
         print("INIT")
         super(StackLayoutExample,self).__init__(**kwargs) # super().__init__(**kwargs)
         self.orientation = "lr-tb"
+        
         # for i in range(0,10):
         #     #size = dp(100)
         #     #b = Button(text=str(i+1),size_hint=(None,None),size=(size,size))
@@ -345,7 +368,6 @@ class StackLayoutExample(StackLayout):
                 self.add_widget(b_count)
                 # b = Button(text=str(f"{str(each[1])}    count: {each[3]}"),size_hint=(1,None),size=(1,dp(40)),background_color=color_map[each[2]])
                 # self.add_widget(b)
-                
         elif self.menu == "Quests":
             print("Show quests")
             list = ['Quest'] 
@@ -354,7 +376,7 @@ class StackLayoutExample(StackLayout):
                 b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)),background_color="0000ff")
                 self.add_widget(b)
             # should quests be in player inventory?
-            pass
+
         elif self.menu == "Stats":
             print("Show stats")
             list = ['Stats','Stats','Stats']
@@ -362,7 +384,7 @@ class StackLayoutExample(StackLayout):
                 print(each)
                 b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)),background_color="ff00ff")
                 self.add_widget(b)
-                
+
 
     def labelPressed(self):
         print("Label has been pressed")
@@ -436,7 +458,7 @@ class StackLayoutExample(StackLayout):
 
 
     def do_layout(self, *largs):
-        print("StackLayoutExample:do_layout")
+        # print("StackLayoutExample:do_layout")
         
         super().do_layout(*largs)
         # print("DO LAYOUT")
@@ -596,6 +618,7 @@ class BardcodeApp(App):
     activeMenu = "Inv"
     def build(self):
         self.icon = 'images/sword_pixel.png'
+        print("****BUILD*******")
 
     def on_stats_button_click(self):
         print("on_stats_button_click(self)")
