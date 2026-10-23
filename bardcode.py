@@ -334,6 +334,7 @@ class StackLayoutExample(StackLayout):
 
     # def __init__(self,menu):
         # self.menu = kwargs.menu
+
     def on_menu(self,instance,value):
         print(f"StackLayoutExample:SELF.MENU == {self.menu}")
         if self.menu == "Inv":
@@ -358,14 +359,20 @@ class StackLayoutExample(StackLayout):
                 b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
                 b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
 
+                b_icon.bind(on_press=self.icon_button_pressed)
+                b_icon.bind(on_release=self.icon_button_released)
+
+
                 # f.add_widget(b_icon)
                 # f.add_widget(b_name)
                 # # f.add_widget(b_count)
 
                 # self.add_widget(f)
+
                 self.add_widget(b_icon)
                 self.add_widget(b_name)
                 self.add_widget(b_count)
+
                 # b = Button(text=str(f"{str(each[1])}    count: {each[3]}"),size_hint=(1,None),size=(1,dp(40)),background_color=color_map[each[2]])
                 # self.add_widget(b)
         elif self.menu == "Quests":
@@ -390,9 +397,14 @@ class StackLayoutExample(StackLayout):
         print("Label has been pressed")
         print(f"label '' '' has been pressed")
 
+    def icon_button_pressed(self,instance):
+        print("PRESSED")
 
-
+    def icon_button_released(self,instance):
+        print("RELEASED")
+        
     def update(self):
+        print("StackLayoutExample:update()")
         list = []
         # self.clear_widgets()
         if App.showing == self.menu:
@@ -454,11 +466,12 @@ class StackLayoutExample(StackLayout):
         
 
     def clear_widgets(self, children=None):
+        print("StackLayoutExample:clear_widgets()")
         return super().clear_widgets(children)
 
 
     def do_layout(self, *largs):
-        # print("StackLayoutExample:do_layout")
+        print("StackLayoutExample:do_layout")
         
         super().do_layout(*largs)
         # print("DO LAYOUT")
@@ -482,17 +495,17 @@ class StackLayoutExample(StackLayout):
                 #     self.add_widget(b)
 
     def hide_widget(self,wid, dohide=True):
-            if hasattr(wid, 'saved_attrs'):
-                if not dohide:
-                    wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
-                    # wid.opacity = wid.saved_attrs
+        if hasattr(wid, 'saved_attrs'):
+            if not dohide:
+                wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+                # wid.opacity = wid.saved_attrs
 
-                    del wid.saved_attrs
-            elif dohide:
-                wid.saved_attrs = wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled
-                # wid.saved_attrs = wid.opacity
-                wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = 0, 0, None, None, 0, True
-                # wid.opacity  = 0
+                del wid.saved_attrs
+        elif dohide:
+            wid.saved_attrs = wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled
+            # wid.saved_attrs = wid.opacity
+            wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = 0, 0, None, None, 0, True
+            # wid.opacity  = 0
     
 class StackLayoutStats(StackLayoutExample):
     pass
