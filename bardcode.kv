@@ -11,7 +11,7 @@ MenuScreen:
     BoxLayoutExample:
     Image:
         id: cursor
-        source: 'images/cursor_wand.png'
+        source: 'images/cursor_staff.png'
         size_hint: 0.1, 0.1
 
 <TabbedLayoutOg>:
@@ -30,14 +30,14 @@ MenuScreen:
             on_release: root.stats_released()
             on_press: app.hide_widget(scrollViewStats,dohide=False);app.hide_widget(scrollViewQuests,dohide=True);app.hide_widget(scrollViewInv,dohide=True)
 
-            Image:
-                id: stats_image
-                #source: "images/stats.png"
-                source: "images/stick.png"
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-                size_hint: .15,.15
-                allow_stretch: True
+            # Image:
+            #     id: stats_image
+            #     #source: "images/stats.png"
+            #     # source: "images/stick.png"
+            #     center_x: self.parent.center_x
+            #     center_y: self.parent.center_y
+            #     size_hint: .15,.15
+            #     allow_stretch: True
                 
                 #keep_ratio: False
         Button:

@@ -59,4 +59,6 @@ NEXT STEPS:
 
 - magic system
 
+- dragonlore
+
 - conversation trees

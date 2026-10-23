@@ -40,7 +40,7 @@ class MenuScreen(Screen):
                               Window.mouse_pos[1] - self.ids.cursor.height/2
 
     def on_touch_down(self,touch):
-        self.ids.cursor.source="images/cursor_wand_sparkle.png"
+        self.ids.cursor.source="images/cursor_sprite_1000x2.png"
         # push the current coordinate, to be able to restore it later
         touch.push()
 
@@ -59,7 +59,7 @@ class MenuScreen(Screen):
         return ret
 
     def on_touch_up(self,touch):
-        self.ids.cursor.source="images/cursor_wand.png"
+        self.ids.cursor.source="images/cursor_sprite_1000x1.png"
 
 
 class MyLayout(Widget):
@@ -71,10 +71,12 @@ class TabbedLayout(TabbedPanel):
 class TabbedLayoutOg(BoxLayout):
 
     def stats_pressed(self):
-        self.ids.stats_image.source="images/stats_pressed.png"
+        # self.ids.stats_image.source="images/stats_pressed.png"
+        pass
 
     def stats_released(self):
-        self.ids.stats_image.source="images/stats.png"
+        # self.ids.stats_image.source="images/stats.png"
+        pass
 
 
 
@@ -630,7 +632,7 @@ class MainWidget(Widget):
 class BardcodeApp(App):
     activeMenu = "Inv"
     def build(self):
-        self.icon = 'images/sword_pixel.png'
+        # self.icon = 'images/sword_pixel.png'
         print("****BUILD*******")
 
     def on_stats_button_click(self):
