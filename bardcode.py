@@ -36,11 +36,11 @@ class MenuScreen(Screen):
         super(MenuScreen, self).__init__(**kwargs)
         Clock.schedule_interval(self.cursorPosition, 1/60)
     def cursorPosition(self, dt): 
-        self.ids.cursor.pos = Window.mouse_pos[0] - self.ids.cursor.width/2, \
-                              Window.mouse_pos[1] - self.ids.cursor.height/2
+        self.ids.cursor.pos = Window.mouse_pos[0] - self.ids.cursor.width/4.25, \
+                              Window.mouse_pos[1] - self.ids.cursor.height/1.1
 
     def on_touch_down(self,touch):
-        self.ids.cursor.source="images/cursor_sprite_1000x2.png"
+        self.ids.cursor.source="images/cursor_blade1000x1.png"
         # push the current coordinate, to be able to restore it later
         touch.push()
 
@@ -59,7 +59,7 @@ class MenuScreen(Screen):
         return ret
 
     def on_touch_up(self,touch):
-        self.ids.cursor.source="images/cursor_sprite_1000x1.png"
+        self.ids.cursor.source="images/cursor_blade1000x2.png"
 
 
 class MyLayout(Widget):
