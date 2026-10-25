@@ -6,21 +6,21 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.floatlayout import FloatLayout
-from kivy.metrics import dp
+from kivy.metrics import dp,sp
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.pagelayout import PageLayout
-from kivy.properties import StringProperty, BooleanProperty
+from kivy.properties import StringProperty, BooleanProperty, ListProperty
 import discoveryGen
 import playerInventory
 import logging
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
-from kivy.graphics import Color, Rectangle
+from kivy.graphics import *
 from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.screenmanager import Screen
 from kivy.clock import Clock
 from kivy.core.window import Window
-
+from kivy.logger import Logger
 from kivy.uix.label import Label
 logger = logging.getLogger(__name__)
 Window.show_cursor = False 
@@ -310,9 +310,72 @@ class CustomButton(ButtonBehavior, BoxLayout):
     def on_release(self):
         print("\troute={0}, stations={1}, commute={2}".format(self.route, self.stations, self.commute))
 
-class IconButton(ButtonBehavior, Image):
+
+
+class IconButton(ButtonBehavior, Label):
     def on_press(self):
         print("IconButton:on_press")
+
+    def on_size(self, *args):
+        self.canvas.before.clear()
+        with self.canvas.before:
+            Color(0, 1, 0, 0.25)
+            Rectangle(pos=self.pos, size=self.size)
+
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+               
+class ColorLabel(Label):
+    bgcolor = ListProperty([0, 0, 0, 0])
+    def __init__(self, **kwargs):
+        super(ColorLabel, self).__init__(**kwargs)
+
+        with self.canvas.before:
+            r, g, b, a = self.bgcolor
+            Color(r, g, b, a)
+            self.rect = Rectangle(
+                            size=self.size,
+                            pos=self.pos)
+            self.bind(size=self._update_rect,
+                      pos=self._update_rect)
+
+    def _update_rect(self, instance, value):
+        self.rect.pos = instance.pos
+        self.rect.size = instance.size
+
+class WrapLabel(ColorLabel):
+    """
+    A wrapping label
+    the text tries to extend as much as possible, text that cannot be displayed is shortened
+    if wrap = True the cell extends vertically to show all the content
+    width (if passed) defines the maximum width this label is allowed to extend
+    """
+
+    wrap = BooleanProperty(False)
+
+    def __init__(self, **kwargs):
+        super(WrapLabel, self).__init__(**kwargs)
+        self.size_hint = (None, None)
+        if 'width' not in kwargs:
+            self.width=sp(100)
+        if 'height' not in kwargs:
+            self.height=sp(18)
+
+        if self.wrap:
+            #Constrain horizontally to size of label and free vertically
+            self.text_size = (self.width, None)
+        else:
+            self.text_size = self.size
+            self.shorten = True
+
+    def on_texture_size(self,*args):
+        Logger.debug('WrapLabel:on_texture_size [%s] texture_size %r size %r text_size %r',
+                     self.text[0:5], self.texture_size, self.size, self.text_size)
+        if self.wrap:
+            self.texture_update()
+            self.height = self.texture_size[1]        
+ 
 
 class Tab_BoxLayout(BoxLayout):
     pass

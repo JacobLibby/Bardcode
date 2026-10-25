@@ -413,19 +413,20 @@ MenuScreen:
             text: "A"
         Button:
             text: "B"
+
 <BoxLayoutExample>:
     font_name: "fonts/ofont.ru_Fixedsys.ttf" 
     orientation: "vertical"
     RelativeLayout:
-        AnchorLayout:
-            anchor_x: "center"
-            anchor_y: "top"
-            BoxLayout:
-                size_hint: .1,.1
-                Button:
-                    text: "A"
-                Button:
-                    text: "B"
+        # AnchorLayout:
+        #     anchor_x: "center"
+        #     anchor_y: "top"
+        #     BoxLayout:
+        #         size_hint: .1,.1
+        #         Button:
+        #             text: "A"
+        #         Button:
+        #             text: "B"
         AnchorLayout:
             anchor_x: "center"
             anchor_y: "center"
@@ -441,6 +442,168 @@ MenuScreen:
                 halign: "center"
                 padding_x:40
                 markup: True
+        
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "bottom"
+            
+            BoxLayout:
+                size_hint: (1, 0.5)
+                spacing: 50
+                orientation:'horizontal'
+
+
+                IconButton:
+                    text: "BRING THIS WITH ME"
+                    font_name: "fonts/ofont.ru_Fixedsys.ttf" 
+                    # text_size: self.size
+                    pos:(20,20)
+                    size_hint: .5, .5
+                    # width: self.texture_size[0]
+
+                    # height: self.texture_size[1]
+                    canvas.before:
+                        Color:
+                            rgba:0,1,1,1
+                        Rectangle:
+                            pos:self.pos
+
+                            size:self.size
+                    # size_hint: (1, None)
+                    # height: self.text_size[1]
+
+                Label:
+                    text: "Leave this behind"
+                    font_name: "fonts/ofont.ru_Fixedsys.ttf" 
+
+            
+
+
+
+                # IconButton:
+                #     text: "Add this to your {inventory}"
+                #     # size_hint: .5,None
+                #     font_name: "fonts/ofont.ru_Fixedsys.ttf"
+                #     font_size: "20dp"
+                #     text_size: self.size
+                #     halign: "center"
+                #     # border_width: 10
+                #     # border_color: [1,1,1,1]
+                #     outline_width: 10
+                #     outline_colour: (1, 1, 1, 1)
+                #     markup: True
+                # Label:
+                #     font_name: "fonts/ofont.ru_Fixedsys.ttf"
+                #     font_size: "20dp"
+                #     text_size: self.size
+                #     color: 1,1,1,0.55
+                #     size_hint: .5,None
+                #     # size: self.width,self.height
+                #     markup:True
+                #     # top: 640-294
+                #     # x: 66
+                #     halign: "left"
+                #     valign: "middle"
+                #     text: "this gonna be a lot of text :)"
+                #     canvas.before:
+                #         Color:
+                #             rgba: (1,1,1,1)
+                #         Line:
+                #             width: 1.1
+                #             rectangle: self.x, self.y, self.width, self.height
+                # WrapLabel:
+                #     text:"TESTING a ton of text, like a real heck-ton"
+                #     # wrap:True
+                #     font_name: "fonts/ofont.ru_Fixedsys.ttf"
+                #     font_size: "20dp"
+                #     text_size: self.size
+                # ColorLabel:
+                #     text:"COLOR LABEL TIME!!! YIPPIE"
+                #     markup:True
+                #     bgcolor:(1,1,0,1)
+                #     font_name: "fonts/ofont.ru_Fixedsys.ttf"
+                #     font_size: "20dp"
+                #     text_size: self.size
+                # Label:
+                #     id:label123
+                #     text: "Leave this behind"
+                #     size_hint:.5,1
+                #     markup: True
+                #     font_name: "fonts/ofont.ru_Fixedsys.ttf"
+                #     font_size: "20dp"
+                #     text_size: self.size
+                #     halign: "center"
+                #     # width:self.width
+                #     # height:self.height
+                #     # padding_x:40
+                #     canvas.before:
+                #         Color:
+                #             rgba:.5, 1, 0, .5
+                #         # Line:
+                #         #     circle:self.width / 2, self.height / 2, 25
+                #         #     width:2
+                #         # Line:
+                #         #     rectangle:0, 0, self.width, self.height
+                #         #     # rectangle:0, 0, 100, 100
+                #         #     width:4
+                #         Rectangle:
+                #             # size: self.width,self.height
+                #             pos: self.center_x - self.texture_size[0]/2, self.center_y - self.texture_size[1]/2
+                
+                
+                
+                # FloatLayout:
+                #     LabelWithBorder:
+                #         text: 'Bring this with me'
+                #         font_size: 50
+                #         border_width: 10
+                #         border_color: [1,0,0,1]
+                #         height:self.text_size[1]
+                #         size_hint: None, None
+                #         size: self.texture_size
+                #         pos_hint: {'center_x':0.5, 'center_y':0.5}
+                #         size_hint:.5,1
+                #         markup: True
+                #         font_name: "fonts/ofont.ru_Fixedsys.ttf"
+                #         font_size: "20dp"
+                #         text_size: self.size
+                # FloatLayout:
+                #     LabelWithBorder:
+                #         text: 'Leave this behind'
+                #         font_size: 50
+                #         border_width: 10
+                #         border_color: [0,1,0,1]
+                #         size_hint: None, None
+                #         size: self.texture_size
+                #         pos_hint: {'center_x':0.5, 'center_y':0.5}
+                #         size_hint:.5,1
+                #         markup: True
+                #         font_name: "fonts/ofont.ru_Fixedsys.ttf"
+                #         font_size: "20dp"
+                #         text_size: self.size
+                 # IconButton:
+
+                #     text: "Leave this behind"
+                #     size_hint:.5,None
+                #     markup: True
+                #     font_name: "fonts/ofont.ru_Fixedsys.ttf"
+                #     halign: "center"
+                #     # padding_x:40
+                #     canvas.before:
+                #         Color:
+                #             rgba:.5, 1, 0, .5
+                #         # Line:
+                #         #     circle:self.width / 2, self.height / 2, 25
+                #         #     width:2
+                #         Line:
+                #             rectangle:0, 0, self.width, self.height
+                #             # rectangle:0, 0, 100, 100
+                #             width:2
+                #         Rectangle:
+                #             size: self.texture_size
+                #             pos: self.center_x - self.texture_size[0]/2, self.center_y - self.texture_size[1]/2
+                            
+
 
     TextInput:
         id: my_text_input
@@ -483,3 +646,28 @@ MenuScreen:
         source: "images/cake.jpg"
         allow_stretch: True
         keep_ratio: False
+
+
+<-LabelWithBorder@Label>:
+    border_width: 0
+    border_color: [1,1,1,1]
+    # draw the border
+    canvas.before:
+        Color:
+            rgba: root.border_color if root.border_width > 0 else [0,0,0,1]
+        Rectangle:
+            size: self.size
+            pos: self.pos
+        Color:
+            rgba: 0, 0, 0, 1
+        Rectangle:
+            size: self.width - 2*root.border_width, self.height - 2*root.border_width
+            pos: int(self.center_x - (self.width - 2*root.border_width)/2.), int(self.center_y - (self.height - 2*root.border_width)/2.)
+    # modified from Label
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            texture: self.texture
+            size: self.texture_size[0] - 2*root.border_width, self.texture_size[1] - 2*root.border_width
+            pos: int(self.center_x - self.width/2.) + root.border_width, int(self.center_y - self.height/2.) + root.border_width
