@@ -608,6 +608,9 @@ class BoxLayoutExample(BoxLayout):
     validated_text = StringProperty('B A R D C O D E')
     # slider_value_txt = StringProperty("50")
     count_enabled = BooleanProperty(False)
+    discoveryName = StringProperty()
+    discoveryTable = StringProperty()
+
     def on_toggle_button_state(self,widget):
         print(f"toggle state: {widget.state}")
         if widget.state == "down":
@@ -622,6 +625,7 @@ class BoxLayoutExample(BoxLayout):
         print("on_inv_button_click(self)")
         inv = playerInventory.PlayerInventory()
         print(inv.fetchInventory())
+
 
 
     def on_switch_active(self,widget):
@@ -640,6 +644,12 @@ class BoxLayoutExample(BoxLayout):
         gen = discoveryGen.discovery()
         discoveryName, discoveryTable = gen.generateTable(self.validated_text)
         fetchD = gen.fetchDiscovery(discoveryName, discoveryTable)
+        self.discoveryName, self.discoveryTable = discoveryName, discoveryTable
+        print("APP DISCOVERYNAME AND DISCOVERYTABLE")
+        # print(App.discoveryName)
+        # print(App.discoveryTable)
+        print(self.discoveryName)
+        print(self.discoveryTable)
         discoveredNothing = False
         if discoveryTable == 'weapon':
             dI = discoveryGen.DiscoveryWeapon(*fetchD)
@@ -694,6 +704,8 @@ class MainWidget(Widget):
 # need to have "App" suffix AND reference
 class BardcodeApp(App):
     activeMenu = "Inv"
+    discoveryName = StringProperty()
+    discoveryTable = StringProperty()
     def build(self):
         # self.icon = 'images/sword_pixel.png'
         print("****BUILD*******")

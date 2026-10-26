@@ -107,6 +107,7 @@ class discovery:
                         #found it
                         
                         self.fetchDiscovery(key,probTable['name'])
+                        ### USED BEFORE MOVING SO ADDING TO 
                         if probTable['name'] in ('weapon','armor','consumable','misc'):
                             # print(f"++++++++++++discoveryGent.discovery.generateTable()")
                             pI = playerInventory.PlayerInventory()
