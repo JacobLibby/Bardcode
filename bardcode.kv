@@ -450,33 +450,74 @@ MenuScreen:
             BoxLayout:
                 size_hint: (1, 0.5)
                 spacing: 50
+                spacing_bottom:"100dp"
                 orientation:'horizontal'
 
-
+                Label:
+                    size_hint: .2,.5
                 IconButton:
-                    text: "BRING THIS WITH ME"
+                    text: "BRING this with me"
                     font_name: "fonts/ofont.ru_Fixedsys.ttf" 
                     # text_size: self.size
+                    text_size: self.width, None
+                    size_hint_y: None
+                    halign:'center'
+                    valign:'center'
+                    height: self.texture_size[1]
                     pos:(20,20)
-                    size_hint: .5, .5
+                    # size_hint: None,None
+                    size_hint: .3,.5
+                    markup: True
                     # width: self.texture_size[0]
 
                     # height: self.texture_size[1]
-                    canvas.before:
+                    canvas:
                         Color:
-                            rgba:0,1,1,1
+                            rgba:.1,1,.1,.2
                         Rectangle:
                             pos:self.pos
+                            # size_hint: None,None
+                            size:self.size
+                    # size_hint: (1, None)
+                    # height: self.text_size[1]
+                    on_press:print(f'DISCOVERY NAME: {root.discoveryName}, DISCOVERY TABLE: {root.discoveryTable}')
 
+                IconButton:
+                    text: "LEAVE this behind"
+                    font_name: "fonts/ofont.ru_Fixedsys.ttf" 
+                    # text_size: self.size
+                    text_size: self.width, None
+                    size_hint_y: None
+                    halign:'center'
+                    valign:'center'
+                    height: self.texture_size[1]
+                    pos:(20,20)
+                    # size_hint: None,None
+                    size_hint: .3,.5
+                    markup: True
+                    # width: self.texture_size[0]
+
+                    # height: self.texture_size[1]
+                    canvas:
+                        Color:
+                            rgba:1,.1,.1,.2
+                        Rectangle:
+                            pos:self.pos
+                            # size_hint: None,None
                             size:self.size
                     # size_hint: (1, None)
                     # height: self.text_size[1]
                     on_press:print(f'DISCOVERY NAME: {root.discoveryName}, DISCOVERY TABLE: {root.discoveryTable}')
 
                 Label:
-                    text: "Leave this behind"
-                    font_name: "fonts/ofont.ru_Fixedsys.ttf" 
-
+                    size_hint: .2,.5
+                # Button:
+                #     canvas.before:
+                #         Color:
+                #             rgba: .5, .5, .5, 1
+                #         Line:
+                #             width: 2
+                #             rectangle: self.x, self.y, self.width, self.height
             
 
 

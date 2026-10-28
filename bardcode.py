@@ -314,13 +314,13 @@ class CustomButton(ButtonBehavior, BoxLayout):
 
 class IconButton(ButtonBehavior, Label):
     def on_press(self):
-        print("IconButton:on_press")
+        print(f"IconButton:on_press -- {self.text}")
 
-    def on_size(self, *args):
-        self.canvas.before.clear()
-        with self.canvas.before:
-            Color(0, 1, 0, 0.25)
-            Rectangle(pos=self.pos, size=self.size)
+    # def on_size(self, *args):
+    #     self.canvas.before.clear()
+    #     with self.canvas.before:
+    #         Color(0, 1, 0, 0.25)
+    #         Rectangle(pos=self.pos, size=self.size)
 
 
     def __init__(self, **kwargs):
