@@ -311,10 +311,18 @@ class CustomButton(ButtonBehavior, BoxLayout):
         print("\troute={0}, stations={1}, commute={2}".format(self.route, self.stations, self.commute))
 
 
-
-class IconButton(ButtonBehavior, Label):
+class BackgroundButton(ButtonBehavior, Label):
     def on_press(self):
-        print(f"IconButton:on_press -- {self.text}")
+        print(f"BackgroundButton:on_press -- {self.text}")
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+class IconButton(ButtonBehavior, Image):
+    # background_color= StringProperty()
+    def on_press(self):
+        #print(f"IconButton:on_press -- {self.text}")
+        pass
 
     # def on_size(self, *args):
     #     self.canvas.before.clear()
@@ -325,6 +333,7 @@ class IconButton(ButtonBehavior, Label):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
                
 class ColorLabel(Label):
     bgcolor = ListProperty([0, 0, 0, 0])
@@ -410,17 +419,19 @@ class StackLayoutExample(StackLayout):
                         ,'misc': '00ff00'
                     }
             icon_map = {
-                'weapon': 'W'
-                ,'armor': 'A'
-                ,'consumable': 'C'
-                ,'misc': 'M'
+                'weapon': 'images/cursor_blade2.png'
+                ,'armor': 'images/armor_icon.png'
+                ,'consumable': 'images/armor_icon.png'
+                ,'misc': 'images/armor_icon.png'
             }
             list = playerInventory.PlayerInventory().fetchInventory()
             for each in list:
                 print(each)
                 # b.bind(on_ref_press=self.labelPressed)
                 # f = FloatLayout(size_hint=(1,None),size=(1,dp(40)))
-                b_icon = Button(text=str(f"{str(icon_map[each[2]])}"),pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
+
+                # b_icon = Button(text=str(f"{str(icon_map[each[2]])}"),pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
+                b_icon = IconButton(source=icon_map[each[2]],pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)))#,background_color=color_map[each[2]])
                 b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
                 b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
 
