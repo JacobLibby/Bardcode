@@ -65,8 +65,6 @@ class MenuScreen(Screen):
 class MyLayout(Widget):
     pass
 
-class TabbedLayout(TabbedPanel):
-    pass
 
 class TabbedLayoutOg(BoxLayout):
 
@@ -79,95 +77,6 @@ class TabbedLayoutOg(BoxLayout):
         pass
 
 
-
-class basicTemplate(BoxLayout):
-    my_text = StringProperty("How many clicks?")
-    count = 0
-    validated_text = StringProperty("")
-    # slider_value_txt = StringProperty("50")
-    count_enabled = BooleanProperty(False)
-    def on_toggle_button_state(self,widget):
-        print(f"toggle state: {widget.state}")
-        if widget.state == "down":
-            widget.text = "ON"
-            self.count_enabled = True
-        else:
-            widget.text = "OFF"
-            self.count_enabled = False
-
-
-    def on_button_click(self):
-        if self.count_enabled:
-            self.count += 1
-            self.my_text = str(self.count)
-            print("Clicked")
-        pass
-
-    def on_switch_active(self,widget):
-        print(f"Switch: {widget.active}")
-
-    # def on_slider_touch_up(self,widget):
-    #     # print(widget.value)
-    #     pass
-    # def on_slider_value(self,widget):
-    #     # self.slider_value_txt = str(int(widget.value))
-    #     # print(f"Slider Value: {int(widget.value)}")
-    #     pass
-
-    def on_text_validate(self,widget):
-        self.validated_text = widget.text
-        gen = discoveryGen.discovery()
-        discoveryName, discoveryTable = gen.generateTable(self.validated_text)
-        self.validated_text = gen.printDiscovery(discoveryName, discoveryTable)
-        #### NTS ^ change from printDiscovery to fetchDiscovery
-        pass
-
-class WidgetExample(GridLayout):
-    my_text = StringProperty("How many clicks?")
-    count = 0
-    validated_text = StringProperty("")
-    # slider_value_txt = StringProperty("50")
-    count_enabled = BooleanProperty(False)
-    def on_toggle_button_state(self,widget):
-        print(f"toggle state: {widget.state}")
-        if widget.state == "down":
-            widget.text = "ON"
-            self.count_enabled = True
-        else:
-            widget.text = "OFF"
-            self.count_enabled = False
-
-
-    def on_button_click(self):
-        if self.count_enabled:
-            self.count += 1
-            self.my_text = str(self.count)
-            print("Clicked")
-        pass
-
-    def on_switch_active(self,widget):
-        print(f"Switch: {widget.active}")
-
-    # def on_slider_touch_up(self,widget):
-    #     # print(widget.value)
-    #     pass
-    # def on_slider_value(self,widget):
-    #     # self.slider_value_txt = str(int(widget.value))
-    #     # print(f"Slider Value: {int(widget.value)}")
-    #     pass
-
-    def on_text_validate(self,widget):
-        self.validated_text = widget.text
-        gen = discoveryGen.discovery()
-        discoveryName, discoveryTable = gen.generateTable(self.validated_text)
-        self.validated_text = gen.printDiscovery(discoveryName, discoveryTable)
-        #### NTS ^ change from printDiscovery to fetchDiscovery
-
-        pass
-    
-class PageLayoutExample(PageLayout):
-
-    pass
 
 class ScrollViewExample(ScrollView):
     id = StringProperty()
@@ -295,22 +204,6 @@ class BoxLayoutHoldingScrollViews(BoxLayout):
             wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = 0, 0, None, None, 0, True
             # wid.opacity  = 0
 
-class MyLabel(Label):
-    def on_size(self, *args):
-        self.canvas.before.clear()
-        with self.canvas.before:
-            Color(0, 1, 0, 0.25)
-            Rectangle(pos=self.pos, size=self.size)
-
-class CustomButton(ButtonBehavior, BoxLayout):
-    route = StringProperty('route')
-    stations = StringProperty('stations')
-    commute = StringProperty('commute')
-
-    def on_release(self):
-        print("\troute={0}, stations={1}, commute={2}".format(self.route, self.stations, self.commute))
-
-
 class BackgroundButton(ButtonBehavior, Label):
     def on_press(self):
         print(f"BackgroundButton:on_press -- {self.text}")
@@ -318,10 +211,19 @@ class BackgroundButton(ButtonBehavior, Label):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-class IconButton(ButtonBehavior, Image):
+class IconButton(ButtonBehavior, Image): ## ANCHOR layout > Button > Image
     # background_color= StringProperty()
     def on_press(self):
         #print(f"IconButton:on_press -- {self.text}")
+        src = self.source
+        src_press = src[:-4] + "_pressed" + src[-4:]
+        self.source = src_press
+        pass
+
+    def on_release(self):
+        src = self.source
+        src_release = src[:-12] + src[-4:]
+        self.source = src_release
         pass
 
     # def on_size(self, *args):
@@ -352,42 +254,6 @@ class ColorLabel(Label):
     def _update_rect(self, instance, value):
         self.rect.pos = instance.pos
         self.rect.size = instance.size
-
-class WrapLabel(ColorLabel):
-    """
-    A wrapping label
-    the text tries to extend as much as possible, text that cannot be displayed is shortened
-    if wrap = True the cell extends vertically to show all the content
-    width (if passed) defines the maximum width this label is allowed to extend
-    """
-
-    wrap = BooleanProperty(False)
-
-    def __init__(self, **kwargs):
-        super(WrapLabel, self).__init__(**kwargs)
-        self.size_hint = (None, None)
-        if 'width' not in kwargs:
-            self.width=sp(100)
-        if 'height' not in kwargs:
-            self.height=sp(18)
-
-        if self.wrap:
-            #Constrain horizontally to size of label and free vertically
-            self.text_size = (self.width, None)
-        else:
-            self.text_size = self.size
-            self.shorten = True
-
-    def on_texture_size(self,*args):
-        Logger.debug('WrapLabel:on_texture_size [%s] texture_size %r size %r text_size %r',
-                     self.text[0:5], self.texture_size, self.size, self.text_size)
-        if self.wrap:
-            self.texture_update()
-            self.height = self.texture_size[1]        
- 
-
-class Tab_BoxLayout(BoxLayout):
-    pass
 
 class StackLayoutExample(StackLayout):
     showing = StringProperty()
@@ -421,8 +287,8 @@ class StackLayoutExample(StackLayout):
             icon_map = {
                 'weapon': 'images/cursor_blade2.png'
                 ,'armor': 'images/armor_icon.png'
-                ,'consumable': 'images/armor_icon.png'
-                ,'misc': 'images/armor_icon.png'
+                ,'consumable': 'images/consumable_icon.png'
+                ,'misc': 'images/misc_icon.png'
             }
             list = playerInventory.PlayerInventory().fetchInventory()
             for each in list:
@@ -431,13 +297,13 @@ class StackLayoutExample(StackLayout):
                 # f = FloatLayout(size_hint=(1,None),size=(1,dp(40)))
 
                 # b_icon = Button(text=str(f"{str(icon_map[each[2]])}"),pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
-                b_icon = IconButton(source=icon_map[each[2]],pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)))#,background_color=color_map[each[2]])
+                b_icon = IconButton(source=icon_map[each[2]],pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)))#,color=color_map[each[2]])
                 b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
                 b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
 
                 b_icon.bind(on_press=self.icon_button_pressed)
                 b_icon.bind(on_release=self.icon_button_released)
-
+                # b_icon.add_widget()
 
                 # f.add_widget(b_icon)
                 # f.add_widget(b_name)
@@ -591,21 +457,6 @@ class StackLayoutQuests(StackLayoutExample):
     pass
 class StackLayoutSettings(StackLayoutExample):
     pass
-
-class GridLayoutInfoList(GridLayout):
-    def __init__(self,**kwargs):
-        super().__init__(**kwargs)
-        self.cols=1
-        for i in range(0,100):
-            size = dp(100)
-            b = Button(text=str(i+1),size_hint=(None,None),size=(size,size))
-            self.add_widget(b)
-
-    pass
-
-
-# class GridLayoutExample(GridLayout):
-#     pass
 
 class AnchorLayoutExample(AnchorLayout):
     pass
