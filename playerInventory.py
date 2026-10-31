@@ -137,7 +137,7 @@ class PlayerInventory:
             cur.close()
             print("Cursor closed.")
         except(Exception, psycopg2.DatabaseError) as error:
-            print(f"playerInventory.addToInventory --> {error}")
+            print(f"playerInventory.getTableCols --> {error}")
         finally:
             if conn is not None:
                 conn.close()

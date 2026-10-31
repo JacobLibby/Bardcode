@@ -210,6 +210,14 @@ class BackgroundButton(ButtonBehavior, Label):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        
+        
+    """
+        BardcodeApp.hide_widget(self,self.ids.btn_bring,dohide=True)
+        BardcodeApp.hide_widget(self,self.ids.btn_leave,dohide=True)
+    """
+
+    
 
 class IconButton(ButtonBehavior, Image): ## ANCHOR layout > Button > Image
     # background_color= StringProperty()
@@ -465,6 +473,7 @@ class AnchorLayoutExample(AnchorLayout):
 
 
 class BoxLayoutExample(BoxLayout):
+    
     my_text = StringProperty("How many clicks?")
     count = 0
     validated_text = StringProperty('B A R D C O D E')
@@ -472,6 +481,11 @@ class BoxLayoutExample(BoxLayout):
     count_enabled = BooleanProperty(False)
     discoveryName = StringProperty()
     discoveryTable = StringProperty()
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+
 
     def on_toggle_button_state(self,widget):
         print(f"toggle state: {widget.state}")
@@ -535,7 +549,9 @@ class BoxLayoutExample(BoxLayout):
             discoveredNothing = True
             self.validated_text = ('You found nothing...\n\ntry again?')
         if discoveredNothing == False:
-            pass
+            BardcodeApp.hide_widget(self,self.ids.boxlayout_bringLeave,dohide=False) #False
+            BardcodeApp.hide_widget(self,self.ids.my_text_input,dohide=True) #False
+            print("DISCOVERED SOMETHING!!!!! YAYAYAYY!")
             # self.Inv.on_inv_button_click()
             # pI = playerInventory.PlayerInventory()
             # pI.addToInventory(dI.id, discoveryTable)
@@ -543,8 +559,9 @@ class BoxLayoutExample(BoxLayout):
 
         # discoveryData = gen.fetchDiscovery(discoveryName, discoveryTable)
         # self.validated_text = discoveryData[]
-
-        
+        else:
+            BardcodeApp.hide_widget(self,self.ids.boxlayout_bringLeave,dohide=True)
+            BardcodeApp.hide_widget(self,self.ids.my_text_input,dohide=False)
 
         widget.text = ""
     """    def __init__(self,**kwargs):
@@ -556,7 +573,9 @@ class BoxLayoutExample(BoxLayout):
         self.add_widget(b1)
         self.add_widget(b2)
         self.add_widget(b3)
-"""
+    """
+        
+            
     pass
 
 

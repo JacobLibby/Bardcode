@@ -60,10 +60,10 @@ class discovery:
 
     discTable = {
         "name": "discovery"
-        ,0: (1,'nothing....... better luck next time')
-        ,1000: (1,quest)
-        ,3000: (1,encounter)
-        ,6000: (10,item)
+        ,'0': (1,'nothing....... better luck next time')
+        ,'1000': (1,quest)
+        ,'3000': (1,encounter)
+        ,'6000': (10,item)
     }
     def generateTable(self,seed_input,probTable_input=discTable):
         
@@ -109,9 +109,16 @@ class discovery:
                         self.fetchDiscovery(key,probTable['name'])
                         ### USED BEFORE MOVING SO ADDING TO 
                         if probTable['name'] in ('weapon','armor','consumable','misc'):
+                            print("NEED TO REMOVE ADDING TO INVENTORY FROM WITHIN Discovery class")
                             # print(f"++++++++++++discoveryGent.discovery.generateTable()")
                             pI = playerInventory.PlayerInventory()
                             pI.addToInventory(key,probTable['name'])
+                            print(f"key: [{key}] - type:{type(key)}, probTable['name']: [{probTable['name']}] - type:{type(probTable['name'])}")
+
+                        else:
+                            # When found NOTHING, returns an int
+                            print("NOT an item")
+                            print(f"key: [{key}] - type:{type(key)}, probTable['name']: [{probTable['name']}] - type:{type(probTable['name'])}")
                         # print(f"print(key, probTable['name']) --> {key, probTable['name']}")
                         return key,probTable['name']
                     
@@ -161,8 +168,6 @@ class discovery:
             return selectDiscovery
     
         
-
-
 
 class DiscoveryInstance(ABC):
     pass

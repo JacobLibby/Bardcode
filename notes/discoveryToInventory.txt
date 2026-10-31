@@ -1,0 +1,8 @@
+
+barcode is submitted to on_text_validate
+    barcode is sent to gen.generateTable
+    barcode is fetched with gen.fetchDiscovery
+        XX added to inventory
+    discoveryGen.Discovery<TYPE> is created
+    validated text is changed to show discovery
++ on ADD button press, add to inventory
