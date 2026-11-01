@@ -184,6 +184,7 @@ class ScrollViewSettings(ScrollViewExample):
 class InventoryItem(FloatLayout):
     pass
 
+
 class BoxLayoutHoldingScrollViews(BoxLayout):
     # def do_layout(self, *largs):
     #     if BardcodeApp.activeMenu == "Inv":
@@ -207,6 +208,20 @@ class BoxLayoutHoldingScrollViews(BoxLayout):
 class BackgroundButton(ButtonBehavior, Label):
     def on_press(self):
         print(f"BackgroundButton:on_press -- {self.text}")
+        if self.text == "BRING this with me":
+            print(f"add this to inventory --> pI.addToInventory({BardcodeApp.discoveryName}, {BardcodeApp.discoveryTable})")
+            pI = playerInventory.PlayerInventory()
+            print(f"StackLayoutExample {StackLayoutExample}")
+            print(f"StackLayoutExample.ids: {StackLayoutExample.ids}")
+            # print(f"StackLayoutExample().ids['StackLayoutExampleInv']: {StackLayoutExample().on_menu(StackLayoutExample.ids.StackLayoutExampleInv)}")
+            # stack_inv = App.root.ids.StackLayoutExampleInv
+            pI.addToInventory(BardcodeApp.discoveryName, BardcodeApp.discoveryTable)
+            print(f"StackLayoutInv().on_menu():")
+            StackLayoutInv.on_menu(any,any,any)
+
+            # UPDATE INVENTORY
+        elif self.text == "LEAVE this behind":
+            print("not adding this to inventory, leaving it behind")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -364,6 +379,8 @@ class StackLayoutExample(StackLayout):
             self.visibility = False
             self.hide_widget(self.id,True)
 
+
+
         # if self.showing == "Inv":
         #     color_map = {
         #                 'weapon': 'ff0000'
@@ -421,7 +438,7 @@ class StackLayoutExample(StackLayout):
 
 
     def do_layout(self, *largs):
-        print("StackLayoutExample:do_layout")
+        # print("StackLayoutExample:do_layout")
         
         super().do_layout(*largs)
         # print("DO LAYOUT")
@@ -460,7 +477,164 @@ class StackLayoutExample(StackLayout):
 class StackLayoutStats(StackLayoutExample):
     pass
 class StackLayoutInv(StackLayoutExample):
-    pass
+    instance = None
+    uniqueItemCount = -1
+    inventory = {}
+
+
+    def __init__(self,**kwargs):
+        print("INIT")
+        super(StackLayoutInv,self).__init__(**kwargs) # super().__init__(**kwargs)
+        self.orientation = "lr-tb"
+
+    def on_menu(self,instance,value):
+        # print(f"StackLayoutExample:SELF.MENU == {self.menu}")
+        
+        color_map = {
+                    'weapon': 'ff0000'
+                    ,'armor': 'ffa500'
+                    ,'consumable': 'ffff00'
+                    ,'misc': '00ff00'
+                }
+        icon_map = {
+            'weapon': 'images/cursor_blade2.png'
+            ,'armor': 'images/armor_icon.png'
+            ,'consumable': 'images/consumable_icon.png'
+            ,'misc': 'images/misc_icon.png'
+        }
+        list = playerInventory.PlayerInventory().fetchInventory()
+        self.clear_widgets()
+        print(f"StackLayoutInv.clear_widgets()")
+        for each in list:
+            b_icon = IconButton(source=icon_map[each[2]],pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)))#,color=color_map[each[2]])
+            b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
+            b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
+
+            b_icon.bind(on_press=self.icon_button_pressed)
+            b_icon.bind(on_release=self.icon_button_released)
+
+
+            self.add_widget(b_icon)
+            self.add_widget(b_name)
+            self.add_widget(b_count)
+
+
+    def labelPressed(self):
+        print("Label has been pressed")
+        print(f"label '' '' has been pressed")
+
+    def icon_button_pressed(self,instance):
+        print("PRESSED")
+
+    def icon_button_released(self,instance):
+        print("RELEASED")
+        
+    def update(self):
+        print("StackLayoutExample:update()")
+        list = []
+        # self.clear_widgets()
+        if App.showing == self.menu:
+            self.visibility = True
+            self.hide_widget(self.id,False)
+        else:
+            self.visibility = False
+            self.hide_widget(self.id,True)
+
+
+
+        # if self.showing == "Inv":
+        #     color_map = {
+        #                 'weapon': 'ff0000'
+        #                 ,'armor': 'ffa500'
+        #                 ,'consumable': 'ffff00'
+        #                 ,'misc': '00ff00'
+        #             }
+        #     icon_map = {
+        #         'weapon': 'W'
+        #         ,'armor': 'A'
+        #         ,'consumable': 'C'
+        #         ,'misc': 'M'
+        #     }
+        #     list = playerInventory.PlayerInventory().fetchInventory()
+        #     for each in list:
+        #         print(each)
+        #         # b.bind(on_ref_press=self.labelPressed)
+        #         # f = FloatLayout(size_hint=(1,None),size=(1,dp(40)))
+        #         b_icon = Button(text=str(f"{str(icon_map[each[2]])}"),pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
+        #         b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
+        #         b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
+
+        #         # f.add_widget(b_icon)
+        #         # f.add_widget(b_name)
+        #         # # f.add_widget(b_count)
+
+        #         # self.add_widget(f)
+        #         self.add_widget(b_icon)
+        #         self.add_widget(b_name)
+        #         self.add_widget(b_count)
+        #         # b = Button(text=str(f"{str(each[1])}    count: {each[3]}"),size_hint=(1,None),size=(1,dp(40)),background_color=color_map[each[2]])
+        #         # self.add_widget(b)
+                
+        # elif self.showing == "Quests":
+        #     print("Show quests")
+        #     list = ['Quest'] 
+        #     for each in list:
+        #         print(each)
+        #         b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)),background_color="0000ff")
+        #         self.add_widget(b)
+        #     # should quests be in player inventory?
+        #     pass
+        # elif self.showing == "Stats":
+        #     print("Show stats")
+        #     list = ['Stats','Stats','Stats']
+        #     for each in list:
+        #         print(each)
+        #         b = Button(text=str(each),size_hint=(1,None),size=(1,dp(40)),background_color="ff00ff")
+        #         self.add_widget(b)
+        
+
+    def clear_widgets(self, children=None):
+        print("StackLayoutExample:clear_widgets()")
+        return super().clear_widgets(children)
+
+
+    def do_layout(self, *largs):
+        # print("StackLayoutExample:do_layout")
+        
+        super().do_layout(*largs)
+        # print("DO LAYOUT")
+        # print(f'\t*largs: {largs}')
+        # self.showing = widget.value
+        if type(largs[0]) != float:
+            self.showing = largs[0].value
+            # print(f"self.showing: {self.showing}")
+            self.update()
+            if self.showing == "Inv":
+                print("INV")
+                # b = Button(text="ADDING",size_hint=(1,None),size=(1,dp(40)))
+                # self.add_widget(b)
+            else:
+                print(f'StackLayoutExample:do_layout(): self.showing: {self.showing}')
+                # self.orientation = "lr-tb"
+                # for i in range(0,100):
+                #     #size = dp(100)
+                #     #b = Button(text=str(i+1),size_hint=(None,None),size=(size,size))
+                #     b = Button(text=str(i+1),size_hint=(1,None),size=(1,dp(40)))
+                #     self.add_widget(b)
+
+    def hide_widget(self,wid, dohide=True):
+        if hasattr(wid, 'saved_attrs'):
+            if not dohide:
+                wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+                # wid.opacity = wid.saved_attrs
+
+                del wid.saved_attrs
+        elif dohide:
+            wid.saved_attrs = wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled
+            # wid.saved_attrs = wid.opacity
+            wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = 0, 0, None, None, 0, True
+            # wid.opacity  = 0
+    
 class StackLayoutQuests(StackLayoutExample):
     pass
 class StackLayoutSettings(StackLayoutExample):

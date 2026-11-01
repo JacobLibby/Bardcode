@@ -6,3 +6,6 @@ barcode is submitted to on_text_validate
     discoveryGen.Discovery<TYPE> is created
     validated text is changed to show discovery
 + on ADD button press, add to inventory
+
+
+How do I call on_menu for the specific instance?

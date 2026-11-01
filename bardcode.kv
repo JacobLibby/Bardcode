@@ -87,7 +87,7 @@ MenuScreen:
             scroll_timeout:130
             id:scrollViewInv
             menu:"Inv"
-            StackLayoutExample:
+            StackLayoutInv:
                 id: StackLayoutExampleInv
                 menu:"Inv"
                 size_hint:1,None
@@ -296,8 +296,8 @@ MenuScreen:
                     size:self.size
             # size_hint: (1, None)
             # height: self.text_size[1]
-            on_press:print(f'DISCOVERY NAME: {root.discoveryName}, DISCOVERY TABLE: {root.discoveryTable}');PlayerInventory.addToInventory(root.discoveryName,root.discoveryTable);app.hide_widget(boxlayout_bringLeave,dohide=True);app.hide_widget(my_text_input,dohide=False)
-
+            on_press:print(f'DISCOVERY NAME: {root.discoveryName}, DISCOVERY TABLE: {root.discoveryTable}');app.hide_widget(boxlayout_bringLeave,dohide=True);app.hide_widget(my_text_input,dohide=False)
+            # ;PlayerInventory.addToInventory(root.discoveryName,root.discoveryTable)
         BackgroundButton:
             id:btn_leave
             text: "LEAVE this behind"
