@@ -486,10 +486,11 @@ class StackLayoutInv(StackLayoutExample):
         print("INIT")
         super(StackLayoutInv,self).__init__(**kwargs) # super().__init__(**kwargs)
         self.orientation = "lr-tb"
+        self.on_menu(any,any)
 
     def on_menu(self,instance,value):
         # print(f"StackLayoutExample:SELF.MENU == {self.menu}")
-        
+        self.add_widget(Button(text="hello world"))
         color_map = {
                     'weapon': 'ff0000'
                     ,'armor': 'ffa500'
@@ -503,7 +504,8 @@ class StackLayoutInv(StackLayoutExample):
             ,'misc': 'images/misc_icon.png'
         }
         list = playerInventory.PlayerInventory().fetchInventory()
-        self.clear_widgets()
+        sl = StackLayout
+        sl.clear_widgets(self)
         print(f"StackLayoutInv.clear_widgets()")
         for each in list:
             b_icon = IconButton(source=icon_map[each[2]],pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)))#,color=color_map[each[2]])
@@ -514,10 +516,13 @@ class StackLayoutInv(StackLayoutExample):
             b_icon.bind(on_release=self.icon_button_released)
 
 
-            self.add_widget(b_icon)
-            self.add_widget(b_name)
-            self.add_widget(b_count)
+            # self.add_widget(b_icon)
+            # self.add_widget(b_name)
+            # self.add_widget(b_count)
 
+            sl.add_widget(self,b_icon)
+            sl.add_widget(self,b_name)
+            sl.add_widget(self,b_count)
 
     def labelPressed(self):
         print("Label has been pressed")
