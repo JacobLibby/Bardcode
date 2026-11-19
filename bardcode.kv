@@ -28,7 +28,7 @@ MenuScreen:
             value: "Stats"
             # on_press: StackLayoutExampleID.do_layout(self);app.on_stats_button_click();app.hide_widget(Label1,dohide=False);root.stats_pressed()
             on_release: root.stats_released()
-            on_press: app.hide_widget(scrollViewStats,dohide=False);app.hide_widget(scrollViewQuests,dohide=True);app.hide_widget(scrollViewInv,dohide=True)
+            on_press: app.on_stats_button_click();app.hide_widget(scrollViewStats,dohide=False);app.hide_widget(scrollViewQuests,dohide=True);app.hide_widget(scrollViewInv,dohide=True)
 
             # Image:
             #     id: stats_image
@@ -44,7 +44,7 @@ MenuScreen:
             text: "Inv"
             #size: "40dp","40dp"
             #size_hint:None,.2
-            on_press: app.hide_widget(scrollViewStats,dohide=True);app.hide_widget(scrollViewQuests,dohide=True);app.hide_widget(scrollViewInv,dohide=False)
+            on_press: app.on_inv_button_click();app.hide_widget(scrollViewStats,dohide=True);app.hide_widget(scrollViewQuests,dohide=True);app.hide_widget(scrollViewInv,dohide=False)
             # on_press: StackLayoutExampleID.do_layout(self);app.on_inv_button_click();app.hide_widget(Label1,dohide=False)
             #on_press: app.on_inv_button_click()
             value: "Inv"

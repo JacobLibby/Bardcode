@@ -127,7 +127,6 @@ class discovery:
             
         return (f"Empty prob table: {probTable}")
     def printDiscovery(self,discovery,table):
-        # print(f"FUNC printDiscovery() -- discovery: {discovery}, table: {table}")
         if discovery == "nothing....... better luck next time":
             print("CONGRATULATIONS on finding nothing :)")
         else:
@@ -135,7 +134,6 @@ class discovery:
         return (f"CONGRATS! You've found {discovery}, I'll grab info from the {table} table")
     def fetchDiscovery(self,discoveryID,discoveryTable):
         logger.info(f'fetchDiscovery({discoveryID},{discoveryTable})')
-        # print(f"FUNC fetchDiscovery() -- discoveryID: {discoveryID}, discoveryTable: {discoveryTable}")
         conn = None
         selectDiscovery = None
         try:
@@ -144,15 +142,12 @@ class discovery:
             conn = psycopg2.connect(**params)
             # create a cursor
             cur = conn.cursor()
-            # cur.execute("SELECT pg_is_in_recovery();")
-            # print(cur.fetchall())
             
             selectScript = f"""
             SELECT *
             FROM {discoveryTable}
             WHERE id = '{discoveryID}'
             """
-            # print(f"=======fetchDiscovery..selectScript: {selectScript}")
             cur.execute(selectScript)
             conn.commit()
             selectDiscovery = cur.fetchall()
@@ -164,10 +159,8 @@ class discovery:
             if conn is not None:
                 conn.close()
                 print('Database connection terminated.')
-            # print(f"fetch: {selectDiscovery}")
             return selectDiscovery
     
-        
 
 class DiscoveryInstance(ABC):
     pass
@@ -183,7 +176,6 @@ class DiscoveryWeapon(DiscoveryInstance):
     toHit = None
 
     def __init__(self,infoList):
-        # logger.info(f'DiscoveryWeapon({DiscoveryInstance})')
         self.id = infoList[0]
         self.title = infoList[1]
         self.description = infoList[2]
@@ -208,7 +200,6 @@ class DiscoveryArmor(DiscoveryInstance):
     statBonus = ""
 
     def __init__(self,infoList):
-        # logger.info(f'DiscoveryArmor({DiscoveryInstance})')
         self.id = infoList[0]
         self.title = infoList[1]
         self.description = infoList[2]
@@ -232,7 +223,6 @@ class DiscoveryConsumable(DiscoveryInstance):
     status = ""
 
     def __init__(self,infoList):
-        # logger.info(f'DiscoveryConsumable({DiscoveryInstance})')
         self.id = infoList[0]
         self.title = infoList[1]
         self.description = infoList[2]
@@ -248,7 +238,6 @@ class DiscoveryEncounter(DiscoveryInstance):
     description = ""
 
     def __init__(self,infoList):
-        # logger.info(f'DiscoveryEncounter({DiscoveryInstance})')
         self.id = infoList[0]
         self.name = infoList[1]
         self.description = infoList[2]
@@ -262,7 +251,6 @@ class DiscoveryMisc(DiscoveryInstance):
     value = -1
 
     def __init__(self,infoList):
-        # logger.info(f'DiscoveryMisc({DiscoveryInstance})')
         self.id = infoList[0]
         self.title = infoList[1]
         self.description = infoList[2]
@@ -276,7 +264,6 @@ class DiscoveryQuest(DiscoveryInstance):
     goal = ""
 
     def __init__(self,infoList):
-        # logger.info(f'DiscoveryQuest({DiscoveryInstance})')
         self.id = infoList[0]
         self.title = infoList[1]
         self.description = infoList[2]
@@ -284,19 +271,10 @@ class DiscoveryQuest(DiscoveryInstance):
 
 
 def main():
-    # gen = discovery()
-    # gen.generateTable('12341234')
     pass
 
 if __name__ == '__main__':
     main()
-
-
-# cur.close()
-# conn.close()
-
-
-
 
 
 

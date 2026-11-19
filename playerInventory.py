@@ -15,51 +15,6 @@ class PlayerInventory:
             cls.instance = super().__new__(cls)
         return cls.instance
 
-    # def fetchInventoryDetail(self):
-        # select_script = """
-        # SELECT
-        # pi.id
-        # , CASE 
-        #     WHEN pi.itemCat = 'Weapon' THEN w.title
-        #     WHEN pi.itemCat = 'Armor' THEN a.title
-        #     WHEN pi.itemCat = 'Consumable' THEN c.title
-        #     WHEN pi.itemCat = 'Misc' THEN m.title
-        #     else NULL
-        # END AS title
-        # , i.tablename
-        # , pi.count
-        # , pi.equipped
-        # FROM playerInventory pi
-        # LEFT JOIN item i ON i.id = pi.itemID
-        # LEFT JOIN weapon w ON w.id = pi.itemID
-        # LEFT JOIN armor a ON a.id = pi.itemID
-        # LEFT JOIN consumable c ON c.id = pi.itemID
-        # LEFT JOIN misc m ON m.id = pi.itemID
-        # """
-        # select_ret = ""
-        # conn = None
-        # try:
-        #     params = config()
-        #     print('Connecting to PostgreSQL database')
-        #     conn = psycopg2.connect(**params)
-    
-        #     # create a cursor
-        #     cur = conn.cursor()
-        #     print('PostgreSQL database version: ')
-        #     cur.execute(select_script)
-        #     conn.commit()
-        #     select_ret = cur.fetchall()
-        #     cur.close()
-        #     print("Cursor closed.")
-        # except(Exception, psycopg2.DatabaseError) as error:
-        #     print(error)
-        # finally:
-        #     if conn is not None:
-        #         conn.close()
-        #         print('Database connection terminated.')
-        # # print(f"fetched inventory. len={len(select_ret)}")
-        # return select_ret
-
     def fetchInventory(self):
         select_script = """
         SELECT
@@ -151,17 +106,7 @@ class PlayerInventory:
     
 
     def addToInventory(self,itemID,table):
-        """
-        if itemID in playerInventory
-            increment count by 1 -- later by itemCount?
-        else: -- if itemID not in playerInventory
-            insert into playerInventory:
-                itemID = itemID
-                itemCat = table
-                id = hash(table, "'" + str(itemID) + "''" + str(itemCat) + "'")
-                count = 1
-                equipped = False
-        """
+        
         tableCols, tableColsArr = self.getTableCols(table)
         piTableCols, piTableColsArr = self.getTableCols('playerinventory')
 
@@ -170,11 +115,6 @@ class PlayerInventory:
             # can't normally create new ID w hash
             return False
 
-        # selectScriptHashVals = f"""
-        # SELECT {tableColsArr[1][0]},{tableColsArr[2][0]}
-        # FROM {table}
-        # WHERE id = '{itemID}'
-        # """
         selectScriptInventory = f"""
         SELECT *
         FROM PlayerInventory
@@ -232,17 +172,13 @@ class PlayerInventory:
             insertScript = """
             INSERT INTO PlayerInventory ({piTableCols})
             VALUES ({table})
-
-
             """
-
+            
             """ OBJECTIVE: add info to csv and table
             1. add new row to csv
             2. add row to table ()
             """
 
-
-            
             
         except(Exception, psycopg2.DatabaseError) as error:
             print(f"+++++++++++++++++++++++++++playerInventory.addToInventory --> {error}")
