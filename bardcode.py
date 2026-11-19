@@ -164,22 +164,59 @@ class ScrollViewExample(ScrollView):
                 self.add_widget(b)
             App.hideWidget(self,True)
 """
+
+
+def singleton(class_):
+    instances = {}
+    def getinstance(*args,**kwargs):
+        if class_ not in instances:
+            instances[class_] = class_(*args,**kwargs)
+        return instances[class_]
+    return getinstance
+
+@singleton
 class ScrollViewStats(ScrollViewExample):
+    # _instance = None
+    # def __call__(cls, *args, **kw):
+    #    obj = cls.__new__(cls, *args, **kw)
+    #    if "__no_builder" in kw:
+    #        del kw["__no_builder"]
+    #    obj.__init__(*args, **kw)
+    #    return obj
+    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.hide_widget(self,dohide=True)
-    pass
 
+    # def __new__(cls,):
+    #     if cls._instance is None:
+    #         cls._instance = super(ScrollViewStats, cls).__new__(cls)
+    #     return cls._instance
+    
+
+@singleton
 class ScrollViewInv(ScrollViewExample):
-    pass
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.hide_widget(self,dohide=False)
 
+
+@singleton
 class ScrollViewQuests(ScrollViewExample):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.hide_widget(self,dohide=True)
 
+@singleton
 class ScrollViewSettings(ScrollViewExample):
-    pass
+    # instance = None
+    # def __new__(cls):
+    #     if cls.instance is None:
+    #         cls.instance = super().__new__(cls)
+    #     return cls.instance
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.hide_widget(self,dohide=True)
 
 class InventoryItem(FloatLayout):
     pass
@@ -225,6 +262,12 @@ class BackgroundButton(ButtonBehavior, Label):
             ELSE:
                 # we don't need to visually update anything yet.
             """
+
+            svs = ScrollViewStats()
+            svs2 = ScrollViewStats()
+            print(f"TESTING SINGLETON: {svs is svs2}")
+            print(svs.children)
+
             StackLayoutInv.on_menu(any,any,any)
 
             # UPDATE INVENTORY
@@ -293,7 +336,9 @@ class StackLayoutExample(StackLayout):
 
 
     def on_menu(self,instance,value):
+        print("IN FUNCTION StackLayoutExample.on_menu()")
         print(f"StackLayoutExample:SELF.MENU == {self.menu}")
+        print(self.menu)
         if self.menu == "Inv":
             color_map = {
                         'weapon': 'ff0000'
