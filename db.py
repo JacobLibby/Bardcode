@@ -165,7 +165,7 @@ def selectDiscovery(discoveryKey,discoveryTable):
 def main():
     #lilBobby
     print('lil'' bobby drop tables')
-    drop_tables(['PlayerInventory'])
+    drop_tables(['item'])
     # drop_tables(['encounternpc','monster','npc','playerinventory','scanned','Weapon','Armor','Consumable','discovery','encounter','item','misc','quest'])
 
     connect('CreateTable_CSVs')

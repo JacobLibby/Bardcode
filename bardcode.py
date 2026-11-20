@@ -218,6 +218,7 @@ class ScrollViewSettings(ScrollViewExample):
         super().__init__(**kwargs)
         self.hide_widget(self,dohide=True)
 
+
 class InventoryItem(FloatLayout):
     pass
 
@@ -267,8 +268,9 @@ class BackgroundButton(ButtonBehavior, Label):
             svs2 = ScrollViewStats()
             print(f"TESTING SINGLETON: {svs is svs2}")
             print(svs.children)
+            # sVI = ScrollViewInv()
 
-            StackLayoutInv.on_menu(any,any,any)
+            # StackLayoutInv.on_menu(any,any,any)
 
             # UPDATE INVENTORY
         elif self.text == "LEAVE this behind":
@@ -330,7 +332,8 @@ class StackLayoutExample(StackLayout):
 
     def __init__(self,**kwargs):
         print("INIT")
-        super(StackLayoutExample,self).__init__(**kwargs) # super().__init__(**kwargs)
+        # super(StackLayoutExample,self).__init__(**kwargs) # 
+        super().__init__(**kwargs)
         self.orientation = "lr-tb"
         
 
@@ -340,32 +343,33 @@ class StackLayoutExample(StackLayout):
         print(f"StackLayoutExample:SELF.MENU == {self.menu}")
         print(self.menu)
         if self.menu == "Inv":
-            color_map = {
-                        'weapon': 'ff0000'
-                        ,'armor': 'ffa500'
-                        ,'consumable': 'ffff00'
-                        ,'misc': '00ff00'
-                    }
-            icon_map = {
-                'weapon': 'images/cursor_blade2.png'
-                ,'armor': 'images/armor_icon.png'
-                ,'consumable': 'images/consumable_icon.png'
-                ,'misc': 'images/misc_icon.png'
-            }
-            list = playerInventory.PlayerInventory().fetchInventory()
-            for each in list:
-                b_icon = IconButton(source=icon_map[each[2]],pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)))#,color=color_map[each[2]])
-                b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
-                b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
+            # color_map = {
+            #             'weapon': 'ff0000'
+            #             ,'armor': 'ffa500'
+            #             ,'consumable': 'ffff00'
+            #             ,'misc': '00ff00'
+            #         }
+            # icon_map = {
+            #     'weapon': 'images/cursor_blade2.png'
+            #     ,'armor': 'images/armor_icon.png'
+            #     ,'consumable': 'images/consumable_icon.png'
+            #     ,'misc': 'images/misc_icon.png'
+            # }
+            # list = playerInventory.PlayerInventory().fetchInventory()
+            # for each in list:
+            #     b_icon = IconButton(source=icon_map[each[2]],pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)))#,color=color_map[each[2]])
+            #     b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
+            #     b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
 
-                b_icon.bind(on_press=self.icon_button_pressed)
-                b_icon.bind(on_release=self.icon_button_released)
+            #     b_icon.bind(on_press=self.icon_button_pressed)
+            #     b_icon.bind(on_release=self.icon_button_released)
 
 
-                self.add_widget(b_icon)
-                self.add_widget(b_name)
-                self.add_widget(b_count)
-
+            #     self.add_widget(b_icon)
+            #     self.add_widget(b_name)
+            #     self.add_widget(b_count)
+            print("Show inv")
+            pass
         elif self.menu == "Quests":
             print("Show quests")
             list = ['Quest'] 
@@ -447,8 +451,11 @@ class StackLayoutExample(StackLayout):
             wid.height, wid.width, wid.size_hint_x, wid.size_hint_y, wid.opacity, wid.disabled = 0, 0, None, None, 0, True
             # wid.opacity  = 0
     
+@singleton
 class StackLayoutStats(StackLayoutExample):
     pass
+
+@singleton
 class StackLayoutInv(StackLayoutExample):
     instance = None
     uniqueItemCount = -1
@@ -456,8 +463,9 @@ class StackLayoutInv(StackLayoutExample):
 
 
     def __init__(self,**kwargs):
-        print("INIT")
-        super(StackLayoutInv,self).__init__(**kwargs) # super().__init__(**kwargs)
+        print("StackLayoutInv.__init__()")
+        # super(StackLayoutInv,self).__init__(**kwargs) # 
+        super().__init__(**kwargs)
         self.orientation = "lr-tb"
         self.on_menu(any,any)
 
@@ -477,26 +485,27 @@ class StackLayoutInv(StackLayoutExample):
             ,'misc': 'images/misc_icon.png'
         }
         list = playerInventory.PlayerInventory().fetchInventory()
-        sl = StackLayout
-        sl.clear_widgets(self)
+        # sl = StackLayout
+        self.clear_widgets()
         print(f"StackLayoutInv.clear_widgets()")
         for each in list:
+            print(f"adding widget to inv: {each}")
             b_icon = IconButton(source=icon_map[each[2]],pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)))#,color=color_map[each[2]])
             b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
             b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
-
+            print("bout to bind")
             b_icon.bind(on_press=self.icon_button_pressed)
             b_icon.bind(on_release=self.icon_button_released)
 
-
+            print("bout to add")
             # self.add_widget(b_icon)
             # self.add_widget(b_name)
             # self.add_widget(b_count)
 
-            sl.add_widget(self,b_icon)
-            sl.add_widget(self,b_name)
-            sl.add_widget(self,b_count)
-
+            self.add_widget(b_icon)
+            self.add_widget(b_name)
+            self.add_widget(b_count)
+            
     def labelPressed(self):
         print("Label has been pressed")
         print(f"label '' '' has been pressed")
