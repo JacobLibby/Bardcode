@@ -1,0 +1,6 @@
+The "BRING WITH ME" Button bwmB needs to know to update the Inv, Stats, Quests, etc.
+
+Created Singleton class for each
+
+need to call function to clear widgets and then add widgets within the button's class
+
