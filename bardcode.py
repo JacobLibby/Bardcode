@@ -273,6 +273,16 @@ class BackgroundButton(ButtonBehavior, Label):
             # StackLayoutInv.on_menu(any,any,any)
 
             # UPDATE INVENTORY
+            sLI = StackLayoutInv()
+            sLI.test_add_widget()
+            sLI.clear_children()
+
+            # test_btn = Button(text="TESTING ON_PRESS add widget",pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)))
+            # sLI.add_widget(test_btn)
+            # BLIND UPDATE
+            # 1. clear widgets
+            
+            # 2. add widgets
         elif self.text == "LEAVE this behind":
             print("not adding this to inventory, leaving it behind")
 
@@ -532,6 +542,15 @@ class StackLayoutInv(StackLayoutExample):
         print("StackLayoutExample:clear_widgets()")
         return super().clear_widgets(children)
 
+    def clear_children(self):
+        for child in [child for child in self.children]:
+            self.remove_widget(child)
+        pass
+
+    def test_add_widget(self):
+        print("TESTING ADD WIGET FUNC")
+        test_btn = Button(text="TESTING ON_PRESS add widget",pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)))
+        self.add_widget(test_btn)
 
     def do_layout(self, *largs):
         # print("StackLayoutExample:do_layout")
