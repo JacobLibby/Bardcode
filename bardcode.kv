@@ -1,4 +1,4 @@
-
+#: import StackLayoutInv bardcode.StackLayoutInv
 #BoxLayoutExample:
 
 #BoxLayoutExample
@@ -61,8 +61,9 @@ MenuScreen:
             size: "40dp","40dp"
             size_hint:1,None
             value: "Settings"
-            # on_press: StackLayoutExampleID.clear_widgets();print(app.activeMenu)
+            # on_press: StackLayoutInv.on_menu(any,any) #testing
             on_press: print(app.activeMenu)
+            # on_press: print(f"TESTING on_press in .kv vs func call in .py");print('--------\n'*3)
 
     Label:
         id: Label1
@@ -296,6 +297,7 @@ MenuScreen:
                     size:self.size
             # size_hint: (1, None)
             # height: self.text_size[1]
+            on_press: StackLayoutInv
             on_press:print(f'DISCOVERY NAME: {root.discoveryName}, DISCOVERY TABLE: {root.discoveryTable}');app.hide_widget(boxlayout_bringLeave,dohide=True);app.hide_widget(my_text_input,dohide=False)
             # ;PlayerInventory.addToInventory(root.discoveryName,root.discoveryTable)
         BackgroundButton:

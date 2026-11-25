@@ -249,12 +249,9 @@ class BackgroundButton(ButtonBehavior, Label):
         if self.text == "BRING this with me":
             print(f"add this to inventory --> pI.addToInventory({BardcodeApp.discoveryName}, {BardcodeApp.discoveryTable})")
             pI = playerInventory.PlayerInventory()
-            print(f"StackLayoutExample {StackLayoutExample}")
-            print(f"StackLayoutExample.ids: {StackLayoutExample.ids}")
             # print(f"StackLayoutExample().ids['StackLayoutExampleInv']: {StackLayoutExample().on_menu(StackLayoutExample.ids.StackLayoutExampleInv)}")
             # stack_inv = App.root.ids.StackLayoutExampleInv
             pI.addToInventory(BardcodeApp.discoveryName, BardcodeApp.discoveryTable)
-            print(f"StackLayoutInv().on_menu():")
             """
             IF app.active_menu == "Inv":
                 requery the db
@@ -264,15 +261,24 @@ class BackgroundButton(ButtonBehavior, Label):
                 # we don't need to visually update anything yet.
             """
 
-            svs = ScrollViewStats()
-            svs2 = ScrollViewStats()
-            print(f"TESTING SINGLETON: {svs is svs2}")
-            print(svs.children)
+            sVI_test = ScrollViewInv()
+            sVI_test2 = ScrollViewInv()
+            print(f"TESTING SVI SINGLETON: {sVI_test is sVI_test2}")
+            print(sVI_test2.children)
+
+
+            sLI_test = StackLayoutInv()
+            sLI_test2 = StackLayoutInv()
+            print(f"TESTING SLI SINGLETON: {sLI_test is sLI_test2}")
+            print(sLI_test2.children)
+
             # sVI = ScrollViewInv()
 
             # StackLayoutInv.on_menu(any,any,any)
 
             # UPDATE INVENTORY
+            print(f"creating stackLayoutInv")
+            
             sLI = StackLayoutInv()
             sLI.test_add_widget()
             sLI.clear_children()
@@ -285,6 +291,10 @@ class BackgroundButton(ButtonBehavior, Label):
             # 2. add widgets
         elif self.text == "LEAVE this behind":
             print("not adding this to inventory, leaving it behind")
+            sLI = StackLayoutInv()
+            sLI.print_children()
+
+
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -353,6 +363,9 @@ class StackLayoutExample(StackLayout):
         print(f"StackLayoutExample:SELF.MENU == {self.menu}")
         print(self.menu)
         if self.menu == "Inv":
+            print("StackLayoutExample.on_menu()")
+            stackLI = StackLayoutInv()
+            stackLI.on_menu()
             # color_map = {
             #             'weapon': 'ff0000'
             #             ,'armor': 'ffa500'
@@ -480,6 +493,7 @@ class StackLayoutInv(StackLayoutExample):
         self.on_menu(any,any)
 
     def on_menu(self,instance,value):
+        print("StackLayoutInv.on_menu()")
         # print(f"StackLayoutExample:SELF.MENU == {self.menu}")
         self.add_widget(Button(text="hello world"))
         color_map = {
@@ -497,7 +511,6 @@ class StackLayoutInv(StackLayoutExample):
         list = playerInventory.PlayerInventory().fetchInventory()
         # sl = StackLayout
         self.clear_widgets()
-        print(f"StackLayoutInv.clear_widgets()")
         for each in list:
             print(f"adding widget to inv: {each}")
             b_icon = IconButton(source=icon_map[each[2]],pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)))#,color=color_map[each[2]])
@@ -538,14 +551,22 @@ class StackLayoutInv(StackLayoutExample):
             self.hide_widget(self.id,True)
 
 
-    def clear_widgets(self, children=None):
-        print("StackLayoutExample:clear_widgets()")
-        return super().clear_widgets(children)
+    # def clear_widgets(self, children=None):
+    #     print("StackLayoutInv:clear_widgets()")
+    #     return super().clear_widgets(children)
 
     def clear_children(self):
         for child in [child for child in self.children]:
+            print(f"StackLayoutInv.clear_children --> child: {child}")
             self.remove_widget(child)
         pass
+
+    def print_children(self):
+        print("StackLayoutInv.print_children()")
+        children_array = []
+        for child in [child for child in self.children]:
+            children_array.append(child)
+        print(children_array)
 
     def test_add_widget(self):
         print("TESTING ADD WIGET FUNC")
