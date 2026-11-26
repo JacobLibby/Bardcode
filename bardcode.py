@@ -664,7 +664,13 @@ class BoxLayoutExample(BoxLayout):
     #     # self.slider_value_txt = str(int(widget.value))
     #     # print(f"Slider Value: {int(widget.value)}")
     #     pass
+    def stats_pressed(self):
+        # self.ids.stats_image.source="images/stats_pressed.png"
+        pass
 
+    def stats_released(self):
+        # self.ids.stats_image.source="images/stats.png"
+        pass
     def on_text_validate(self,widget):
         self.validated_text = widget.text
         gen = discoveryGen.discovery()
