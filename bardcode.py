@@ -261,16 +261,6 @@ class BackgroundButton(ButtonBehavior, Label):
                 # we don't need to visually update anything yet.
             """
 
-            sVI_test = ScrollViewInv()
-            sVI_test2 = ScrollViewInv()
-            print(f"TESTING SVI SINGLETON: {sVI_test is sVI_test2}")
-            print(sVI_test2.children)
-
-
-            sLI_test = StackLayoutInv()
-            sLI_test2 = StackLayoutInv()
-            print(f"TESTING SLI SINGLETON: {sLI_test is sLI_test2}")
-            print(sLI_test2.children)
 
             # sVI = ScrollViewInv()
 
@@ -279,9 +269,9 @@ class BackgroundButton(ButtonBehavior, Label):
             # UPDATE INVENTORY
             print(f"creating stackLayoutInv")
             
-            sLI = StackLayoutInv()
-            sLI.test_add_widget()
-            sLI.clear_children()
+            # sLI = StackLayoutInv()
+            # sLI.test_add_widget()
+            # sLI.clear_children()
 
             # test_btn = Button(text="TESTING ON_PRESS add widget",pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)))
             # sLI.add_widget(test_btn)
@@ -476,6 +466,30 @@ class StackLayoutExample(StackLayout):
     
 @singleton
 class StackLayoutStats(StackLayoutExample):
+    instance = None
+    uniqueItemCount = -1
+    inventory = {}
+
+
+    def __init__(self,**kwargs):
+        print("StackLayoutStats.__init__()")
+        # super(StackLayoutStats,self).__init__(**kwargs) # 
+        super().__init__(**kwargs)
+        # self.orientation = "lr-tb"
+        # self.on_menu(any,any)
+    
+
+    def update(self):
+            print("StackLayoutStats:update()")
+            list = []
+            # self.clear_widgets()
+            if App.showing == self.menu:
+                self.visibility = True
+                self.hide_widget(self.id,False)
+            else:
+                self.visibility = False
+                self.hide_widget(self.id,True)
+
     pass
 
 @singleton
@@ -494,8 +508,6 @@ class StackLayoutInv(StackLayoutExample):
 
     def on_menu(self,instance,value):
         print("StackLayoutInv.on_menu()")
-        # print(f"StackLayoutExample:SELF.MENU == {self.menu}")
-        self.add_widget(Button(text="hello world"))
         color_map = {
                     'weapon': 'ff0000'
                     ,'armor': 'ffa500'
@@ -509,21 +521,15 @@ class StackLayoutInv(StackLayoutExample):
             ,'misc': 'images/misc_icon.png'
         }
         list = playerInventory.PlayerInventory().fetchInventory()
-        # sl = StackLayout
         self.clear_widgets()
         for each in list:
-            print(f"adding widget to inv: {each}")
+            print(f"StackLayoutInv.on_menu() --> adding widget to inv: {each}")
             b_icon = IconButton(source=icon_map[each[2]],pos_hint={"left":1},size_hint=(.15,None),size=(1,dp(40)))#,color=color_map[each[2]])
             b_name = Button(text=str(f"{str(each[1])}"),pos_hint={"x":.15},size_hint=(.7,None),size=(1,dp(40)),background_color=color_map[each[2]])
             b_count = Button(text=str(f"x{each[3]}"),pos_hint={"right":1},size_hint=(.15,None),size=(1,dp(40)),background_color=color_map[each[2]])
-            print("bout to bind")
+            
             b_icon.bind(on_press=self.icon_button_pressed)
             b_icon.bind(on_release=self.icon_button_released)
-
-            print("bout to add")
-            # self.add_widget(b_icon)
-            # self.add_widget(b_name)
-            # self.add_widget(b_count)
 
             self.add_widget(b_icon)
             self.add_widget(b_name)
@@ -540,9 +546,7 @@ class StackLayoutInv(StackLayoutExample):
         print("RELEASED")
         
     def update(self):
-        print("StackLayoutExample:update()")
-        list = []
-        # self.clear_widgets()
+        print("StackLayoutInv:update()")
         if App.showing == self.menu:
             self.visibility = True
             self.hide_widget(self.id,False)

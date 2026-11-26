@@ -14,101 +14,7 @@ MenuScreen:
         source: 'images/cursor_blade1000x2.png'
         size_hint: 0.1, 0.1
 
-# <TabbedLayoutOg>:
-#     BoxLayout:
-#         spacing:"5dp"
-#         size:"80dp","100dp"
-#         size_hint:None,1
-#         orientation: "vertical"
-#         Button:
-#             text: "Stats"
-#             id: Stats
-#             #size: "40dp","40dp"
-#             #size_hint:None,None
-#             value: "Stats"
-#             # on_press: StackLayoutExampleID.do_layout(self);app.on_stats_button_click();app.hide_widget(Label1,dohide=False);root.stats_pressed()
-#             on_release: root.stats_released()
-#             on_press: app.on_stats_button_click();app.hide_widget(scrollViewStats,dohide=False);app.hide_widget(scrollViewQuests,dohide=True);app.hide_widget(scrollViewInv,dohide=True)
 
-#             # Image:
-#             #     id: stats_image
-#             #     #source: "images/stats.png"
-#             #     # source: "images/stick.png"
-#             #     center_x: self.parent.center_x
-#             #     center_y: self.parent.center_y
-#             #     size_hint: .15,.15
-#             #     allow_stretch: True
-                
-#                 #keep_ratio: False
-#         Button:
-#             text: "Inv"
-#             #size: "40dp","40dp"
-#             #size_hint:None,.2
-#             on_press: app.on_inv_button_click();app.hide_widget(scrollViewStats,dohide=True);app.hide_widget(scrollViewQuests,dohide=True);app.hide_widget(scrollViewInv,dohide=False)
-#             # on_press: StackLayoutExampleID.do_layout(self);app.on_inv_button_click();app.hide_widget(Label1,dohide=False)
-#             #on_press: app.on_inv_button_click()
-#             value: "Inv"
-#         Button:
-#             text: "Quests"
-#             #size: "40dp","40dp"
-#             #size_hint:None,.2
-#             value: "Quests"
-#             # on_press: StackLayoutExampleID.do_layout(self);app.on_quests_button_click();print(Label1.size);app.hide_widget(Label1,dohide=True)
-#             on_press: app.on_quests_button_click();app.hide_widget(scrollViewInv,dohide=True);app.hide_widget(scrollViewStats,dohide=True);app.hide_widget(scrollViewQuests,dohide=False)
-#             # scrollViewMenus.do_layout(self);
-#         Button:
-#             text: "COG"
-#             size: "40dp","40dp"
-#             size_hint:1,None
-#             value: "Settings"
-#             # on_press: StackLayoutInv.on_menu(any,any) #testing
-#             on_press: print(app.activeMenu)
-#             # on_press: print(f"TESTING on_press in .kv vs func call in .py");print('--------\n'*3)
-
-#     Label:
-#         id: Label1
-#         text: "CHARACTER MODEL GOES HERE"
-#     #Image:
-#     #    id: Label1
-#     #    source: "images/rf.jpg"
-
-
-#     BoxLayoutHoldingScrollViews:
-#         id: scrollViewMenus
-#         ScrollViewStats:
-#             scroll_timeout:130
-#             id: scrollViewStats
-#             menu:"Stats"
-#             StackLayoutExample:
-#                 id: StackLayoutExampleStats
-#                 menu:"Stats"
-#                 size_hint:1,None
-#                 height:self.minimum_height
-#         ScrollViewInv:
-#             scroll_timeout:130
-#             id:scrollViewInv
-#             menu:"Inv"
-#             StackLayoutInv:
-#                 id: StackLayoutInv
-#                 # menu:"Inv"
-#                 size_hint:1,None
-#                 height:self.minimum_height
-                
-#         ScrollViewQuests:
-#             scroll_timeout:130
-#             id:scrollViewQuests
-#             menu:"Quests"
-#             StackLayoutExample:
-#                 id: StackLayoutExampleQuests
-#                 menu:"Quests"
-#                 size_hint:1,None
-#                 height:self.minimum_height    
-        
-# NEED 3 SEPARATE scrollViews
-# OR
-# NEED 1 Scrollview and 1 LARGE stacklayout <---- seems like the easiest
-
-# do I need separate classes for each stacklayout?
 <BoxLayoutHoldingScrollViews>:
 
 <Tab_BoxLayout>:
@@ -190,27 +96,6 @@ MenuScreen:
     TabbedPanelItem:
         text: "smthn"
         
-
-<ScrollViewExample>:
-    
-
-<StackLayoutExample>:
-    # left-right,top-bottom
-    #orientation: "rl-bt"
-    #lrtb
-    #padding: ("20dp","20dp","20dp","20dp")
-    #spacing: "20dp", "20dp"
-
-
-#    Button:
-#        text: "A"
-#        size_hint:.4,.2
-#    Button:
-#        text: "B"
-#        size_hint:.4,.2
-#    Button:
-#        text: "C"
-#        size_hint:.4,.2
 
 
 <AnchorLayoutExample>:
