@@ -1,5 +1,7 @@
 # Bardcode
 scan barcodes -> gear up -> fight monsters -> climb the leaderboards -> seek glory
+<img width="795" height="596" alt="Screenshot 2026-11-27 120816" src="https://github.com/user-attachments/assets/2a2b37dd-b584-49a4-b5d9-0a896a81c3dd" />
+<img width="794" height="599" alt="Screenshot 2026-11-27 120838" src="https://github.com/user-attachments/assets/11850e90-ef33-4677-8831-95deca350d62" />
 
 ## Design
 
